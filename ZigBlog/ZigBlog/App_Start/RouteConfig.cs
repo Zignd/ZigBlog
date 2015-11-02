@@ -13,10 +13,24 @@ namespace ZigBlog
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.LowercaseUrls = true;
+            
+            routes.MapRoute(
+                name: "User",
+                url: "{action}",
+                defaults: new { controller = "User" }
+            );
+
+            routes.MapRoute(
+                name: "Page",
+                url: "Page/{number}",
+                defaults: new { controller = "Home", action = "Page" }
+            );
+
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Home", action = "Page" }
             );
         }
     }

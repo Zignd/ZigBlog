@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigBlog", "ZigBlog\ZigBlog.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigBlog.Tests", "ZigBlog.Tests\ZigBlog.Tests.csproj", "{5246D8D2-7D23-4B19-99F7-3CE276C69FDA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZigBlog.Translations", "ZigBlog.Translations\ZigBlog.Translations.csproj", "{CE4DF7B0-AC67-4088-B04A-C9DA09D5534D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{5246D8D2-7D23-4B19-99F7-3CE276C69FDA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5246D8D2-7D23-4B19-99F7-3CE276C69FDA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5246D8D2-7D23-4B19-99F7-3CE276C69FDA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE4DF7B0-AC67-4088-B04A-C9DA09D5534D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE4DF7B0-AC67-4088-B04A-C9DA09D5534D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE4DF7B0-AC67-4088-B04A-C9DA09D5534D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE4DF7B0-AC67-4088-B04A-C9DA09D5534D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,8 @@
+﻿{
+  "MongoDBUrl": "mongodb://localhost:27017",
+  "MongoDBDatabase": "ZigBlog",
+  "MongoDBCollectionUsers": "Users",
+  "MongoDBCollectionPosts": "Posts",
+  "MongoDBCollectionComments": "Comments",
+  "MongoDBCollectionParameters": "Parameters"
+}

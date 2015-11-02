@@ -1,11 +1,10 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-using MongoDB.Driver;
+﻿using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ZigBlog.Common;
-using ZigBlog.Models.Base;
+using ZigBlog.Common.Database;
+using ZigBlog.Models.Common;
 
 namespace ZigBlog.Models
 {

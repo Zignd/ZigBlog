@@ -3,10 +3,9 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web;
-using ZigBlog.Common;
-using ZigBlog.Models.Base;
+using ZigBlog.Common.Database;
+using ZigBlog.Models.Common;
 
 namespace ZigBlog.Models
 {
