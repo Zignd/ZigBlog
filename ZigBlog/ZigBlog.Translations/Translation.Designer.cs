@@ -187,6 +187,24 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to enter your credentials.
+        /// </summary>
+        public static string SignInDescription {
+            get {
+                return ResourceManager.GetString("SignInDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to create a new account.
+        /// </summary>
+        public static string SignUpDescription {
+            get {
+                return ResourceManager.GetString("SignUpDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
@@ -237,6 +255,15 @@ namespace ZigBlog.Translations {
         public static string UserSignInError {
             get {
                 return ResourceManager.GetString("UserSignInError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sign Up.
+        /// </summary>
+        public static string UserSignUp {
+            get {
+                return ResourceManager.GetString("UserSignUp", resourceCulture);
             }
         }
     }
