@@ -14,6 +14,7 @@ namespace ZigBlog.Common.Database
         private static IMongoCollection<User> _users;
         private static IMongoCollection<Post> _posts;
         private static IMongoCollection<Comment> _comments;
+
         private static Parameters _parameters;
 
         public static MongoClient Client

@@ -12,10 +12,10 @@ namespace ZigBlog.Common.Validation
     {
         public override bool IsValid(object value)
         {
-            var task = MultiSideValidation.UniqueUsername((string)value);
-            task.Wait();
+            if (value == null)
+                return false;
 
-            return task.Result;
+            return MultiSideValidation.UniqueUsername((string)value);
         }
     }
 }

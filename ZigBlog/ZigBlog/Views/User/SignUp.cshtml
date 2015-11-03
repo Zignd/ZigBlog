@@ -8,7 +8,7 @@
 
 <h2>@Translation.UserSignUp <small>@Translation.SignUpDescription</small></h2>
 
-@*@using (Html.BeginForm())
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
 
@@ -20,22 +20,32 @@
     
     <div class="form-group">
         @Html.LabelFor(m => m.Password)
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control textbox-auth" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
         @Html.ValidationMessageFor(m => m.Password)
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(m => m.ConfirmPassword)
-        @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control textbox-auth" })
-        @Html.ValidationMessageFor(m => m.ConfirmPassword)
+        @Html.LabelFor(m => m.PasswordConfirmation)
+        @Html.PasswordFor(m => m.PasswordConfirmation, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PasswordConfirmation)
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(m => m.Email)
-        @Html.TextBoxFor(m => m.Email, new { @class = "form-control textbox-auth" })
-        @Html.ValidationMessageFor(m => m.Email)
+        @Html.LabelFor(m => m.EmailAddress)
+        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", type = "email" })
+        @Html.ValidationMessageFor(m => m.EmailAddress)
+    </div>
+
+    <div class="form-group">
+        @Html.CheckBoxFor(m => m.AcceptTerms)
+        @Html.LabelFor(m => m.AcceptTerms)
+        @Html.ValidationMessageFor(m => m.AcceptTerms)
     </div>
     
-    <button type="submit" class="btn btn-primary">Sign Up</button>
-    <a class="btn btn-default" href="@Model.ReturnUrl">Cancel</a>
-}*@
+    <button type="submit" class="btn btn-primary">@Translation.UserSignUp</button>
+    <a class="btn btn-default" href="@Model.ReturnUrl">@Translation.ReturnHome</a>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

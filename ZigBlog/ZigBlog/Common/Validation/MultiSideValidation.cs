@@ -11,12 +11,14 @@ namespace ZigBlog.Common.Validation
 {
     public static class MultiSideValidation
     {
-        public static async Task<bool> UniqueUsername(string username)
+        public static bool UniqueUsername(string username)
         {
             var filter = Builders<User>.Filter.Eq(u => u.UsernameUpper, username.ToUpper());
-            bool isUniqueUsername = (await ZigBlogDb.Users.Find(filter).CountAsync() == 0);
+            var task = ZigBlogDb.Users.Find(filter).CountAsync();
 
-            return isUniqueUsername;
+            task.Wait();
+
+            return task.Result == 0;
         }
     }
 }

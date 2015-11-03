@@ -38,12 +38,12 @@ namespace ZigBlog.Models.ViewModels
         public string Password { get; set; }
 
         [Required(ErrorMessageResourceName = "PasswordConfirmationValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
-        [System.ComponentModel.DataAnnotations.Compare("Model.Password", ErrorMessageResourceName = "PasswordConfirmationValidationErrorDiffers", ErrorMessageResourceType = typeof(Translation))]
+        [System.ComponentModel.DataAnnotations.Compare("Password", ErrorMessageResourceName = "PasswordConfirmationValidationErrorDiffers", ErrorMessageResourceType = typeof(Translation))]
         [Display(Name = "PasswordConfirmation", ResourceType = typeof(Translation))]
         public string PasswordConfirmation { get; set; }
 
         [Required(ErrorMessageResourceName = "EmailAddressValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
-        [RegularExpression(@"/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i", ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
+        [EmailAddress(ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
         [Display(Name = "EmailAddress", ResourceType = typeof(Translation))]
         public string EmailAddress { get; set; }
 

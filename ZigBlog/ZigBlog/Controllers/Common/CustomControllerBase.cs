@@ -23,7 +23,7 @@ namespace ZigBlog.Controllers.Common
         {
             get
             {
-                if (_currentUser == null)
+                if (_currentUser == null && User != null)
                 {
                     var filter = Builders<User>.Filter.Eq(u => u.UsernameUpper, User.Identity.Name.ToUpper());
                     var task = ZigBlogDb.Users.Find(filter).FirstAsync();

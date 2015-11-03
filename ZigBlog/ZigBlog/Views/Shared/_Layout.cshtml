@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using ZigBlog.Models
+@using ZigBlog.Translations
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link rel="icon" href="~/Images/favicon.png"/>
     @Styles.Render("~/Content/css")
 </head>
 <body>
@@ -15,10 +19,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Page", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="@Url.Action("Page", "Home")">
+                    <img src="~/Images/favicon.png" style="height: 1.0em; vertical-align: top; display: inline" />
+                    <span style="margin-left: .1em">@(((Parameters)ViewBag.Parameters).BlogTitle)</span>
+                </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
+                    <li><a href="@Url.Action("About", "Home")">@Translation.HomePage</a></li>
+                    <li><a href="@Url.Action("About", "Home")">@Translation.About</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a href="#">@User.Identity.Name</a></li>
+                        <li><a href="@Url.Action("SignOut", "User")">@Translation.SignOut</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="@Url.Action("SignUp", "User")">@Translation.UserSignUp</a></li>
+                        <li><a href="@Url.Action("SignIn", "User")">@Translation.UserSignIn</a></li>
+                    }
                 </ul>
             </div>
         </div>

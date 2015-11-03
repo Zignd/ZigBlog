@@ -10,11 +10,11 @@ namespace ZigBlog.Controllers
 {
     public class ValidationController : Controller
     {
-        public async Task<JsonResult> UniqueUsername(string username)
+        public JsonResult UniqueUsername(string username)
         {
             try
             {
-                return Json(await MultiSideValidation.UniqueUsername(username), JsonRequestBehavior.AllowGet);
+                return Json(MultiSideValidation.UniqueUsername(username), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {
