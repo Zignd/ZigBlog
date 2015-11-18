@@ -1,6 +1,6 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
+﻿#########################
+# Just a .gitignore file
+#########################
 
 /ZigBlog/ZigBlog/bin
 /ZigBlog/ZigBlog/obj/Debug
@@ -11,6 +11,8 @@
 
 /ZigBlog/ZigBlog.Translations/bin
 /ZigBlog/ZigBlog.Translations/obj/Debug
+
+/ZigBlog/packages
 
 *.suo
 *.user
