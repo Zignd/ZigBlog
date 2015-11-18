@@ -8,42 +8,52 @@
 
 <h2>@Translation.UserSignUp <small>@Translation.SignUpDescription</small></h2>
 
-@using (Html.BeginForm())
+@*, FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+@using (Html.BeginForm("SignUp", "User"))
 {
+    @Html.ValidationSummary(true);
+    
     @Html.AntiForgeryToken()
 
+    @Html.HiddenFor(x => x.ReturnUrl)
+
+    @*<div class="form-group">
+        @Html.LabelFor(x => x.Avatar)
+        <input accept="image/jpeg,image/png,image/gif" class="form-control" name="Avatar" type="file"/>
+        @Html.ValidationMessageFor(x => x.Avatar)
+    </div>*@
+
     <div class="form-group">
-        @Html.LabelFor(m => m.Username)
-        @Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Username)
+        @Html.LabelFor(x => x.Username)
+        @Html.TextBoxFor(x => x.Username, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Username)
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(m => m.Password)
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.Password)
+        @Html.LabelFor(x => x.Password)
+        @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Password)
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(m => m.PasswordConfirmation)
-        @Html.PasswordFor(m => m.PasswordConfirmation, new { @class = "form-control" })
-        @Html.ValidationMessageFor(m => m.PasswordConfirmation)
+        @Html.LabelFor(x => x.PasswordConfirmation)
+        @Html.PasswordFor(x => x.PasswordConfirmation, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.PasswordConfirmation)
     </div>
     
     <div class="form-group">
-        @Html.LabelFor(m => m.EmailAddress)
-        @Html.TextBoxFor(m => m.EmailAddress, new { @class = "form-control", type = "email" })
-        @Html.ValidationMessageFor(m => m.EmailAddress)
+        @Html.LabelFor(x => x.EmailAddress)
+        @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control", type = "email" })
+        @Html.ValidationMessageFor(x => x.EmailAddress)
     </div>
 
     <div class="form-group">
-        @Html.CheckBoxFor(m => m.AcceptTerms)
-        @Html.LabelFor(m => m.AcceptTerms)
-        @Html.ValidationMessageFor(m => m.AcceptTerms)
+        @Html.CheckBoxFor(x => x.AcceptTerms)
+        @Html.LabelFor(x => x.AcceptTerms)
+        @Html.ValidationMessageFor(x => x.AcceptTerms)
     </div>
     
     <button type="submit" class="btn btn-primary">@Translation.UserSignUp</button>
-    <a class="btn btn-default" href="@Model.ReturnUrl">@Translation.ReturnHome</a>
 }
 
 @section Scripts {

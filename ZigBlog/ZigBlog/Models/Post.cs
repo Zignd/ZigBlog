@@ -13,14 +13,14 @@ namespace ZigBlog.Models
     {
         #region Fields
 
-        private User _blogger;
+        private AppUser _blogger;
         private List<Comment> _comments;
         
         #endregion
 
         #region Main Properties
 
-        public int BloggerId { get; set; }
+        public string BloggerId { get; set; }
         public string TitleUrl { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
@@ -31,13 +31,13 @@ namespace ZigBlog.Models
         #region Support Properties
 
         [BsonIgnore]
-        public User Blogger
+        public AppUser Blogger
         {
             get
             {
                 if (_blogger == null)
                 {
-                    var filter = Builders<User>.Filter.Eq(u => u.Id, BloggerId);
+                    var filter = Builders<AppUser>.Filter.Eq(x => x.Id, BloggerId);
                     var task = ZigBlogDb.Users.Find(filter).FirstOrDefaultAsync();
 
                     task.Wait();
@@ -56,7 +56,7 @@ namespace ZigBlog.Models
             {
                 if (_comments == null)
                 {
-                    var filter = Builders<Comment>.Filter.Eq(c => c.PostId, Id);
+                    var filter = Builders<Comment>.Filter.Eq(x => x.PostId, Id);
                     var task = ZigBlogDb.Comments.Find(filter).ToListAsync();
 
                     task.Wait();

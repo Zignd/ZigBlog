@@ -1,0 +1,119 @@
+﻿@using ZigBlog.Translations
+
+@model ZigBlog.Models.ViewModels.PostNewViewModel
+
+@{
+    ViewBag.Title = "New";
+}
+
+<h2>New</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Title)
+        @Html.TextBoxFor(m => m.Title)
+        @Html.ValidationMessageFor(m => m.Title)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Content)
+        <div class="editor">
+            <div class="editor-bar">
+                <button type="button" id="btnBold" class="editor-bar-btn">strong</button>
+                <button type="button" id="btnEmphasis" class="editor-bar-btn">em</button>
+                @*<div class="editor-bar-spacer"></div>*@
+                <button type="button" id="btnLink" class="editor-bar-btn">a</button>
+                <button type="button" id="btnQuotation" class="editor-bar-btn">blockquote</button>
+                <button type="button" id="btnCode" class="editor-bar-btn">code</button>
+                @*<div class="editor-bar-spacer"></div>*@
+                <button type="button" id="btnNumbered" class="editor-bar-btn">ol</button>
+                <button type="button" id="btnBulleted" class="editor-bar-btn">ul</button>
+                <button type="button" id="btnH1" class="editor-bar-btn">h1</button>
+                <button type="button" id="btnH2" class="editor-bar-btn">h2</button>
+                <button type="button" id="btnHorizontalRule" class="editor-bar-btn">hr</button>
+            </div>
+            @Html.TextAreaFor(m => m.Content, new { id = "editor", @class = "editor-area" })
+            <div class="editor-preview">
+                <div class="editor-preview-border-top-bottom">
+
+                </div>
+            </div>
+        </div>
+        @Html.ValidationMessageFor(m => m.Content)
+    </div>
+
+    <button class="btn btn-primary" type="submit">?Post</button>
+    <a class="btn btn-default" href="@Url.RouteUrl("Default")">@Translation.ReturnHome</a>
+}
+
+@section style
+{
+    <style type="text/css">
+        .editor {
+            border: 0.1em solid darkgray;
+            border-radius: 4px;
+        }
+
+        .editor-bar {
+            background-color: whitesmoke;
+            padding: 0.4em;
+            border-top-left-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+
+        .editor-bar-btn {
+            border: 0.1em solid darkgray;
+            border-radius: 4px;
+            background: none;
+            font: bold 1em Arial;
+            margin: 0.1em;
+            height: 1.5em;
+        }
+
+            .editor-bar-btn:hover, .editor-bar-btn:focus {
+                color: darkorange;
+            }
+
+            .editor-bar-btn:focus {
+                outline: none;
+            }
+
+        .editor-bar-spacer {
+            width: 2em;
+            display: inline-block;
+        }
+
+        .editor-area {
+            display: block;
+            width: 100%;
+            min-width: 100%;
+            max-width: 100%;
+            overflow: auto;
+            min-height: 20em;
+            outline: none;
+            padding: 1em;
+            font-family: Consolas, monospace;
+        }
+
+        .editor-preview {
+            background-color: ghostwhite;
+            padding: 1em;
+            border-bottom-left-radius: 4px;
+            border-bottom-right-radius: 4px;
+        }
+
+        .editor-preview-border-top-bottom {
+            height: 100%;
+            width: 100%;
+            border-top: 0.1em dotted black;
+            border-bottom: 0.1em dotted black;
+        }
+    </style>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -7,7 +7,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link rel="icon" href="~/Images/favicon.png"/>
+    <link rel="icon" href="~/Content/Images/favicon.png"/>
     @Styles.Render("~/Content/css")
 </head>
 <body>
@@ -20,7 +20,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="@Url.Action("Page", "Home")">
-                    <img src="~/Images/favicon.png" style="height: 1.0em; vertical-align: top; display: inline" />
+                    <img src="~/Content/Images/favicon.png" style="height: 1.0em; vertical-align: top; display: inline" />
                     <span style="margin-left: .1em">@(((Parameters)ViewBag.Parameters).BlogTitle)</span>
                 </a>
             </div>
@@ -32,8 +32,18 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a href="#">@User.Identity.Name</a></li>
-                        <li><a href="@Url.Action("SignOut", "User")">@Translation.SignOut</a></li>
+                        if (ViewBag.CurrentUser != null && ((AppUser)ViewBag.CurrentUser).Roles.Contains("Commenter"))
+                        {
+                            <li><a href="#">@Translation.WriteNewPost</a></li>
+                        }
+
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button">@User.Identity.Name <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="@Url.Action("Profile", "User", new { arg = User.Identity.Name })">@Translation.Profile</a></li>
+                                <li><a href="@Url.Action("SignOut", "User")">@Translation.SignOut</a></li>
+                            </ul>
+                        </li>
                     }
                     else
                     {

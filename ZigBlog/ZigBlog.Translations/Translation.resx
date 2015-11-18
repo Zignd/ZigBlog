@@ -186,4 +186,31 @@
   <data name="UserSignUp" xml:space="preserve">
     <value>Sign Up</value>
   </data>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="HomePage" xml:space="preserve">
+    <value>Home Page</value>
+  </data>
+  <data name="SignOut" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Profile</value>
+  </data>
+  <data name="UsernameDoNotExist" xml:space="preserve">
+    <value>This username do not exist.</value>
+  </data>
+  <data name="WriteNewPost" xml:space="preserve">
+    <value>Write a New Post</value>
+  </data>
+  <data name="EmailAddressValidationErrorAlreadyInUse" xml:space="preserve">
+    <value>This email address is already in use. Maybe you already have an account, try to perform a sign in or change your password if you can't remember it.</value>
+  </data>
+  <data name="AccessDenied" xml:space="preserve">
+    <value>Access Denied</value>
+  </data>
+  <data name="SomethingHappenedUserRegistration" xml:space="preserve">
+    <value>Something wrong happened during the user registration. Sorry...</value>
+  </data>
 </root>

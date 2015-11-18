@@ -61,6 +61,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About {
+            get {
+                return ResourceManager.GetString("About", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to I accept the terms (click here to read).
         /// </summary>
         public static string AcceptTerms {
@@ -79,11 +88,29 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Access Denied.
+        /// </summary>
+        public static string AccessDenied {
+            get {
+                return ResourceManager.GetString("AccessDenied", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email Address.
         /// </summary>
         public static string EmailAddress {
             get {
                 return ResourceManager.GetString("EmailAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This email address is already in use. Maybe you already have an account, try to perform a sign in or change your password if you can&apos;t remember it..
+        /// </summary>
+        public static string EmailAddressValidationErrorAlreadyInUse {
+            get {
+                return ResourceManager.GetString("EmailAddressValidationErrorAlreadyInUse", resourceCulture);
             }
         }
         
@@ -102,6 +129,15 @@ namespace ZigBlog.Translations {
         public static string EmailAddressValidationErrorRequired {
             get {
                 return ResourceManager.GetString("EmailAddressValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home Page.
+        /// </summary>
+        public static string HomePage {
+            get {
+                return ResourceManager.GetString("HomePage", resourceCulture);
             }
         }
         
@@ -169,6 +205,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Profile.
+        /// </summary>
+        public static string Profile {
+            get {
+                return ResourceManager.GetString("Profile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Remember Me.
         /// </summary>
         public static string RememberMe {
@@ -196,6 +241,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sign Out.
+        /// </summary>
+        public static string SignOut {
+            get {
+                return ResourceManager.GetString("SignOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to create a new account.
         /// </summary>
         public static string SignUpDescription {
@@ -205,11 +259,29 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Something wrong happened during the user registration. Sorry....
+        /// </summary>
+        public static string SomethingHappenedUserRegistration {
+            get {
+                return ResourceManager.GetString("SomethingHappenedUserRegistration", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This username do not exist..
+        /// </summary>
+        public static string UsernameDoNotExist {
+            get {
+                return ResourceManager.GetString("UsernameDoNotExist", resourceCulture);
             }
         }
         
@@ -264,6 +336,15 @@ namespace ZigBlog.Translations {
         public static string UserSignUp {
             get {
                 return ResourceManager.GetString("UserSignUp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Write a New Post.
+        /// </summary>
+        public static string WriteNewPost {
+            get {
+                return ResourceManager.GetString("WriteNewPost", resourceCulture);
             }
         }
     }

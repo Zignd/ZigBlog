@@ -1,7 +1,12 @@
 ﻿
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -15,46 +20,47 @@ using ZigBlog.Translations;
 
 namespace ZigBlog.Controllers
 {
+    [Authorize]
     public class UserController : CustomControllerBase
     {
-        [HttpGet]
+        [AllowAnonymous]
         public ActionResult SignIn(string returnUrl = "/")
         {
+            if (HttpContext.User.Identity.IsAuthenticated)
+                throw new Exception(Translation.AccessDenied);
+
             return View(new UserSignInViewModel
             {
                 ReturnUrl = returnUrl
             });
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SignIn(UserSignInViewModel viewModel, string returnUrl = "/")
+        public async Task<ActionResult> SignIn(UserSignInViewModel viewModel)
         {
-            if (!ModelState.IsValid)
-                return View();
-
-            try
+            if (ModelState.IsValid)
             {
-                var filter = Builders<User>.Filter.Eq(u => u.UsernameUpper, viewModel.Username.ToUpper()) & Builders<User>.Filter.Eq(u => u.Password, viewModel.Password);
-                var user = await ZigBlogDb.Users.Find(filter).SingleOrDefaultAsync();
+                var user = await UserManager.FindAsync(viewModel.Username, viewModel.Password);
 
                 if (user == null)
                 {
                     ModelState.AddModelError(string.Empty, Translation.UserSignInError);
-                    return View();
                 }
+                else
+                {
+                    var identity = await UserManager.CreateIdentityAsync(user, DefaultAuthenticationTypes.ApplicationCookie);
+                    AuthManager.SignIn(new AuthenticationProperties { IsPersistent = viewModel.RememberMe }, identity);
 
-                FormsAuthentication.SetAuthCookie(user.Username, viewModel.RememberMe);
+                    return Redirect(viewModel.ReturnUrl);
+                }
+            }
 
-                return Redirect(returnUrl);
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new SharedErrorViewModel(ex));
-            }
+            return View(viewModel);
         }
 
-        [HttpGet]
+        [AllowAnonymous]
         public ActionResult SignUp(string returnUrl = "/")
         {
             return View(new UserSignUpViewModel
@@ -63,42 +69,45 @@ namespace ZigBlog.Controllers
             });
         }
 
+        [AllowAnonymous]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SignUp(UserSignUpViewModel viewModel, string returnUrl = "/")
+        public async Task<ActionResult> SignUp(UserSignUpViewModel viewModel)
         {
-            if (!ModelState.IsValid)
-                return View(viewModel);
-
-            // TODO: Send an email to the user with an account activation url on it. The user would need to access this url in order to activate its account and make use of it.
-
-            var user = new User
+            if (ModelState.IsValid)
             {
-                Username = viewModel.Username,
-                Password = viewModel.Password,
-                Role = UserRole.Commenter,
-                EmailAddress = viewModel.EmailAddress,
-                IsActivated = true,
-                Created = DateTime.Now
-            };
+                var user = new AppUser { UserName = viewModel.Username, Email = viewModel.EmailAddress, Created = DateTime.Now };
+                var result = await UserManager.CreateAsync(user, viewModel.Password);
 
-            try
-            {
-                await ZigBlogDb.Users.InsertOneAsync(user);
-
-                return Redirect(returnUrl);
+                if (result.Succeeded)
+                    return Redirect(viewModel.ReturnUrl);
+                else
+                    ModelState.AddModelError(string.Empty, Translation.SomethingHappenedUserRegistration);
             }
-            catch (Exception ex)
-            {
-                return View("Error", new SharedErrorViewModel(ex));
-            }
+            
+            return View(viewModel);
         }
 
+        [Authorize]
         public ActionResult SignOut(string returnUrl = "/")
         {
-            FormsAuthentication.SignOut();
+            AuthManager.SignOut();
 
             return Redirect(returnUrl);
+        }
+
+        [AllowAnonymous]
+        public async Task<ActionResult> Profile(string arg)
+        {
+            var user = UserManager.FindByName(arg);
+            
+            if (user == null)
+                throw new ArgumentException(Translation.UsernameDoNotExist);
+
+            return View(new UserProfileViewModel
+            {
+                User = user
+            });
         }
     }
 }

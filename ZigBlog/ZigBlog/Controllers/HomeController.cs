@@ -15,42 +15,28 @@ namespace ZigBlog.Controllers
     public class HomeController : CustomControllerBase
     {
         // GET: / or /Page/{number}
-        public async Task<ActionResult> Page(int number = 1)
+        public async Task<ActionResult> Page(int arg = 1)
         {
-            try
-            {
-                // TODO: Make use of the number parameter to perform pagination.
-                var sort = Builders<Post>.Sort.Descending(p => p.Created);
+            // TODO: Make use of the number parameter to perform pagination.
+            var sort = Builders<Post>.Sort.Descending(p => p.Created);
 
-                var viewModel = new HomePageViewModel
-                {
-                    Posts = await ZigBlogDb.Posts.Find(_ => true).Sort(sort).ToListAsync()
-                };
-
-                return View(viewModel);
-            }
-            catch (Exception ex)
+            var viewModel = new HomePageViewModel
             {
-                return View("Error", new SharedErrorViewModel(ex));
-            }
+                Posts = await ZigBlogDb.Posts.Find(_ => true).Sort(sort).ToListAsync()
+            };
+
+            return View(viewModel);
         }
 
         // GET: /About
         public ActionResult About()
         {
-            try
+            var viewModel = new HomeAboutViewModel
             {
-                var viewModel = new HomeAboutViewModel
-                {
-                    AboutContent = ZigBlogDb.Parameters.AboutContent
-                };
+                AboutContent = ZigBlogDb.Parameters.AboutContent
+            };
 
-                return View(viewModel);
-            }
-            catch (Exception ex)
-            {
-                return View("Error", new SharedErrorViewModel(ex));
-            }
+            return View(viewModel);
         }
     }
 }

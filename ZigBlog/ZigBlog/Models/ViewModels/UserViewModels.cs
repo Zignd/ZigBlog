@@ -27,6 +27,9 @@ namespace ZigBlog.Models.ViewModels
 
     public class UserSignUpViewModel
     {
+        //[ValidateImageFile(ErrorMessage = "Invalid file type, please provide an image.")]
+        public HttpPostedFileBase Avatar { get; set; }
+
         [Required(ErrorMessageResourceName = "UsernameValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
         [UniqueUsername(ErrorMessageResourceName = "UsernameValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
         [Remote("UniqueUsername", "Validation", ErrorMessageResourceName = "UsernameValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
@@ -43,7 +46,9 @@ namespace ZigBlog.Models.ViewModels
         public string PasswordConfirmation { get; set; }
 
         [Required(ErrorMessageResourceName = "EmailAddressValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
-        [EmailAddress(ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
+        //[EmailAddress(ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
+        //[UniqueEmail(ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
+        //[Remote("UniqueEmailAddress", "Validation", ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
         [Display(Name = "EmailAddress", ResourceType = typeof(Translation))]
         public string EmailAddress { get; set; }
 
@@ -52,5 +57,10 @@ namespace ZigBlog.Models.ViewModels
         public bool AcceptTerms { get; set; }
 
         public string ReturnUrl { get; set; }
+    }
+
+    public class UserProfileViewModel
+    {
+        public AppUser User { get; set; }
     }
 }

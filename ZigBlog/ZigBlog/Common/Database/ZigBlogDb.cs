@@ -11,7 +11,8 @@ namespace ZigBlog.Common.Database
     {
         private static MongoClient _client;
         private static IMongoDatabase _database;
-        private static IMongoCollection<User> _users;
+        private static IMongoCollection<AppUser> _users;
+        private static IMongoCollection<AppRole> _roles;
         private static IMongoCollection<Post> _posts;
         private static IMongoCollection<Comment> _comments;
 
@@ -41,15 +42,27 @@ namespace ZigBlog.Common.Database
             }
         }
 
-        public static IMongoCollection<User> Users
+        public static IMongoCollection<AppUser> Users
         {
             get
             {
                 // TODO: Change it so the collection name is retrieved from a configuration file.
                 if (_users == null)
-                    _users = Database.GetCollection<User>("Users");
+                    _users = Database.GetCollection<AppUser>("Users");
 
                 return _users;
+            }
+        }
+
+        public static IMongoCollection<AppRole> Roles
+        {
+            get
+            {
+                // TODO: Change it so the collection name is retrieved from a configuration file.
+                if (_roles == null)
+                    _roles = Database.GetCollection<AppRole>("Roles");
+
+                return _roles;
             }
         }
 

@@ -12,14 +12,14 @@ namespace ZigBlog.Models
     {
         #region Fields
         
-        private User _commenter;
+        private AppUser _commenter;
 
         #endregion
 
         #region Main Properties
 
         public int PostId { get; set; }
-        public int CommenterId { get; set; }
+        public string CommenterId { get; set; }
         public string Content { get; set; }
         public List<int> Likes { get; set; }
 
@@ -27,13 +27,13 @@ namespace ZigBlog.Models
 
         #region Support Property
 
-        public User Commenter
+        public AppUser Commenter
         {
             get
             {
                 if (_commenter == null)
                 {
-                    var filter = Builders<User>.Filter.Eq(u => u.Id, CommenterId);
+                    var filter = Builders<AppUser>.Filter.Eq(x => x.Id, CommenterId);
                     var task = ZigBlogDb.Users.Find(filter).SingleOrDefaultAsync();
 
                     task.Wait();

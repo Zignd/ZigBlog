@@ -21,5 +21,17 @@ namespace ZigBlog.Controllers
                 return Json(new { Error = string.Format("An exception occurred: {0}", ex.Message) }, JsonRequestBehavior.AllowGet);
             }
         }
+
+        public JsonResult UniqueEmailAddress(string emailAddress)
+        {
+            try
+            {
+                return Json(MultiSideValidation.UniqueEmailAddress(emailAddress), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Error = string.Format("An exception occurred: {0}", ex.Message) }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }
