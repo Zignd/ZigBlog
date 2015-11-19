@@ -37,7 +37,7 @@ namespace ZigBlog.Models.ViewModels
         public string Username { get; set; }
 
         [Required(ErrorMessageResourceName = "PasswordValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
-        [PasswordValidation(true, 0, false, false, false, ErrorMessageResourceName = "PasswordValidationErrorInvalid", ErrorMessageResourceType = typeof(Translation))]
+        [Password(true, 6, true, true, ErrorMessageResourceName = "PasswordValidationErrorInvalid", ErrorMessageResourceType = typeof(Translation))]
         [Display(Name = "Password", ResourceType = typeof(Translation))]
         public string Password { get; set; }
 
