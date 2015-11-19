@@ -178,20 +178,11 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The password need to contain at least one .
+        ///   Looks up a localized string similar to The provided password is invalid..
         /// </summary>
-        public static string PasswordValidationErrorComplexity {
+        public static string PasswordValidationErrorInvalid {
             get {
-                return ResourceManager.GetString("PasswordValidationErrorComplexity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The password need to be between 5 and 30 characters..
-        /// </summary>
-        public static string PasswordValidationErrorLength {
-            get {
-                return ResourceManager.GetString("PasswordValidationErrorLength", resourceCulture);
+                return ResourceManager.GetString("PasswordValidationErrorInvalid", resourceCulture);
             }
         }
         

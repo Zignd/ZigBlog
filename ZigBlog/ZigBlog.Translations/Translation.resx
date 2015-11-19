@@ -144,12 +144,6 @@
   <data name="PasswordConfirmationValidationErrorRequired" xml:space="preserve">
     <value>Please enter the password confirmation.</value>
   </data>
-  <data name="PasswordValidationErrorComplexity" xml:space="preserve">
-    <value>The password need to contain at least one </value>
-  </data>
-  <data name="PasswordValidationErrorLength" xml:space="preserve">
-    <value>The password need to be between 5 and 30 characters.</value>
-  </data>
   <data name="PasswordValidationErrorRequired" xml:space="preserve">
     <value>Please enter a password.</value>
   </data>
@@ -212,5 +206,8 @@
   </data>
   <data name="SomethingHappenedUserRegistration" xml:space="preserve">
     <value>Something wrong happened during the user registration. Sorry...</value>
+  </data>
+  <data name="PasswordValidationErrorInvalid" xml:space="preserve">
+    <value>The provided password is invalid.</value>
   </data>
 </root>

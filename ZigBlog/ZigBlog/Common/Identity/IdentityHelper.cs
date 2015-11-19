@@ -8,16 +8,11 @@ namespace ZigBlog.Common.Identity
 {
     public static class IdentityHelper
     {
-        private static AppUserManager _userManager;
-
         public static AppUserManager UserManager
         {
             get
             {
-                if (_userManager == null)
-                    _userManager = HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
-
-                return _userManager;
+                return HttpContext.Current.GetOwinContext().GetUserManager<AppUserManager>();
             }
         }
     }

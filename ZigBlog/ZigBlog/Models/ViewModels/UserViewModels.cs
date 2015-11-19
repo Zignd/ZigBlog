@@ -37,6 +37,7 @@ namespace ZigBlog.Models.ViewModels
         public string Username { get; set; }
 
         [Required(ErrorMessageResourceName = "PasswordValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        [PasswordValidation(true, 0, false, false, false, ErrorMessageResourceName = "PasswordValidationErrorInvalid", ErrorMessageResourceType = typeof(Translation))]
         [Display(Name = "Password", ResourceType = typeof(Translation))]
         public string Password { get; set; }
 
@@ -46,9 +47,9 @@ namespace ZigBlog.Models.ViewModels
         public string PasswordConfirmation { get; set; }
 
         [Required(ErrorMessageResourceName = "EmailAddressValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
-        //[EmailAddress(ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
-        //[UniqueEmail(ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
-        //[Remote("UniqueEmailAddress", "Validation", ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
+        [EmailAddress(ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
+        [UniqueEmail(ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
+        [Remote("UniqueEmailAddress", "Validation", ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
         [Display(Name = "EmailAddress", ResourceType = typeof(Translation))]
         public string EmailAddress { get; set; }
 

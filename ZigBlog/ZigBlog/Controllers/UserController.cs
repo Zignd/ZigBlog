@@ -76,7 +76,7 @@ namespace ZigBlog.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new AppUser { UserName = viewModel.Username, Email = viewModel.EmailAddress, Created = DateTime.Now };
+                var user = new AppUser { UserName = viewModel.Username, Email = viewModel.EmailAddress.ToLower(), Created = DateTime.Now };
                 var result = await UserManager.CreateAsync(user, viewModel.Password);
 
                 if (result.Succeeded)

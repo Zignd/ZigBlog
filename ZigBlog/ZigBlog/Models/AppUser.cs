@@ -10,10 +10,8 @@ namespace ZigBlog.Models
     {
         public string UserNameLower
         {
-            get
-            {
-                return UserName.ToLower();
-            }   
+            get { return UserName.ToLower(); }
+            set { /* MongoDB Driver is forcing me to have a property with both get and set methods in order to map it to the database. Just ignore this empty set block. */ }
         }
 
         public DateTime Created { get; set; }

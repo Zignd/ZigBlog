@@ -15,7 +15,8 @@ namespace ZigBlog.Common.Validation
     {
         public static bool UniqueUsername(string username)
         {
-            var task = IdentityHelper.UserManager.FindByNameAsync(username);
+            var filter = Builders<AppUser>.Filter.Eq(x => x.UserNameLower, username.ToLower());
+            var task = ZigBlogDb.Users.Find(filter).SingleOrDefaultAsync();
 
             task.Wait();
 
@@ -24,7 +25,8 @@ namespace ZigBlog.Common.Validation
 
         public static bool UniqueEmailAddress(string emailAddress)
         {
-            var task = IdentityHelper.UserManager.FindByEmailAsync(emailAddress);
+            var filter = Builders<AppUser>.Filter.Eq(x => x.Email, emailAddress.ToLower());
+            var task = ZigBlogDb.Users.Find(filter).SingleOrDefaultAsync();
 
             task.Wait();
 
