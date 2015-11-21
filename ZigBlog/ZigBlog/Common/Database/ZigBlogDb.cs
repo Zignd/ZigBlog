@@ -7,7 +7,7 @@ using ZigBlog.Models;
 
 namespace ZigBlog.Common.Database
 {
-    public class ZigBlogDb
+    public static class ZigBlogDb
     {
         private static MongoClient _client;
         private static IMongoDatabase _database;

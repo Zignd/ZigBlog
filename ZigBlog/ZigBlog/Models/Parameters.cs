@@ -6,7 +6,7 @@ using ZigBlog.Models.Common;
 
 namespace ZigBlog.Models
 {
-    public class Parameters : ModelBase
+    public class Parameters : CustomModelBase
     {
         public string BlogTitle { get; set; }
         public string AboutContent { get; set; }

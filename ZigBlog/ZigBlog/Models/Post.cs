@@ -9,7 +9,7 @@ using ZigBlog.Models.Common;
 
 namespace ZigBlog.Models
 {
-    public class Post : ModelBase
+    public class Post : CustomModelBase
     {
         #region Fields
 

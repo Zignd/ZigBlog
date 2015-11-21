@@ -8,7 +8,7 @@ using ZigBlog.Models.Common;
 
 namespace ZigBlog.Models
 {
-    public class Comment : ModelBase
+    public class Comment : CustomModelBase
     {
         #region Fields
         

@@ -7,23 +7,21 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using ZigBlog.Common.Database;
+using ZigBlog.Common.Identity;
 using ZigBlog.Controllers.Common;
 using ZigBlog.Models;
 using ZigBlog.Models.ViewModels;
 
 namespace ZigBlog.Controllers
 {
+    [Authorize]
     public class PostController : CustomControllerBase
     {
-        [Authorize]
-        [HttpGet]
         public ActionResult New()
         {
             return View();
         }
 
-        [Authorize]
-        [ValidateAntiForgeryToken]
         [HttpPost]
         public async Task<ActionResult> New(PostNewViewModel viewModel)
         {
@@ -32,7 +30,7 @@ namespace ZigBlog.Controllers
 
             var post = new Post
             {
-                BloggerId = CurrentUser.Id,
+                BloggerId = IdentityHelper.CurrentUser.Id,
                 TitleUrl = await GenerateTitleUrl(viewModel.Title),
                 Title = viewModel.Title,
                 Content = viewModel.Content,

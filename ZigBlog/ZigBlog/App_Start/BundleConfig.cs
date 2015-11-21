@@ -17,6 +17,11 @@ namespace ZigBlog
                 "~/Scripts/jquery.validate.js",
                 "~/Scripts/jquery.validate.unobtrusive.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/zg.editor").Include(
+                "~/Scripts/MarkdownDeep.min.js",
+                "~/Scripts/MarkdownDeepEditor.min.js",
+                "~/Scripts/zg.editor.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"));
 

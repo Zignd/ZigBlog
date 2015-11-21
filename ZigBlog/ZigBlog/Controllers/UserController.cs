@@ -80,9 +80,15 @@ namespace ZigBlog.Controllers
                 var result = await UserManager.CreateAsync(user, viewModel.Password);
 
                 if (result.Succeeded)
+                {
+                    await UserManager.AddToRoleAsync(user.Id, "Commenter");
+
                     return Redirect(viewModel.ReturnUrl);
+                }   
                 else
+                {
                     ModelState.AddModelError(string.Empty, Translation.SomethingHappenedUserRegistration);
+                }   
             }
             
             return View(viewModel);

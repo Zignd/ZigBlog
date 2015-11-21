@@ -1,4 +1,6 @@
-﻿@using ZigBlog.Models
+﻿@using ZigBlog.Common.Database
+@using ZigBlog.Common.Identity
+@using ZigBlog.Models
 @using ZigBlog.Translations
 
 <!DOCTYPE html>
@@ -9,6 +11,7 @@
     <title>@ViewBag.Title - My ASP.NET Application</title>
     <link rel="icon" href="~/Content/Images/favicon.png"/>
     @Styles.Render("~/Content/css")
+    @RenderSection("Style", false)
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -21,20 +24,20 @@
                 </button>
                 <a class="navbar-brand" href="@Url.Action("Page", "Home")">
                     <img src="~/Content/Images/favicon.png" style="height: 1.0em; vertical-align: top; display: inline" />
-                    <span style="margin-left: .1em">@(((Parameters)ViewBag.Parameters).BlogTitle)</span>
+                    <span style="margin-left: .1em">@(ZigBlogDb.Parameters.BlogTitle)</span>
                 </a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="@Url.Action("About", "Home")">@Translation.HomePage</a></li>
+                    <li><a href="@Url.Action("Page", "Home")">@Translation.HomePage</a></li>
                     <li><a href="@Url.Action("About", "Home")">@Translation.About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (ViewBag.CurrentUser != null && ((AppUser)ViewBag.CurrentUser).Roles.Contains("Commenter"))
+                        if (IdentityHelper.CurrentUser.Roles.Contains("Commenter"))
                         {
-                            <li><a href="#">@Translation.WriteNewPost</a></li>
+                            <li><a href="@Url.Action("New","Post")">@Translation.WriteNewPost</a></li>
                         }
 
                         <li class="dropdown">

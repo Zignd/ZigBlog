@@ -57,6 +57,10 @@
       <HintPath>..\packages\FluentValidation.5.6.2.0\lib\Net45\FluentValidation.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="MarkdownDeep, Version=1.5.4615.26275, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\Downloads\MarkdownDeep\bin\MarkdownDeep.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
       <Private>True</Private>
@@ -172,8 +176,13 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App_Data\ZigBlogConfig.json" />
+    <Content Include="Content\Images\favicon.png" />
     <Content Include="db.js" />
-    <Content Include="test.html" />
+    <Content Include="Scripts\zg.editor.js" />
+    <Content Include="Scripts\MarkdownDeep.js" />
+    <Content Include="Scripts\MarkdownDeep.min.js" />
+    <Content Include="Scripts\MarkdownDeepEditor.js" />
+    <Content Include="Scripts\MarkdownDeepEditor.min.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -232,7 +241,7 @@
     </Compile>
     <Compile Include="Models\AppRole.cs" />
     <Compile Include="Models\AppUser.cs" />
-    <Compile Include="Models\Common\ModelBase.cs" />
+    <Compile Include="Models\Common\CustomModelBase.cs" />
     <Compile Include="Models\Comment.cs" />
     <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\Post.cs" />

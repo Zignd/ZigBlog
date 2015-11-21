@@ -16,33 +16,10 @@ namespace ZigBlog.Controllers.Common
 {
     public class CustomControllerBase : Controller
     {
-        private AppUser _currentUser;
         private IAuthenticationManager _authManager;
         private AppUserManager _userManager;
-
-        public CustomControllerBase()
-        {
-            ViewBag.Parameters = ZigBlogDb.Parameters;
-            ViewBag.CurrentUser = CurrentUser;
-        }
-
-        public AppUser CurrentUser
-        {
-            get
-            {
-                if (_currentUser == null && User != null)
-                {
-                    var task = UserManager.FindByNameAsync(User.Identity.Name);
-
-                    task.Wait();
-
-                    _currentUser = task.Result;
-                }
-
-                return _currentUser;
-            }
-        }
-
+        private AppRoleManager _roleManager;
+        
         protected IAuthenticationManager AuthManager
         {
             get
@@ -62,6 +39,17 @@ namespace ZigBlog.Controllers.Common
                     _userManager = HttpContext.GetOwinContext().GetUserManager<AppUserManager>();
 
                 return _userManager;
+            }
+        }
+
+        protected AppRoleManager RoleManager
+        {
+            get
+            {
+                if (_roleManager == null)
+                    _roleManager = HttpContext.GetOwinContext().GetUserManager<AppRoleManager>();
+
+                return _roleManager;
             }
         }
     }
