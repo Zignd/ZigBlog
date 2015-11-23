@@ -7,8 +7,9 @@ namespace ZigBlog.Models.ViewModels
 {
     public class HomePageViewModel
     {
-        public int Page { get; set; }
+        public int CurrentPage { get; set; }
         public int PostsPerPage { get; set; }
+        public long TotalPostsCount { get; set; }
         public List<Post> Posts { get; set; }
     }
 

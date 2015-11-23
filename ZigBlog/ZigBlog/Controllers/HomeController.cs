@@ -19,11 +19,12 @@ namespace ZigBlog.Controllers
         public async Task<ActionResult> Page(int arg = 1, int postsPerPage = 10)
         {
             var sort = Builders<Post>.Sort.Descending(p => p.Created);
-            
+
             var viewModel = new HomePageViewModel
             {
-                Page = arg,
+                CurrentPage = arg,
                 PostsPerPage = postsPerPage,
+                TotalPostsCount = await ZigBlogDb.Posts.CountAsync(_ => true),
                 Posts = await ZigBlogDb.Posts.Find(_ => true).Sort(sort).Skip((arg - 1) * postsPerPage).Limit(postsPerPage).ToListAsync()
             };
 
@@ -46,16 +47,20 @@ Vivamus vehicula lectus ipsum, ac vehicula est eleifend a. Curabitur a elit eget
 
 Donec hendrerit ut lorem in euismod.Praesent accumsan molestie convallis. Nullam nec sodales sapien. In imperdiet eros et erat sagittis porttitor.Pellentesque nec semper ipsum. Vivamus laoreet lorem et eros porta semper.Donec lacinia sem in nibh scelerisque, id rhoncus leo malesuada.Phasellus molestie erat eu orci semper fringilla.Curabitur a tempus enim, eget volutpat nulla. Curabitur consectetur rhoncus auctor. Sed ac ultrices ante, non dapibus augue.";
 
-            for (var i = 0; i < 30; i++)
+            var data = DateTime.Now;
+
+            for (var i = 0; i < 100; i++)
             {
                 await ZigBlogDb.Posts.InsertOneAsync(new Post
                 {
                     BloggerId = IdentityHelper.CurrentUser.Id,
                     Content = content,
-                    Created = DateTime.Now.AddMinutes(i),
+                    Created = data,
                     Title = $"Lorem ipsum dolor sit amet {i + 1}",
                     TitleUrl = $"lorem_ipsum_dolor_sit_amet_{i + 1}"
                 });
+
+                data = data.AddDays(1);
             }
 
             var viewModel = new HomeAboutViewModel
