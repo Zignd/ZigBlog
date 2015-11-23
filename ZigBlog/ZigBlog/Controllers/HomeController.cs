@@ -15,8 +15,8 @@ namespace ZigBlog.Controllers
 {
     public class HomeController : CustomControllerBase
     {
-        // GET: / or /Page/{number}
-        public async Task<ActionResult> Page(int arg = 1, int postsPerPage = 10)
+        // GET: / or /page/{arg} or /page/{arg}/{postsPerPage}
+        public async Task<ActionResult> Page(int arg = 1, int postsPerPage = 15)
         {
             var sort = Builders<Post>.Sort.Descending(p => p.Created);
 
@@ -31,7 +31,7 @@ namespace ZigBlog.Controllers
             return View(viewModel);
         }
 
-        // GET: /About
+        // GET: /about
         public async Task<ActionResult> About()
         {
             // TODO: This is just for testing, don't forget to remove it xD
