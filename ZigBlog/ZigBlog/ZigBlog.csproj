@@ -245,7 +245,6 @@
     <Compile Include="Models\Parameters.cs" />
     <Compile Include="Models\Post.cs" />
     <Compile Include="Models\ViewModels\HomeViewModels.cs" />
-    <Compile Include="Models\ViewModels\PostViewModels.cs" />
     <Compile Include="Models\ViewModels\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -269,7 +268,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\Images\Avatars\" />
-    <Folder Include="Views\Post\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZigBlog.Translations\ZigBlog.Translations.csproj">

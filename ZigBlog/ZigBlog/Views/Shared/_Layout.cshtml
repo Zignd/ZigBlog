@@ -35,7 +35,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (IdentityHelper.CurrentUser.Roles.Contains("Administrator") || IdentityHelper.CurrentUser.Roles.Contains("Blogger"))
+                        if (User.IsInRole("Administrator") || User.IsInRole("Blogger"))
                         {
                             <li><a href="@Url.Action("New","Home")">@Translation.WriteNewPost</a></li>
                         }
