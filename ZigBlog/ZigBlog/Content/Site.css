@@ -8,6 +8,27 @@
     padding-right: 15px;
 }
 
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+
+h1 > a {
+    color: inherit;
+}
+
+    h1 > a:hover {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    h1 > a:focus {
+        outline: inherit;
+        color: inherit;
+        text-decoration: inherit;
+    }
+
 .field-validation-error {
     color: crimson;
     font-weight: bold;

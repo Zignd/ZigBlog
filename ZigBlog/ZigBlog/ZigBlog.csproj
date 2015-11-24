@@ -260,6 +260,7 @@
     <Content Include="Views\User\SignUp.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Post\New.cshtml" />
+    <Content Include="Views\Post\Show.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

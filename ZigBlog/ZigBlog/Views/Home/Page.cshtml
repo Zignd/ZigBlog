@@ -14,7 +14,7 @@
         <div class="panel-heading">
             <div style="display: flex; align-items: center; justify-content: space-between;">
                 <div>
-                    <h1>@post.Title</h1>
+                    <h1><a href="@Url.RouteUrl("Show", new { year = post.Created.Year, month = post.Created.Month, day = post.Created.Day, titleUrl = post.TitleUrl })">@post.Title</a></h1>
                 </div>
                 <div style="display: flex; align-items: center;">
                     <span style="font-size: 2em;">@post.Likes.Count</span>
@@ -31,7 +31,7 @@
             </div>
         </div>
         <div class="panel-body" style="height: 7em; overflow: hidden;">
-            @post.Content
+            @Html.Raw(post.ParsedContent)
         </div>
         <div class="panel-footer">
             <div>[Read more]</div>
@@ -46,8 +46,8 @@
             @{
                 var totalPages = Math.Ceiling((decimal)Model.TotalPostsCount / Model.PostsPerPage);
 
-                var urlPreviousPage = Url.Action("Page", new { arg = Model.CurrentPage - 1, postsPerPage = Model.PostsPerPage });
-                var urlNextPage = Url.Action("Page", new { arg = Model.CurrentPage + 1, postsPerPage = Model.PostsPerPage });
+                    var urlPreviousPage = Url.Action("Page", new { arg = Model.CurrentPage - 1, postsPerPage = Model.PostsPerPage });
+                    var urlNextPage = Url.Action("Page", new { arg = Model.CurrentPage + 1, postsPerPage = Model.PostsPerPage });
             }
 
             @* Navigation button << *@

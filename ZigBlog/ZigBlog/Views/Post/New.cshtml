@@ -12,7 +12,7 @@
 {
     <div class="form-group">
         @Html.LabelFor(x => x.Title)
-        @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        @Html.TextBoxFor(x => x.Title, new { @class = "form-control", style = "max-width: none" })
         @Html.ValidationMessageFor(x => x.Title)
     </div>
 

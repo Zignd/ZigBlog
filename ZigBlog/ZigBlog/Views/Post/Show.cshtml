@@ -1,0 +1,34 @@
+﻿@model ZigBlog.Models.ViewModels.PostShowViewModel
+
+@{
+    ViewBag.Title = "Show";
+}
+
+<div class="panel panel-default" style="margin-bottom: 5em;">
+    <div class="panel-heading">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <h1><a href="@Url.RouteUrl("Show", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl })">@Model.Post.Title</a></h1>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <span style="font-size: 2em;">@Model.Post.Likes.Count</span>
+
+                @if (Model.Post.Likes.Count == 0)
+                {
+                    <span class="glyphicon glyphicon-heart-empty" style="font-size: 3em;"></span>
+                }
+                else
+                {
+                    <span class="glyphicon glyphicon-heart" style="font-size: 3em;"></span>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        @Html.Raw(Model.Post.ParsedContent)
+    </div>
+    <div class="panel-footer">
+        <div>[Read more]</div>
+        <div>@Model.Post.Comments.Count ?Commments</div>
+    </div>
+</div>

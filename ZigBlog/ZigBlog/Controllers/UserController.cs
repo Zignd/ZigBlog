@@ -88,7 +88,7 @@ namespace ZigBlog.Controllers
                 else
                 {
                     ModelState.AddModelError(string.Empty, Translation.SomethingHappenedUserRegistration);
-                }   
+                }
             }
             
             return View(viewModel);

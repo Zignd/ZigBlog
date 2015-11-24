@@ -16,6 +16,11 @@ namespace ZigBlog
             routes.LowercaseUrls = true;
 
             routes.MapRoute(
+                name: "Show",
+                url: "{year}/{month}/{day}/{titleUrl}",
+                defaults: new { controller = "Post", action = "Show" });
+
+            routes.MapRoute(
                 name: "Page",
                 url: "Page/{arg}/{postsPerPage}",
                 defaults: new { controller = "Home", action = "Page", postsPerPage = UrlParameter.Optional }

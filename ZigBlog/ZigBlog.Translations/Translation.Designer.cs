@@ -259,6 +259,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This post could not be found, maybe the url is wrong or it was deleted..
+        /// </summary>
+        public static string ThisPostCouldNotBeFoundException {
+            get {
+                return ResourceManager.GetString("ThisPostCouldNotBeFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {

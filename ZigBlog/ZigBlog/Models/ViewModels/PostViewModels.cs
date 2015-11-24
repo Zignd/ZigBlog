@@ -14,4 +14,9 @@ namespace ZigBlog.Models.ViewModels
         [Required]
         public string Content { get; set; }
     }
+
+    public class PostShowViewModel
+    {
+        public Post Post { get; set; }
+    }
 }
