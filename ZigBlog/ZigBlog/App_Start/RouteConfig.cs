@@ -18,18 +18,28 @@ namespace ZigBlog
             routes.MapRoute(
                 name: "Show",
                 url: "{year}/{month}/{day}/{titleUrl}",
-                defaults: new { controller = "Post", action = "Show" });
+                defaults: new { controller = "Home", action = "Show" });
 
             routes.MapRoute(
-                name: "Page",
-                url: "Page/{arg}/{postsPerPage}",
+                name: "Profile",
+                url: "profile/{userName}",
+                defaults: new { controller = "User", action = "Profile" });
+
+            routes.MapRoute(
+                name: "New",
+                url: "new",
+                defaults: new { controller = "Home", action = "New" });
+
+            routes.MapRoute(
+                name: "HomePage",
+                url: "page/{page}/{postsPerPage}",
                 defaults: new { controller = "Home", action = "Page", postsPerPage = UrlParameter.Optional }
             );
 
             routes.MapRoute(
                 name: "Default",
-                url: "{controller}/{action}/{arg}",
-                defaults: new { controller = "Home", action = "Page", arg = UrlParameter.Optional }
+                url: "{controller}/{action}",
+                defaults: new { controller = "Home", action = "Page" }
             );
         }
     }

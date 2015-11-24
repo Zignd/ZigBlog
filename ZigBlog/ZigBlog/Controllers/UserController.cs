@@ -103,9 +103,9 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
-        public async Task<ActionResult> Profile(string arg)
+        public async Task<ActionResult> Profile(string userName)
         {
-            var user = UserManager.FindByName(arg);
+            var user = UserManager.FindByName(userName);
             
             if (user == null)
                 throw new ArgumentException(Translation.UsernameDoNotExist);

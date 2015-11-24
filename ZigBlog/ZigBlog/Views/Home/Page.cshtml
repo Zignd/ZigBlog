@@ -40,14 +40,16 @@
     </div>
 }
 
+@{ 
+    var totalPages = Math.Ceiling((decimal)Model.TotalPostsCount / Model.PostsPerPage);
+}
+
 <div style="display: flex; justify-content: space-between;">
-    <nav>
+    <nav style="@(totalPages <= 1 ? "visibility: hidden" : null)">
         <ul class="pagination">
             @{
-                var totalPages = Math.Ceiling((decimal)Model.TotalPostsCount / Model.PostsPerPage);
-
-                    var urlPreviousPage = Url.Action("Page", new { arg = Model.CurrentPage - 1, postsPerPage = Model.PostsPerPage });
-                    var urlNextPage = Url.Action("Page", new { arg = Model.CurrentPage + 1, postsPerPage = Model.PostsPerPage });
+                var urlPreviousPage = Url.Action("Page", new { page = Model.CurrentPage - 1, postsPerPage = Model.PostsPerPage });
+                var urlNextPage = Url.Action("Page", new { page = Model.CurrentPage + 1, postsPerPage = Model.PostsPerPage });
             }
 
             @* Navigation button << *@
@@ -58,7 +60,7 @@
             </li>
 
             @* Navigation button 1 *@
-            <li class="@(Model.CurrentPage == 1 ? "active" : null)"><a href="@Url.Action("Page", new { arg = 1, postsPerPage = Model.PostsPerPage })">1</a></li>
+            <li class="@(Model.CurrentPage == 1 ? "active" : null)"><a href="@Url.Action("Page", new { page = 1, postsPerPage = Model.PostsPerPage })">1</a></li>
 
             @* When the number of pages is below or equal to 7, there's no need to build a complex pagination control, so I just list the links to the pages *@
             @if (totalPages <= 7)
@@ -67,7 +69,7 @@
                 {
                     if (totalPages >= page)
                     {
-                        var pageUrl = Url.Action("Page", new { arg = page, postsPerPage = Model.PostsPerPage });
+                        var pageUrl = Url.Action("Page", new { page = page, postsPerPage = Model.PostsPerPage });
 
                         <li class="@(Model.CurrentPage == page ? "active" : null)"><a href="@pageUrl">@page</a></li>
                     }
@@ -82,7 +84,7 @@
                     {
                         if (totalPages >= page)
                         {
-                            var pageUrl = Url.Action("Page", new { arg = page, postsPerPage = Model.PostsPerPage });
+                            var pageUrl = Url.Action("Page", new { page = page, postsPerPage = Model.PostsPerPage });
 
                             <li class="@(Model.CurrentPage == page ? "active" : null)"><a href="@pageUrl">@page</a></li>
                         }
@@ -94,25 +96,25 @@
                 @* Middle navigation buttons *@
                 if (Model.CurrentPage >= 5 && Model.CurrentPage <= totalPages - 4)
                 {
-                    <li><a href="@Url.Action("Page", new { arg = Model.CurrentPage - 2 })">@(Model.CurrentPage - 2)</a></li>
-                    <li><a href="@Url.Action("Page", new { arg = Model.CurrentPage - 1 })">@(Model.CurrentPage - 1)</a></li>
-                    <li class="active"><a href="@Url.Action("Page", new { arg = Model.CurrentPage })">@(Model.CurrentPage)</a></li>
-                    <li><a href="@Url.Action("Page", new { arg = Model.CurrentPage + 1 })">@(Model.CurrentPage + 1)</a></li>
-                    <li><a href="@Url.Action("Page", new { arg = Model.CurrentPage + 2 })">@(Model.CurrentPage + 2)</a></li>
+                    <li><a href="@Url.Action("Page", new { page = Model.CurrentPage - 2 })">@(Model.CurrentPage - 2)</a></li>
+                    <li><a href="@Url.Action("Page", new { page = Model.CurrentPage - 1 })">@(Model.CurrentPage - 1)</a></li>
+                    <li class="active"><a href="@Url.Action("Page", new { page = Model.CurrentPage })">@(Model.CurrentPage)</a></li>
+                    <li><a href="@Url.Action("Page", new { page = Model.CurrentPage + 1 })">@(Model.CurrentPage + 1)</a></li>
+                    <li><a href="@Url.Action("Page", new { page = Model.CurrentPage + 2 })">@(Model.CurrentPage + 2)</a></li>
                     <li><a>...</a></li>
                 }
 
                 @* Navigation buttons from (totalPages - 4) to (totalPages) *@
                 if (Model.CurrentPage > totalPages - 4 && totalPages - 4 > 5)
                 {
-                    <li><a href="@Url.Action("Page", new { arg = totalPages - 4, postsPerPage = Model.PostsPerPage })">@(totalPages - 4)</a></li>
-                    <li class="@(Model.CurrentPage == totalPages - 3 ? "active" : null)"><a href="@(Model.CurrentPage != totalPages - 3 ? Url.Action("Page", new { arg = totalPages - 1, postsPerPage = Model.PostsPerPage }) : null)">@(totalPages - 3)</a></li>
-                    <li class="@(Model.CurrentPage == totalPages - 2 ? "active" : null)"><a href="@(Model.CurrentPage != totalPages - 2 ? Url.Action("Page", new { arg = totalPages - 1, postsPerPage = Model.PostsPerPage }) : null)">@(totalPages - 2)</a></li>
-                    <li class="@(Model.CurrentPage == totalPages - 1 ? "active" : null)"><a href="@(Model.CurrentPage != totalPages - 1 ? Url.Action("Page", new { arg = totalPages - 1, postsPerPage = Model.PostsPerPage }) : null)">@(totalPages - 1)</a></li>
+                    <li><a href="@Url.Action("Page", new { page = totalPages - 4, postsPerPage = Model.PostsPerPage })">@(totalPages - 4)</a></li>
+                    <li class="@(Model.CurrentPage == totalPages - 3 ? "active" : null)"><a href="@(Model.CurrentPage != totalPages - 3 ? Url.Action("Page", new { page = totalPages - 1, postsPerPage = Model.PostsPerPage }) : null)">@(totalPages - 3)</a></li>
+                    <li class="@(Model.CurrentPage == totalPages - 2 ? "active" : null)"><a href="@(Model.CurrentPage != totalPages - 2 ? Url.Action("Page", new { page = totalPages - 1, postsPerPage = Model.PostsPerPage }) : null)">@(totalPages - 2)</a></li>
+                    <li class="@(Model.CurrentPage == totalPages - 1 ? "active" : null)"><a href="@(Model.CurrentPage != totalPages - 1 ? Url.Action("Page", new { page = totalPages - 1, postsPerPage = Model.PostsPerPage }) : null)">@(totalPages - 1)</a></li>
                 }
             }
 
-            <li class="@(Model.CurrentPage == totalPages ? "active" : null)"><a href="@(Model.CurrentPage != totalPages ? @Url.Action("Page", new { arg = totalPages, postsPerPage = Model.PostsPerPage }) : null)">@totalPages</a></li>
+            <li class="@(Model.CurrentPage == totalPages ? "active" : null)"><a href="@(Model.CurrentPage != totalPages ? @Url.Action("Page", new { page = totalPages, postsPerPage = Model.PostsPerPage }) : null)">@totalPages</a></li>
 
             @* >> *@
             <li class="@(Model.CurrentPage == totalPages ? "disabled" : null)">
@@ -125,9 +127,9 @@
 
     <nav>
         <ul class="pagination">
-            <li class="@(Model.PostsPerPage == 15 ? "active" : null)"><a href="@Url.Action("Page", new { arg = 1, postsPerPage = 15 })">15</a></li>
-            <li class="@(Model.PostsPerPage == 30 ? "active" : null)"><a href="@Url.Action("Page", new { arg = 1, postsPerPage = 30 })">30</a></li>
-            <li class="@(Model.PostsPerPage == 50 ? "active" : null)"><a href="@Url.Action("Page", new { arg = 1, postsPerPage = 50 })">50</a></li>
+            <li class="@(Model.PostsPerPage == 15 ? "active" : null)"><a href="@Url.Action("Page", new { page = 1, postsPerPage = 15 })">15</a></li>
+            <li class="@(Model.PostsPerPage == 30 ? "active" : null)"><a href="@Url.Action("Page", new { page = 1, postsPerPage = 30 })">30</a></li>
+            <li class="@(Model.PostsPerPage == 50 ? "active" : null)"><a href="@Url.Action("Page", new { page = 1, postsPerPage = 50 })">50</a></li>
         </ul>
     </nav>
 </div>

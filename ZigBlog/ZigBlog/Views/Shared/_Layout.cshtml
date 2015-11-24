@@ -35,15 +35,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (IdentityHelper.CurrentUser.Roles.Contains("Commenter"))
+                        if (IdentityHelper.CurrentUser.Roles.Contains("Administrator") || IdentityHelper.CurrentUser.Roles.Contains("Blogger"))
                         {
-                            <li><a href="@Url.Action("New","Post")">@Translation.WriteNewPost</a></li>
+                            <li><a href="@Url.Action("New","Home")">@Translation.WriteNewPost</a></li>
                         }
 
                         <li class="dropdown">
                             <a class="dropdown-toggle" data-toggle="dropdown" role="button">@User.Identity.Name <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="@Url.Action("Profile", "User", new { arg = User.Identity.Name })">@Translation.Profile</a></li>
+                                <li><a href="@Url.RouteUrl("Profile", new { userName = User.Identity.Name })">@Translation.Profile</a></li>
                                 <li><a href="@Url.Action("SignOut", "User")">@Translation.SignOut</a></li>
                             </ul>
                         </li>

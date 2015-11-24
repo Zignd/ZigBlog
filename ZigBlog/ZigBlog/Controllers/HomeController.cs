@@ -2,7 +2,9 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
@@ -11,25 +13,71 @@ using ZigBlog.Common.Identity;
 using ZigBlog.Controllers.Common;
 using ZigBlog.Models;
 using ZigBlog.Models.ViewModels;
+using ZigBlog.Translations;
 
 namespace ZigBlog.Controllers
 {
     public class HomeController : CustomControllerBase
     {
         // GET: / or /page/{arg} or /page/{arg}/{postsPerPage}
-        public async Task<ActionResult> Page(int arg = 1, int postsPerPage = 15)
+        public async Task<ActionResult> Page(int page = 1, [Range(1, 50)]int postsPerPage = 15)
         {
             var sort = Builders<Post>.Sort.Descending(p => p.Created);
 
             var viewModel = new HomePageViewModel
             {
-                CurrentPage = arg,
+                CurrentPage = page,
                 PostsPerPage = postsPerPage,
                 TotalPostsCount = await ZigBlogDb.Posts.CountAsync(_ => true),
-                Posts = await ZigBlogDb.Posts.Find(_ => true).Sort(sort).Skip((arg - 1) * postsPerPage).Limit(postsPerPage).ToListAsync()
+                Posts = await ZigBlogDb.Posts.Find(_ => true).Sort(sort).Skip((page - 1) * postsPerPage).Limit(postsPerPage).ToListAsync()
             };
 
             return View(viewModel);
+        }
+
+        // GET: /new
+        [Authorize(Roles = "Administrator,Blogger")]
+        public ActionResult New()
+        {
+            return View();
+        }
+
+        // POST: /new
+        [Authorize(Roles = "Administrator,Blogger")]
+        [HttpPost]
+        public async Task<ActionResult> New(HomeNewViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
+
+            var post = new Post
+            {
+                BloggerId = IdentityHelper.CurrentUser.Id,
+                TitleUrl = await GenerateTitleUrl(viewModel.Title),
+                Title = viewModel.Title,
+                Content = viewModel.Content,
+                ParsedContent = (new Markdown()).Transform(viewModel.Content),
+                Created = DateTime.Now
+            };
+
+            await ZigBlogDb.Posts.InsertOneAsync(post);
+
+            return RedirectToAction("Page", "Home");
+        }
+
+        // GET: /{year}/{month}/{day}/{titleUrl}
+        public async Task<ActionResult> Show(string titleUrl)
+        {
+            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
+            var post = await ZigBlogDb.Posts.Find(filter).FirstOrDefaultAsync();
+
+            if (post == null)
+                throw new Exception(Translation.ThisPostCouldNotBeFoundException);
+
+            return View(new HomeShowViewModel
+            {
+                Post = post
+            });
         }
 
         // GET: /about
@@ -87,6 +135,41 @@ Praesent accumsan molestie convallis. Nullam nec sodales sapien. In imperdiet er
             };
 
             return View(viewModel);
+        }
+        
+        /// <summary>
+        /// Generates a unique title URL.
+        /// </summary>
+        /// <param name="title">Post's title</param>
+        /// <returns>Unique title URL</returns>
+        private async Task<string> GenerateTitleUrl(string title)
+        {
+            // Remove accents
+            var bytes = System.Text.Encoding.GetEncoding("Cyrillic").GetBytes(title);
+            title = System.Text.Encoding.ASCII.GetString(bytes);
+
+            // Lower cases the title
+            title = title.ToLower();
+
+            // Remove invalid characters
+            title = Regex.Replace(title, @"[^a-z0-9\s-]", "");
+
+            // Converts multiple spaces into one space
+            title = Regex.Replace(title, @"\s+", " ").Trim();
+
+            // Limits the title url to 45 characters
+            title = title.Substring(0, title.Length <= 45 ? title.Length : 45).Trim();
+
+            // Convertes the spaces into hyphens
+            title = Regex.Replace(title, @"\s", "-");
+
+            var titleUrl = title;
+            var counter = 1;
+
+            while (await ZigBlogDb.Posts.Find(Builders<Post>.Filter.Eq(p => p.TitleUrl, titleUrl)).CountAsync() > 0)
+                titleUrl = string.Format($"{title}-{counter++}");
+
+            return titleUrl;
         }
     }
 }
