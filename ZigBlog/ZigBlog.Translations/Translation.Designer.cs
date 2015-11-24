@@ -97,6 +97,33 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Click to collapse.
+        /// </summary>
+        public static string ClickToCollapse {
+            get {
+                return ResourceManager.GetString("ClickToCollapse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to expand.
+        /// </summary>
+        public static string ClickToExpand {
+            get {
+                return ResourceManager.GetString("ClickToExpand", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comment(s).
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email Address.
         /// </summary>
         public static string EmailAddress {

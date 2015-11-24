@@ -213,4 +213,13 @@
   <data name="ThisPostCouldNotBeFoundException" xml:space="preserve">
     <value>This post could not be found, maybe the url is wrong or it was deleted.</value>
   </data>
+  <data name="ClickToCollapse" xml:space="preserve">
+    <value>Click to collapse</value>
+  </data>
+  <data name="ClickToExpand" xml:space="preserve">
+    <value>Click to expand</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comment(s)</value>
+  </data>
 </root>
