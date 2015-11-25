@@ -222,4 +222,7 @@
   <data name="Comments" xml:space="preserve">
     <value>Comment(s)</value>
   </data>
+  <data name="Post" xml:space="preserve">
+    <value>Post</value>
+  </data>
 </root>

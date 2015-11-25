@@ -90,21 +90,21 @@ namespace ZigBlog.Controllers
             if (post == null)
                 throw new Exception(Translation.ThisPostCouldNotBeFoundException);
 
-            bool likes;
+            bool userLikes;
             UpdateDefinition<Post> update = null;
 
             if (post.Likes.Contains(IdentityHelper.CurrentUser.Id))
             {
                 post.Likes.Remove(IdentityHelper.CurrentUser.Id);
 
-                likes = false;
+                userLikes = false;
                 update = Builders<Post>.Update.Pull(x => x.Likes, IdentityHelper.CurrentUser.Id);
             }
             else
             {
                 post.Likes.Add(IdentityHelper.CurrentUser.Id);
                 
-                likes = true;
+                userLikes = true;
                 update = Builders<Post>.Update.Push(x => x.Likes, IdentityHelper.CurrentUser.Id);
             }
 
@@ -112,7 +112,8 @@ namespace ZigBlog.Controllers
 
             return Json(new
             {
-                Likes = likes,
+                PostId = post.Id,
+                UserLikes = userLikes,
                 LikesCount = post.Likes.Count
             });
         }

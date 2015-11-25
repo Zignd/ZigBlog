@@ -24,14 +24,14 @@ namespace ZigBlog.Controllers
     public class UserController : CustomControllerBase
     {
         [AllowAnonymous]
-        public ActionResult SignIn(string returnUrl = "/")
+        public ActionResult SignIn()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
                 throw new Exception(Translation.AccessDenied);
-
+            
             return View(new UserSignInViewModel
             {
-                ReturnUrl = returnUrl
+                ReturnUrl = Request.UrlReferrer.PathAndQuery
             });
         }
 
@@ -61,11 +61,11 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
-        public ActionResult SignUp(string returnUrl = "/")
+        public ActionResult SignUp()
         {
             return View(new UserSignUpViewModel
             {
-                ReturnUrl = returnUrl
+                ReturnUrl = Request.UrlReferrer.PathAndQuery
             });
         }
 
@@ -95,11 +95,11 @@ namespace ZigBlog.Controllers
         }
 
         [Authorize]
-        public ActionResult SignOut(string returnUrl = "/")
+        public ActionResult SignOut()
         {
             AuthManager.SignOut();
 
-            return Redirect(returnUrl);
+            return Redirect(Request.UrlReferrer.PathAndQuery);
         }
 
         [AllowAnonymous]

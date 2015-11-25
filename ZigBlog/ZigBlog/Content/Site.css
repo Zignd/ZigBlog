@@ -96,7 +96,27 @@ h1 > a {
     border-bottom-right-radius: 4px;
 }
 
-.zg-like-button {
+.zg-postpartial-panel {
+    margin-top: 2em;
+    margin-bottom: 5em;
+}
+
+.zg-postpartial-panel-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.zg-postpartial-panel-heading-like {
+    display: flex;
+    align-items: center;
+}
+
+.zg-postpartial-panel-heading-like-counter {
+    font-size: 2em;
+}
+
+.zg-postpartial-panel-heading-like-button {
     border: none;
     outline: none;
     background: transparent;
@@ -107,7 +127,7 @@ h1 > a {
     transition: all 0.3s;
 }
 
-    .zg-like-button.zg-likes {
+    .zg-postpartial-panel-heading-like-button.zg-likes {
         color: #F26D7D;
         transition: all 0.3s;
     }

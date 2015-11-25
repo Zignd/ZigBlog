@@ -49,10 +49,10 @@
         @Html.ValidationMessageFor(m => m.Content)
     </div>
 
-    <button class="btn btn-primary" type="submit">?Post</button>
+    <button class="btn btn-primary" type="submit">@Translation.Post</button>
 }
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/zg.editor")
+    @Scripts.Render("~/bundles/zgeditor")
 }
