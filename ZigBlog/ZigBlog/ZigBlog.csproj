@@ -178,6 +178,8 @@
     <None Include="App_Data\ZigBlogConfig.json" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="db.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\zg.editor.js" />
     <Content Include="Scripts\MarkdownDeep.js" />
     <Content Include="Scripts\MarkdownDeep.min.js" />
@@ -259,7 +261,6 @@
     <Content Include="Views\User\Profile.cshtml" />
     <Content Include="Views\Home\New.cshtml" />
     <Content Include="Views\Home\Show.cshtml" />
-    <Content Include="Views\Home\PostPartial.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

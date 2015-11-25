@@ -1,4 +1,5 @@
 ﻿@using ZigBlog.Models.ViewModels
+@using ZigBlog.Common.Identity
 
 @model HomeShowViewModel
 
@@ -6,8 +7,53 @@
     ViewBag.Title = "Show";
 }
 
-@Html.Partial("PostPartial", new HomePostPartialModel
-{
-    HomePageMode = false,
-    Post = Model.Post
-})
+<div class="panel panel-default" style="margin-top: 2em; margin-bottom: 5em;">
+    <div class="panel-heading">
+        <div style="display: flex; align-items: center; justify-content: space-between;">
+            <div>
+                <h1><a href="@Url.RouteUrl("Show", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl })">@Model.Post.Title</a></h1>
+            </div>
+            <div style="display: flex; align-items: center;">
+                <span id="likesCounter" style="font-size: 2em;">@Model.Post.Likes.Count</span>
+
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var routeValues = new { postId = Model.Post.Id };
+                    var ajaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "updateLikeButton" };
+
+                    using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions))
+                    {
+                        <button id="likeButton" class="zg-like-button @(Model.Post.Likes.Contains(IdentityHelper.CurrentUser.Id) ? "zg-likes" : null)" type="submit">❤</button>
+                    }
+                }
+                else
+                {
+                    <div class="zg-like-button">❤</div>
+                }
+            </div>
+        </div>
+    </div>
+    <div class="panel-body">
+        @Html.Raw(Model.Post.ParsedContent)
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        /// <reference path="~/Scripts/jquery-2.1.4.js"/>
+
+        'use strict';
+
+        function updateLikeButton(data) {
+            if (data) {
+                if (data.Likes) {
+                    $('#likeButton').addClass('zg-likes');
+                } else {
+                    $('#likeButton').removeClass('zg-likes');
+                }
+
+                $('#likesCounter').text(data.LikesCount);
+            }
+        }
+    </script>
+}

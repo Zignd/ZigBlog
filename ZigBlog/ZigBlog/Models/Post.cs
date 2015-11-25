@@ -25,7 +25,7 @@ namespace ZigBlog.Models
         public string Title { get; set; }
         public string Content { get; set; }
         public string ParsedContent { get; set; }
-        public List<int> Likes { get; set; } = new List<int>();
+        public List<string> Likes { get; set; } = new List<string>();
         
         #endregion
 

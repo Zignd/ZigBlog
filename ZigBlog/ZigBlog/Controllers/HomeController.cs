@@ -80,6 +80,43 @@ namespace ZigBlog.Controllers
             });
         }
 
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> LikePost(int postId)
+        {
+            var filter = Builders<Post>.Filter.Eq(x => x.Id, postId);
+            var post = await ZigBlogDb.Posts.Find(filter).FirstOrDefaultAsync();
+            
+            if (post == null)
+                throw new Exception(Translation.ThisPostCouldNotBeFoundException);
+
+            bool likes;
+            UpdateDefinition<Post> update = null;
+
+            if (post.Likes.Contains(IdentityHelper.CurrentUser.Id))
+            {
+                post.Likes.Remove(IdentityHelper.CurrentUser.Id);
+
+                likes = false;
+                update = Builders<Post>.Update.Pull(x => x.Likes, IdentityHelper.CurrentUser.Id);
+            }
+            else
+            {
+                post.Likes.Add(IdentityHelper.CurrentUser.Id);
+                
+                likes = true;
+                update = Builders<Post>.Update.Push(x => x.Likes, IdentityHelper.CurrentUser.Id);
+            }
+
+            await ZigBlogDb.Posts.UpdateOneAsync(filter, update);
+
+            return Json(new
+            {
+                Likes = likes,
+                LikesCount = post.Likes.Count
+            });
+        }
+
         // GET: /about
         public async Task<ActionResult> About()
         {
@@ -99,7 +136,7 @@ Praesent quis arcu non massa vehicula ultricies.
 
 Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.
 
-![Yo yo thick](https://i.imgur.com/Wx8Gkmt.jpg)
+![Yo yo doggy!](http://i.stack.imgur.com/SJDve.jpg)
 
 Ut sollicitudin, dolor ut efficitur venenatis, lacus magna cursus libero, vel consequat sem dui tincidunt leo.Maecenas in ipsum et neque tincidunt maximus quis vitae purus. Nulla facilisi. Duis blandit facilisis eros vitae consectetur. In dolor metus, vestibulum non tortor vitae, feugiat fringilla nisi. Duis in risus felis. Cras malesuada congue nisi, eget molestie ante euismod in.
 

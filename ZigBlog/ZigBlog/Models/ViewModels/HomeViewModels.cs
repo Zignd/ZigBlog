@@ -28,12 +28,6 @@ namespace ZigBlog.Models.ViewModels
         public Post Post { get; set; }
     }
 
-    public class HomePostPartialModel
-    {
-        public bool HomePageMode { get; set; }
-        public Post Post { get; set; }
-    }
-
     public class HomeAboutViewModel
     {
         public string AboutContent { get; set; }
