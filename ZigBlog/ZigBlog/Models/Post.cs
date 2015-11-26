@@ -39,7 +39,7 @@ namespace ZigBlog.Models
                 if (_blogger == null)
                 {
                     var filter = Builders<AppUser>.Filter.Eq(x => x.Id, BloggerId);
-                    var task = ZigBlogDb.Users.Find(filter).FirstOrDefaultAsync();
+                    var task = ZigBlogDb.Users.Find(filter).SingleOrDefaultAsync();
 
                     task.Wait();
 

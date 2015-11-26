@@ -1,6 +1,6 @@
 ﻿@using ZigBlog.Translations
 
-@model ZigBlog.Models.ViewModels.HomeNewViewModel
+@model ZigBlog.Models.ViewModels.HomeNewEditViewModel
 
 @{
     ViewBag.Title = "New";
@@ -10,6 +10,11 @@
 
 @using (Html.BeginForm())
 {
+    if (!Model.IsNewMode)
+    {
+        @Html.HiddenFor(x => x.TitleUrl)
+    }
+
     <div class="form-group">
         @Html.LabelFor(x => x.Title)
         @Html.TextBoxFor(x => x.Title, new { @class = "form-control", style = "max-width: none" })
@@ -49,7 +54,7 @@
         @Html.ValidationMessageFor(m => m.Content)
     </div>
 
-    <button class="btn btn-primary" type="submit">@Translation.Post</button>
+    <button class="btn btn-primary" type="submit">@(Model.IsNewMode ? Translation.Post : Translation.SaveEdits)</button>
 }
 
 @section Scripts {

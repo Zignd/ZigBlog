@@ -225,4 +225,7 @@
   <data name="Post" xml:space="preserve">
     <value>Post</value>
   </data>
+  <data name="SaveEdits" xml:space="preserve">
+    <value>Save Edits</value>
+  </data>
 </root>

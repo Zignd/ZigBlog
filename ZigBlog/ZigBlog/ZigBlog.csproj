@@ -227,6 +227,7 @@
     <Compile Include="Common\Identity\AppRoleManager.cs" />
     <Compile Include="Common\Identity\AppUserManager.cs" />
     <Compile Include="Common\Identity\IdentityHelper.cs" />
+    <Compile Include="Common\Validation\AdministratorOrAuthorAttribute.cs" />
     <Compile Include="Common\Validation\PasswordValidationAttribute.cs" />
     <Compile Include="Common\Validation\UniqueEmailAttribute.cs" />
     <Compile Include="Common\Validation\UniqueUsernameAttribute.cs" />
@@ -261,7 +262,7 @@
     <Content Include="Views\User\SignIn.cshtml" />
     <Content Include="Views\User\SignUp.cshtml" />
     <Content Include="Views\User\Profile.cshtml" />
-    <Content Include="Views\Home\New.cshtml" />
+    <Content Include="Views\Home\NewEdit.cshtml" />
     <Content Include="Views\Home\_Post.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -14,13 +14,17 @@ namespace ZigBlog.Models.ViewModels
         public List<Post> Posts { get; set; }
     }
 
-    public class HomeNewViewModel
+    public class HomeNewEditViewModel
     {
+        public string TitleUrl { get; set; }
+
         [Required]
         public string Title { get; set; }
 
         [Required]
         public string Content { get; set; }
+
+        public bool IsNewMode { get; set; }
     }
 
     public class HomeShowViewModel
@@ -30,7 +34,7 @@ namespace ZigBlog.Models.ViewModels
 
     public class HomePostPartialViewModel
     {
-        public bool HomePageMode { get; set; }
+        public bool IsHomePageMode { get; set; }
         public Post Post { get; set; }
     }
 

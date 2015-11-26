@@ -10,6 +10,7 @@ using System.Web;
 using System.Web.Mvc;
 using ZigBlog.Common.Database;
 using ZigBlog.Common.Identity;
+using ZigBlog.Common.Validation;
 using ZigBlog.Controllers.Common;
 using ZigBlog.Models;
 using ZigBlog.Models.ViewModels;
@@ -39,16 +40,19 @@ namespace ZigBlog.Controllers
         [Authorize(Roles = "Administrator,Blogger")]
         public ActionResult New()
         {
-            return View();
+            return View("NewEdit", new HomeNewEditViewModel
+            {
+                IsNewMode = true
+            });
         }
 
         // POST: /new
         [Authorize(Roles = "Administrator,Blogger")]
         [HttpPost]
-        public async Task<ActionResult> New(HomeNewViewModel viewModel)
+        public async Task<ActionResult> New(HomeNewEditViewModel viewModel)
         {
             if (!ModelState.IsValid)
-                return View(viewModel);
+                return View("NewEdit", viewModel);
 
             var post = new Post
             {
@@ -56,20 +60,59 @@ namespace ZigBlog.Controllers
                 TitleUrl = await GenerateTitleUrl(viewModel.Title),
                 Title = viewModel.Title,
                 Content = viewModel.Content,
-                ParsedContent = (new Markdown()).Transform(viewModel.Content),
+                ParsedContent = Markdown.Transform(viewModel.Content),
                 Created = DateTime.Now
             };
 
             await ZigBlogDb.Posts.InsertOneAsync(post);
 
-            return RedirectToAction("Page", "Home");
+            return RedirectToAction("Show", new { titleUrl = post.TitleUrl });
+        }
+
+        // GET: /{year}/{month}/{day}/{titleUrl}/edit
+        [AdministratorOrAuthor]
+        public async Task<ActionResult> Edit(string titleUrl)
+        {
+            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
+            var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
+
+            if (post == null)
+                throw new Exception(Translation.ThisPostCouldNotBeFoundException);
+
+            return View("NewEdit", new HomeNewEditViewModel
+            {
+                TitleUrl = post.TitleUrl,
+                Title = post.Title,
+                Content = post.Content,
+                IsNewMode = false
+            });
+        }
+
+        // POST: /{year}/{month}/{day}/{titleUrl}/edit
+        [AdministratorOrAuthor]
+        [HttpPost]
+        public async Task<ActionResult> Edit(HomeNewEditViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View("NewEdit", viewModel);
+
+            var newTitleUrl = await GenerateTitleUrl(viewModel.Title);
+
+            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, viewModel.TitleUrl);
+            var update = Builders<Post>.Update.Set(x => x.Title, viewModel.Title)
+                                              .Set(x => x.TitleUrl, newTitleUrl)
+                                              .Set(x => x.Content, viewModel.Content)
+                                              .Set(x => x.ParsedContent, Markdown.Transform(viewModel.Content));
+            await ZigBlogDb.Posts.UpdateOneAsync(filter, update);
+
+            return RedirectToAction("Show", new { titleUrl = newTitleUrl });
         }
 
         // GET: /{year}/{month}/{day}/{titleUrl}
         public async Task<ActionResult> Show(string titleUrl)
         {
             var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
-            var post = await ZigBlogDb.Posts.Find(filter).FirstOrDefaultAsync();
+            var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
 
             if (post == null)
                 throw new Exception(Translation.ThisPostCouldNotBeFoundException);
@@ -85,7 +128,7 @@ namespace ZigBlog.Controllers
         public async Task<ActionResult> LikePost(int postId)
         {
             var filter = Builders<Post>.Filter.Eq(x => x.Id, postId);
-            var post = await ZigBlogDb.Posts.Find(filter).FirstOrDefaultAsync();
+            var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
             
             if (post == null)
                 throw new Exception(Translation.ThisPostCouldNotBeFoundException);
@@ -137,7 +180,7 @@ Praesent quis arcu non massa vehicula ultricies.
 
 Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.
 
-![Yo yo doggy!](http://i.stack.imgur.com/SJDve.jpg)
+![Yo yo doggy!](https://s-media-cache-ak0.pinimg.com/736x/c0/72/4a/c0724afebaa3ac1376cbb9ba24402ac6.jpg)
 
 Ut sollicitudin, dolor ut efficitur venenatis, lacus magna cursus libero, vel consequat sem dui tincidunt leo.Maecenas in ipsum et neque tincidunt maximus quis vitae purus. Nulla facilisi. Duis blandit facilisis eros vitae consectetur. In dolor metus, vestibulum non tortor vitae, feugiat fringilla nisi. Duis in risus felis. Cras malesuada congue nisi, eget molestie ante euismod in.
 
@@ -160,7 +203,7 @@ Praesent accumsan molestie convallis. Nullam nec sodales sapien. In imperdiet er
                     TitleUrl = $"lorem_ipsum_dolor_sit_amet_{i + 1}",
                     Title = $"Lorem ipsum dolor sit amet {i + 1}",
                     Content = content,
-                    ParsedContent = (new Markdown()).Transform(content),
+                    ParsedContent = Markdown.Transform(content),
                     Created = data
                 });
 
@@ -208,6 +251,21 @@ Praesent accumsan molestie convallis. Nullam nec sodales sapien. In imperdiet er
                 titleUrl = string.Format($"{title}-{counter++}");
 
             return titleUrl;
+        }
+
+        private Markdown Markdown
+        {
+            get
+            {
+                return new Markdown
+                {
+                    PrepareImage = (tag, _) =>
+                    {
+                        tag.attributes.Add("class", "zg-post-image-width");
+                        return true;
+                    }
+                };
+            }
         }
     }
 }

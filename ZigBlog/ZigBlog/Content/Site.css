@@ -109,7 +109,7 @@ h1 > a {
 
 .zg-postpartial-panel-heading-like {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
 }
 
 .zg-postpartial-panel-heading-like-counter {
@@ -124,6 +124,7 @@ h1 > a {
     height: 50px;
     color: #666;
     font-size: 3.5em;
+    align-self: baseline;
     transition: all 0.3s;
 }
 
@@ -131,3 +132,8 @@ h1 > a {
         color: #F26D7D;
         transition: all 0.3s;
     }
+
+.zg-post-image-width {
+    max-width: 100%;
+    max-height: 50em;
+}

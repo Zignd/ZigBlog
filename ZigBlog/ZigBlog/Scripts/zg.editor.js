@@ -7,6 +7,10 @@
 $(function () {
     var editor = new MarkdownDeepEditor.Editor(document.getElementById('editor'), document.getElementById('editorOutput'));
 
+    editor.Markdown.OnPrepareImage = function (tag) {
+        tag.attributes.class = "zg-post-image-width";
+    }
+
     $('.zg-editor-bar-btn-undo').click(function () { editor.InvokeCommand('undo'); });
     $('.zg-editor-bar-btn-redo').click(function () { editor.InvokeCommand('redo'); });
     $('.zg-editor-bar-btn-bold').click(function () { editor.InvokeCommand('bold'); });

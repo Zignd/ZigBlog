@@ -8,31 +8,32 @@
         <div>
             <h1><a href="@Url.RouteUrl("Show", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl })">@Model.Post.Title</a></h1>
         </div>
-        <div class="zg-postpartial-panel-heading-like">
-            <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.Likes.Count</span>
+        @if (User.Identity.IsAuthenticated)
+        {
+            var routeValues = new { postId = Model.Post.Id };
+            var ajaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "updateLikeButton" };
 
-            @if (User.Identity.IsAuthenticated)
+            using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions, new { @class = "zg-postpartial-panel-heading-like" }))
             {
-                var routeValues = new { postId = Model.Post.Id };
-                var ajaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "updateLikeButton" };
-
-                using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions))
-                {
-                    <button class="zg-postpartial-panel-heading-like-button @(Model.Post.Likes.Contains(IdentityHelper.CurrentUser.Id) ? "zg-likes" : null)" data-zg-postid="@Model.Post.Id" type="submit">❤</button>
-                }
+                <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.Likes.Count</span>
+                <button class="zg-postpartial-panel-heading-like-button @(Model.Post.Likes.Contains(IdentityHelper.CurrentUser.Id) ? "zg-likes" : null)" data-zg-postid="@Model.Post.Id" type="submit">❤</button>
             }
-            else
-            {
-                <div class="zg-like-button">❤</div>
-            }
-        </div>
+        }
+        else
+        {
+            <div class="zg-postpartial-panel-heading-like">
+                <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.Likes.Count</span>
+                <button class="zg-postpartial-panel-heading-like-button" style="cursor: default">❤</button>
+            </div>
+        }
     </div>
-    <div class="panel-body" style="@(Model.HomePageMode ? "height: 7em; overflow: hidden;" : null)">
+    <div class="panel-body" style="@(Model.IsHomePageMode ? "height: 7em; overflow: hidden;" : null)">
         @Html.Raw(Model.Post.ParsedContent)
     </div>
     <div class="panel-footer">
         <div>@Translation.ClickToExpand</div>
         <div>@Translation.ClickToCollapse</div>
         <div>@Model.Post.Comments.Count @Translation.Comments</div>
+        @Html.RouteLink("?Edit", "Edit", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl })
     </div>
 </div>

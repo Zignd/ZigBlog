@@ -14,6 +14,11 @@ namespace ZigBlog
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.LowercaseUrls = true;
+            
+            routes.MapRoute(
+                name: "Edit",
+                url: "{year}/{month}/{day}/{titleUrl}/edit",
+                defaults: new { controller = "Home", action = "Edit" });
 
             routes.MapRoute(
                 name: "Show",

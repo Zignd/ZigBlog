@@ -259,6 +259,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Save Edits.
+        /// </summary>
+        public static string SaveEdits {
+            get {
+                return ResourceManager.GetString("SaveEdits", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to enter your credentials.
         /// </summary>
         public static string SignInDescription {
