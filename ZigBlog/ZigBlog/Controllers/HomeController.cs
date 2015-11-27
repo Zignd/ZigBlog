@@ -8,6 +8,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using ZigBlog.Common;
 using ZigBlog.Common.Database;
 using ZigBlog.Common.Identity;
 using ZigBlog.Common.Validation;
@@ -34,6 +35,21 @@ namespace ZigBlog.Controllers
             };
 
             return View(viewModel);
+        }
+        
+        // GET: /{year}/{month}/{day}/{titleUrl}
+        public async Task<ActionResult> Show(string titleUrl)
+        {
+            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
+            var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
+
+            if (post == null)
+                throw new Exception(Translation.ThisPostCouldNotBeFoundException);
+
+            return View(new HomeShowViewModel
+            {
+                Post = post
+            });
         }
 
         // GET: /new
@@ -108,26 +124,23 @@ namespace ZigBlog.Controllers
             return RedirectToAction("Show", new { titleUrl = newTitleUrl });
         }
 
-        // GET: /{year}/{month}/{day}/{titleUrl}
-        public async Task<ActionResult> Show(string titleUrl)
+        // POST: /home/delete?titleUrl={titleUrl}
+        [AdministratorOrAuthor]
+        [HttpPost]
+        public async Task<ActionResult> Delete(string titleUrl)
         {
-            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
-            var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
+            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl);
+            await ZigBlogDb.Posts.DeleteOneAsync(filter);
 
-            if (post == null)
-                throw new Exception(Translation.ThisPostCouldNotBeFoundException);
-
-            return View(new HomeShowViewModel
-            {
-                Post = post
-            });
+            return RedirectToAction("Page");
         }
 
+        // POST: /home/likepost?titleUrl={titleUrl}
         [Authorize]
         [HttpPost]
-        public async Task<ActionResult> LikePost(int postId)
+        public async Task<ActionResult> LikePost(string titleUrl)
         {
-            var filter = Builders<Post>.Filter.Eq(x => x.Id, postId);
+            var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl);
             var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
             
             if (post == null)

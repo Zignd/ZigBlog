@@ -17,21 +17,23 @@ namespace ZigBlog.Common.Validation
         {
             if (httpContext.User.Identity.IsAuthenticated)
             {
-                var titleUrl = httpContext.Request.RequestContext.RouteData.Values["titleUrl"].ToString();
+                var titleUrl = httpContext.Request.RequestContext.RouteData.Values["titleUrl"] as string ??
+                               httpContext.Request["titleUrl"] as string;
 
                 if (titleUrl == null)
                     throw new Exception("The AdministratorOrAuthorAttribute requires a post's title URL as a route data in order to perform the authentication");
-                
+
+                if (!HttpContext.Current.User.Identity.IsAuthenticated)
+                    return false;
+
                 // Looks for a post in which the current user is the author and which has the provided title URL
                 var filter = Builders<Post>.Filter.Eq(x => x.BloggerId, IdentityHelper.CurrentUser.Id) & Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl);
                 var task = ZigBlogDb.Posts.Find(filter).CountAsync();
 
                 task.Wait();
 
-                // Check if current user is in the "Administrator" role or if the current user is the author of the post,
-                // is so, the user is allowed to edit the post
-                if (httpContext.User.IsInRole("Administrator") || task.Result != 0)
-                    return true;
+                // Checks if current user is in the "Administrator" role or if the current user is the author of the post, is so, true
+                return HttpContext.Current.User.IsInRole("Administrator") || task.Result != 0;
             }
 
             return false;

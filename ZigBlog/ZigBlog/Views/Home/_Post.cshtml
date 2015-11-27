@@ -1,4 +1,5 @@
-﻿@using ZigBlog.Common.Identity
+﻿@using ZigBlog.Common
+@using ZigBlog.Common.Identity
 @using ZigBlog.Translations
 
 @model ZigBlog.Models.ViewModels.HomePostPartialViewModel
@@ -10,7 +11,7 @@
         </div>
         @if (User.Identity.IsAuthenticated)
         {
-            var routeValues = new { postId = Model.Post.Id };
+            var routeValues = new { titleUrl = Model.Post.TitleUrl };
             var ajaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "updateLikeButton" };
 
             using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions, new { @class = "zg-postpartial-panel-heading-like" }))
@@ -34,6 +35,13 @@
         <div>@Translation.ClickToExpand</div>
         <div>@Translation.ClickToCollapse</div>
         <div>@Model.Post.Comments.Count @Translation.Comments</div>
-        @Html.RouteLink("?Edit", "Edit", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl })
+        @if (User.Identity.IsAuthenticated && (User.IsInRole("Administrator") || Model.Post.BloggerId.Equals(IdentityHelper.CurrentUser.Id)))
+        {
+            @Html.RouteLink(Translation.Edit, "Edit", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl }, new { @class = "btn btn-xs btn-primary" })
+            using (Html.BeginForm("Delete", "Home", new { titleUrl = Model.Post.TitleUrl }))
+            {
+                <button class="btn btn-xs btn-danger" type="submit">@Translation.Delete</button>
+            }
+        }
     </div>
 </div>

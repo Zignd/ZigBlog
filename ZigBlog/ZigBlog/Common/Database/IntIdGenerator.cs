@@ -15,7 +15,7 @@ namespace ZigBlog.Common.Database
         {
             try
             {
-                // TODO: Find a way to make this id generation not to depend on ZigBlogDb.
+                // TODO: Find a way to make this id generation not to depend on ZigBlogDb. Check what you can do with the container and document arguments
                 CollectionNamespace collectionNamespace = ((dynamic)container).CollectionNamespace;
 
                 var sort = Builders<BsonDocument>.Sort.Descending(b => b["_id"]);
@@ -26,10 +26,7 @@ namespace ZigBlog.Common.Database
                 if (result == null)
                     return 1;
 
-                if (result["_id"].IsDouble)
-                    return Convert.ToInt32(result["_id"].AsDouble + 1);
-                else
-                    return Convert.ToInt32(result["_id"].AsInt32 + 1);
+                return Convert.ToInt32(result["_id"]) + 1;
             }
             catch (Exception ex)
             {

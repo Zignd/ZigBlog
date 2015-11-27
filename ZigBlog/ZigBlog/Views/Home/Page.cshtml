@@ -14,7 +14,7 @@
 
 @foreach (var post in Model.Posts)
 {
-    @Html.Partial("_Post", new HomePostPartialViewModel { IsHomePageMode = true, Post = post })
+    @Html.Partial("_Post", new HomePostPartialViewModel { Post = post, IsHomePageMode = true })
 }
 
 @{

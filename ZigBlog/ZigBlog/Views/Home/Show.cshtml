@@ -7,7 +7,7 @@
     ViewBag.Title = "Show";
 }
 
-@Html.Partial("_Post", new HomePostPartialViewModel { IsHomePageMode = false, Post = Model.Post })
+@Html.Partial("_Post", new HomePostPartialViewModel { Post = Model.Post, IsHomePageMode = false })
 
 @section Scripts {
     @Scripts.Render("~/bundles/zgpostpartial")

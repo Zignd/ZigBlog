@@ -25,7 +25,7 @@ namespace ZigBlog.Common.Database
                 // TODO: Change it so the MongoDB url is retrieved from a configuration file.
                 if (_client == null)
                     _client = new MongoClient("mongodb://localhost:27017");
-
+                
                 return _client;
             }
         }
