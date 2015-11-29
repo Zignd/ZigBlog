@@ -178,6 +178,24 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Please enter with the post content.
+        /// </summary>
+        public static string HomeNewEditContentValidationErrorRequired {
+            get {
+                return ResourceManager.GetString("HomeNewEditContentValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a title for this post.
+        /// </summary>
+        public static string HomeNewEditTitleValidationErrorRequired {
+            get {
+                return ResourceManager.GetString("HomeNewEditTitleValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Home Page.
         /// </summary>
         public static string HomePage {
@@ -246,6 +264,15 @@ namespace ZigBlog.Translations {
         public static string Post {
             get {
                 return ResourceManager.GetString("Post", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a comment.
+        /// </summary>
+        public static string PostCommentContentValidationErrorRequired {
+            get {
+                return ResourceManager.GetString("PostCommentContentValidationErrorRequired", resourceCulture);
             }
         }
         

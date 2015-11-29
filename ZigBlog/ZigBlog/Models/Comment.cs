@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace ZigBlog.Models
         #region Fields
         
         private AppUser _commenter;
+        private List<Comment> _children;
 
         #endregion
 
@@ -20,13 +22,18 @@ namespace ZigBlog.Models
 
         public int PostId { get; set; }
         public string CommenterId { get; set; }
+        public int? ParentId { get; set; }
         public string Content { get; set; }
-        public List<int> Likes { get; set; }
+        public string ParsedContent { get; set; }
+        public List<string> LikersIds { get; set; } = new List<string>();
+        public bool IsTopLevel { get; set; }
+        public List<int> ChildrensIds { get; set; } = new List<int>();
 
         #endregion
 
         #region Support Property
 
+        [BsonIgnore]
         public AppUser Commenter
         {
             get
@@ -42,6 +49,25 @@ namespace ZigBlog.Models
                 }
 
                 return _commenter;
+            }
+        }
+
+        [BsonIgnore]
+        public List<Comment> Children
+        {
+            get
+            {
+                if (_children == null)
+                {
+                    var filter = Builders<Comment>.Filter.In(x => x.Id, ChildrensIds);
+                    var task = ZigBlogDb.Comments.Find(filter).ToListAsync();
+
+                    task.Wait();
+
+                    _children = task.Result;
+                }
+
+                return _children;
             }
         }
 

@@ -234,4 +234,13 @@
   <data name="SaveEdits" xml:space="preserve">
     <value>Save Edits</value>
   </data>
+  <data name="HomeNewEditContentValidationErrorRequired" xml:space="preserve">
+    <value>Please enter with the post content</value>
+  </data>
+  <data name="HomeNewEditTitleValidationErrorRequired" xml:space="preserve">
+    <value>Please enter a title for this post</value>
+  </data>
+  <data name="PostCommentContentValidationErrorRequired" xml:space="preserve">
+    <value>Please enter a comment</value>
+  </data>
 </root>

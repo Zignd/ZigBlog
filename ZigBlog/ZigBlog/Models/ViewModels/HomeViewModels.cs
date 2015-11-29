@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using ZigBlog.Common;
+using ZigBlog.Translations;
 
 namespace ZigBlog.Models.ViewModels
 {
@@ -26,14 +27,24 @@ namespace ZigBlog.Models.ViewModels
         public bool IsHomePageMode { get; set; }
     }
 
+    public class HomePostCommentViewModel
+    {
+        public int PostId { get; set; }
+
+        public int? ParentId { get; set; }
+
+        [Required(ErrorMessageResourceName = "PostCommentContentValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        public string Content { get; set; }
+    }
+
     public class HomeNewEditViewModel
     {
         public string TitleUrl { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "HomeNewEditTitleValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
         public string Title { get; set; }
 
-        [Required]
+        [Required(ErrorMessageResourceName = "HomeNewEditContentValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
         public string Content { get; set; }
 
         public bool IsNewMode { get; set; }

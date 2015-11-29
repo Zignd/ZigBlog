@@ -149,19 +149,19 @@ namespace ZigBlog.Controllers
             bool userLikes;
             UpdateDefinition<Post> update = null;
 
-            if (post.Likes.Contains(IdentityHelper.CurrentUser.Id))
+            if (post.LikersIds.Contains(IdentityHelper.CurrentUser.Id))
             {
-                post.Likes.Remove(IdentityHelper.CurrentUser.Id);
+                post.LikersIds.Remove(IdentityHelper.CurrentUser.Id);
 
                 userLikes = false;
-                update = Builders<Post>.Update.Pull(x => x.Likes, IdentityHelper.CurrentUser.Id);
+                update = Builders<Post>.Update.Pull(x => x.LikersIds, IdentityHelper.CurrentUser.Id);
             }
             else
             {
-                post.Likes.Add(IdentityHelper.CurrentUser.Id);
+                post.LikersIds.Add(IdentityHelper.CurrentUser.Id);
                 
                 userLikes = true;
-                update = Builders<Post>.Update.Push(x => x.Likes, IdentityHelper.CurrentUser.Id);
+                update = Builders<Post>.Update.Push(x => x.LikersIds, IdentityHelper.CurrentUser.Id);
             }
 
             await ZigBlogDb.Posts.UpdateOneAsync(filter, update);
@@ -170,7 +170,7 @@ namespace ZigBlog.Controllers
             {
                 PostId = post.Id,
                 UserLikes = userLikes,
-                LikesCount = post.Likes.Count
+                LikesCount = post.LikersIds.Count
             });
         }
 

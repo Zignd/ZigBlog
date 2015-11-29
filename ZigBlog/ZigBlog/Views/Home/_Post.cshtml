@@ -12,18 +12,19 @@
         @if (User.Identity.IsAuthenticated)
         {
             var routeValues = new { titleUrl = Model.Post.TitleUrl };
-            var ajaxOptions = new AjaxOptions { HttpMethod = "Post", OnSuccess = "updateLikeButton" };
+            var ajaxOptions = new AjaxOptions { OnSuccess = "updateLikeButton" };
+            var htmlAttributes = new { @class = "zg-postpartial-panel-heading-like" };
 
-            using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions, new { @class = "zg-postpartial-panel-heading-like" }))
+            using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions, htmlAttributes))
             {
-                <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.Likes.Count</span>
-                <button class="zg-postpartial-panel-heading-like-button @(Model.Post.Likes.Contains(IdentityHelper.CurrentUser.Id) ? "zg-likes" : null)" data-zg-postid="@Model.Post.Id" type="submit">❤</button>
+                <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.LikersIds.Count</span>
+                <button class="zg-postpartial-panel-heading-like-button @(Model.Post.LikersIds.Contains(IdentityHelper.CurrentUser.Id) ? "zg-likes" : null)" data-zg-postid="@Model.Post.Id" type="submit">❤</button>
             }
         }
         else
         {
             <div class="zg-postpartial-panel-heading-like">
-                <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.Likes.Count</span>
+                <span class="zg-postpartial-panel-heading-like-counter" data-zg-postid="@Model.Post.Id" style="font-size: 2em;">@Model.Post.LikersIds.Count</span>
                 <button class="zg-postpartial-panel-heading-like-button" style="cursor: default">❤</button>
             </div>
         }
@@ -38,7 +39,11 @@
         @if (User.Identity.IsAuthenticated && (User.IsInRole("Administrator") || Model.Post.BloggerId.Equals(IdentityHelper.CurrentUser.Id)))
         {
             @Html.RouteLink(Translation.Edit, "Edit", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl }, new { @class = "btn btn-xs btn-primary" })
-            using (Html.BeginForm("Delete", "Home", new { titleUrl = Model.Post.TitleUrl }))
+
+            var routeValues = new { titleUrl = Model.Post.TitleUrl };
+            var htmlAttributes = new { style = "display: inline;" };
+
+            using (Html.BeginForm("Delete", "Home", routeValues, FormMethod.Post, htmlAttributes))
             {
                 <button class="btn btn-xs btn-danger" type="submit">@Translation.Delete</button>
             }

@@ -42,20 +42,162 @@
         </div>
     </div>
 
-    <div class="container body-content">
-    	<style>
-			.b:hover {
-				cursor: pointer;
-				background-color: blue;
-			}
-    	</style>
-		<input type="button" value="oi"/>
+    <style type="text/css">
+        .comment {
+            display: flex;
+        }
 
+        .comment-avatar {
+            width: 5em;
+            height: 5em;
+        }
+
+        .comment-content {
+            width: 100%;
+            max-width: none;
+            margin-left: .8em;
+            margin-right: .8em;
+        }
+
+        .comment-post {
+            align-self: flex-end;
+        }
+    </style>
+
+    <div class="container body-content">
+        <hr />
+
+        <div class="panel panel-default">
+            <div style="display: flex; margin: .8em;">
+                <div style="width: 5em;">
+                    <img style="height: 5em;" src="avatar.png">
+                    <div style="text-align: center;">Zignd</div>
+                </div>
+                <div style="margin-left: .8em">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</div>
+            </div>
+            <div class="panel-footer" style="display: flex; align-items: center; justify-content: space-between;">
+                <div style="display: flex; align-items: center;">
+                    <span class="zg-postpartial-panel-heading-like-counter" style="font-size: 1.08em;">3</span>
+                    <button class="zg-postpartial-panel-heading-like-button" style="font-size: 1.9em; margin-left: -0.3em;">❤</button>
+                </div>
+                <button class="btn btn-sm btn-default">Reply</button>
+            </div>
+        </div>
 
         <hr />
-        <footer>
-            <p>&copy; 10/10/1010 - My ASP.NET Application</p>
-        </footer>
+
+        <div>
+            <div class="panel panel-default">
+                <div style="display: flex; margin: .8em;">
+                    <div style="width: 5em;">
+                        <img style="height: 5em;" src="avatar.png">
+                        <div style="text-align: center;">Zignd</div>
+                    </div>
+                    <div style="margin-left: .8em">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</div>
+                </div>
+                <div class="panel-footer" style="display: flex; align-items: center; justify-content: space-between;">
+                    <div style="display: flex; align-items: center;">
+                        <span class="zg-postpartial-panel-heading-like-counter" style="font-size: 1.08em;">3</span>
+                        <button class="zg-postpartial-panel-heading-like-button" style="font-size: 1.9em; margin-left: -0.3em;">❤</button>
+                    </div>
+                    <button class="btn btn-sm btn-default">Reply</button>
+                </div>
+            </div>
+            <div style="padding-left: 2em;border-left: 1px dashed darkgray;">
+                <div class="panel panel-default">
+                    <div style="display: flex; margin: .8em;">
+                        <div style="width: 5em;">
+                            <img style="height: 5em;" src="avatar.png">
+                            <div style="text-align: center;">Zignd</div>
+                        </div>
+                        <div style="margin-left: .8em">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</div>
+                    </div>
+                    <div class="panel-footer" style="display: flex; align-items: center; justify-content: space-between;">
+                        <div style="display: flex; align-items: center;">
+                            <span class="zg-postpartial-panel-heading-like-counter" style="font-size: 1.08em;">3</span>
+                            <button class="zg-postpartial-panel-heading-like-button" style="font-size: 1.9em; margin-left: -0.3em;">❤</button>
+                        </div>
+                        <button class="btn btn-sm btn-default">Reply</button>
+                    </div>
+                </div>
+                
+                
+                <div style="padding-left: 2em;border-left: 1px dashed darkgray;">
+                    <div class="panel panel-default">
+                        <div style="display: flex; margin: .8em;">
+                            <div style="width: 5em;">
+                                <img style="height: 5em;" src="avatar.png">
+                                <div style="text-align: center;">Zignd</div>
+                            </div>
+                            <div style="margin-left: .8em">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</div>
+                        </div>
+                        <div class="panel-footer" style="display: flex; align-items: center; justify-content: space-between;">
+                            <div style="display: flex; align-items: center;">
+                                <span class="zg-postpartial-panel-heading-like-counter" style="font-size: 1.08em;">3</span>
+                                <button class="zg-postpartial-panel-heading-like-button" style="font-size: 1.9em; margin-left: -0.3em;">❤</button>
+                            </div>
+                            <button class="btn btn-sm btn-default">Reply</button>
+                        </div>
+                    </div>
+                    
+                    <div style="padding-left: 2em;border-left: 1px dashed darkgray;">
+                        <!-- Child comments or a reply control should be added here -->
+                        <div class="panel panel-default">
+                            <div style="display: flex; margin: .8em;">
+                                <div style="width: 5em;">
+                                    <img style="height: 5em;" src="avatar.png">
+                                    <div style="text-align: center;">Zignd</div>
+                                </div>
+                                <textarea style="width: 100%; max-width: none; margin: 0em .8em;">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</textarea>
+                            </div>
+                            <div class="panel-footer">
+                                <button class="btn btn-sm btn-primary">Submit</button>
+                            </div>
+                        </div>
+                            
+                        <div class="panel panel-default">
+                            <div style="display: flex; margin: .8em;">
+                                <div style="width: 5em;">
+                                    <img style="height: 5em;" src="avatar.png">
+                                    <div style="text-align: center;">Zignd</div>
+                                </div>
+                                <div style="margin-left: .8em">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</div>
+                            </div>
+                            <div class="panel-footer" style="display: flex; align-items: center; justify-content: space-between;">
+                                <div style="display: flex; align-items: center;">
+                                    <span class="zg-postpartial-panel-heading-like-counter" style="font-size: 1.08em;">3</span>
+                                    <button class="zg-postpartial-panel-heading-like-button" style="font-size: 1.9em; margin-left: -0.3em;">❤</button>
+                                </div>
+                                <button class="btn btn-sm btn-default">Reply</button>
+                            </div>
+                        </div>
+                        <div style="padding-left: 2em;border-left: 1px dashed darkgray;">
+                            <!-- Child comments or a reply control should be added here -->
+                        </div>
+
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+        
+
+        <hr />
+
+        <div class="panel panel-default">
+            <div style="display: flex; margin: .8em;">
+                <div style="width: 5em;">
+                    <img style="height: 5em;" src="avatar.png">
+                    <div style="text-align: center;">Zignd</div>
+                </div>
+                <textarea style="width: 100%; max-width: none; margin: 0em .8em;">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</textarea>
+            </div>
+            <div class="panel-footer">
+                <button class="btn btn-sm btn-primary">Submit</button>
+            </div>
+        </div>
     </div>
 
     <script type="text/javascript" src="Scripts/jquery-2.1.4.min.js"></script>
