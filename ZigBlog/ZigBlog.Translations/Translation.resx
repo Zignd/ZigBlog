@@ -243,4 +243,22 @@
   <data name="PostCommentContentValidationErrorRequired" xml:space="preserve">
     <value>Please enter a comment</value>
   </data>
+  <data name="PostComment" xml:space="preserve">
+    <value>Post comment</value>
+  </data>
+  <data name="ReplyToComment" xml:space="preserve">
+    <value>Reply to comment</value>
+  </data>
+  <data name="CantComment1" xml:space="preserve">
+    <value>In order to comment or reply to comments you need to</value>
+  </data>
+  <data name="CantComment2" xml:space="preserve">
+    <value>or</value>
+  </data>
+  <data name="CommentsSection" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="CommentsSectionSmall" xml:space="preserve">
+    <value>please leave a comment, your opinion is very important :)</value>
+  </data>
 </root>

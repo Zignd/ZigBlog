@@ -97,6 +97,24 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In order to comment or reply to comments you need to.
+        /// </summary>
+        public static string CantComment1 {
+            get {
+                return ResourceManager.GetString("CantComment1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to or.
+        /// </summary>
+        public static string CantComment2 {
+            get {
+                return ResourceManager.GetString("CantComment2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click to collapse.
         /// </summary>
         public static string ClickToCollapse {
@@ -120,6 +138,24 @@ namespace ZigBlog.Translations {
         public static string Comments {
             get {
                 return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string CommentsSection {
+            get {
+                return ResourceManager.GetString("CommentsSection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to please leave a comment, your opinion is very important :).
+        /// </summary>
+        public static string CommentsSectionSmall {
+            get {
+                return ResourceManager.GetString("CommentsSectionSmall", resourceCulture);
             }
         }
         
@@ -268,6 +304,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Post comment.
+        /// </summary>
+        public static string PostComment {
+            get {
+                return ResourceManager.GetString("PostComment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please enter a comment.
         /// </summary>
         public static string PostCommentContentValidationErrorRequired {
@@ -291,6 +336,15 @@ namespace ZigBlog.Translations {
         public static string RememberMe {
             get {
                 return ResourceManager.GetString("RememberMe", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reply to comment.
+        /// </summary>
+        public static string ReplyToComment {
+            get {
+                return ResourceManager.GetString("ReplyToComment", resourceCulture);
             }
         }
         

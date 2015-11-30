@@ -2,10 +2,12 @@
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using ZigBlog.Common.Database;
 using ZigBlog.Models.Common;
+using ZigBlog.Translations;
 
 namespace ZigBlog.Models
 {
@@ -21,12 +23,20 @@ namespace ZigBlog.Models
         #region Main Properties
 
         public int PostId { get; set; }
+
         public string CommenterId { get; set; }
+
         public int? ParentId { get; set; }
+
+        [Required(ErrorMessageResourceName = "PostCommentContentValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
         public string Content { get; set; }
+
         public string ParsedContent { get; set; }
+
         public List<string> LikersIds { get; set; } = new List<string>();
+
         public bool IsTopLevel { get; set; }
+
         public List<int> ChildrensIds { get; set; } = new List<int>();
 
         #endregion

@@ -19,22 +19,13 @@ namespace ZigBlog.Models.ViewModels
     public class HomeShowViewModel
     {
         public Post Post { get; set; }
+        public Comment Comment { get; set; }
     }
 
     public class HomePostPartialViewModel
     {
         public Post Post { get; set; }
         public bool IsHomePageMode { get; set; }
-    }
-
-    public class HomePostCommentViewModel
-    {
-        public int PostId { get; set; }
-
-        public int? ParentId { get; set; }
-
-        [Required(ErrorMessageResourceName = "PostCommentContentValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
-        public string Content { get; set; }
     }
 
     public class HomeNewEditViewModel

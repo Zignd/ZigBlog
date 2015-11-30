@@ -128,12 +128,77 @@ h1 > a {
     transition: all 0.3s;
 }
 
-    .zg-postpartial-panel-heading-like-button.zg-likes {
-        color: #F26D7D;
-        transition: all 0.3s;
-    }
+.zg-likes {
+    color: #F26D7D;
+    transition: all 0.3s;
+}
 
 .zg-post-image-width {
     max-width: 100%;
     max-height: 50em;
+}
+
+.zg-comment-children {
+    padding-left: 2em;
+    border-left: 1px dashed darkgray;
+}
+
+.zg-comment-body {
+    display: flex;
+    margin: .8em;
+}
+
+.zg-comment-body-avatar {
+    width: 5em;
+}
+
+.zg-comment-body-avatar-picture {
+    width: 5em;
+    height: 5em;
+    background-size: auto 100%;
+    background-color: transparent;
+    background-position: 50%;
+    background-repeat: no-repeat;
+}
+
+.zg-comment-body-avatar-username {
+    text-align: center;
+}
+
+.zg-comment-body-content {
+    margin-left: .8em;
+}
+
+.zg-comment-body-textarea {
+    width: 100%;
+    max-width: none;
+    margin: 0em .8em;
+}
+
+.zg-comment-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.zg-comment-footer-like {
+    display: flex;
+    align-items: center;
+}
+
+.zg-comment-footer-like-counter {
+    font-size: 1.08em;
+}
+
+.zg-comment-footer-like-button {
+    border: none;
+    outline: none;
+    background: transparent;
+    width: 50px;
+    height: 50px;
+    color: #666;
+    font-size: 1.9em;
+    align-self: baseline;
+    transition: all 0.3s;
+    margin-left: -0.3em;
 }

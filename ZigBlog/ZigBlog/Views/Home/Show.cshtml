@@ -1,6 +1,6 @@
 ﻿@using ZigBlog.Models
 @using ZigBlog.Models.ViewModels
-@using ZigBlog.Common.Identity
+@using ZigBlog.Translations
 
 @model HomeShowViewModel
 
@@ -10,60 +10,78 @@
 
 @helper CommentPostForm()
 {
-    var routeValues = new { titleUrl = Model.Post.TitleUrl };
-    var ajaxOptions = new AjaxOptions { OnSuccess = "updateCommentsSection" };
+var routeValues = new { titleUrl = Model.Post.TitleUrl };
+var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessPostComment", OnFailure = "onFailurePostComment", UpdateTargetId = "newComment" };
 
-    using (Ajax.BeginForm("PostComment", routeValues, ajaxOptions))
-    {
+using (Ajax.BeginForm("PostComment", routeValues, ajaxOptions))
+{
+        @Html.HiddenFor(x => x.Comment.PostId)
+
         <div class="panel panel-default">
-            <div style="display: flex; margin: .8em;">
-                <div style="width: 5em;">
-                    <img style="height: 5em;" src="avatar.png">
-                    <div style="text-align: center;">Zignd</div>
+            <div class="zg-comment-body">
+                <div class="zg-comment-body-avatar">
+                    <div class="zg-comment-body-avatar-picture" style="background-image: url('/Content/Images/Avatars/@(User.Identity.Name).png');"></div>
+                    <div class="zg-comment-body-avatar-username">@User.Identity.Name</div>
                 </div>
-                <textarea name="" style="width: 100%; max-width: none; margin: 0em .8em;">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</textarea>
+                @Html.TextAreaFor(x => x.Comment.Content, new { @class = "zg-comment-body-textarea" })
+                @Html.ValidationMessageFor(x => x.Comment.Content)
             </div>
             <div class="panel-footer">
-                <button class="btn btn-sm btn-primary">Submit</button>
+                <button class="btn btn-sm btn-primary">@Translation.PostComment</button>
             </div>
         </div>
-    }
 }
-
-@helper Comment(Comment comment) {
-    <div class="panel panel-default">
-        <div style="display: flex; margin: .8em;">
-            <div style="width: 5em;">
-                <img style="height: 5em;" src="avatar.png">
-                <div style="text-align: center;">Zignd</div>
-            </div>
-            <div style="margin-left: .8em">Pellentesque sed condimentum lectus. Curabitur justo tortor, vestibulum at elementum at, posuere quis ex. Sed eget aliquam nibh. Proin lacinia pretium ipsum, ac lacinia lectus. Nullam sed ex id mauris tincidunt tincidunt.Integer pulvinar, ligula sed tristique ornare, eros mauris dapibus enim, sit amet fermentum neque elit et felis. Duis finibus sem quis sem lacinia, eu tristique augue volutpat.Nulla sed nulla finibus, malesuada lorem in, convallis est.</div>
-        </div>
-        <div class="panel-footer" style="display: flex; align-items: center; justify-content: space-between;">
-            <div style="display: flex; align-items: center;">
-                <span class="zg-postpartial-panel-heading-like-counter" style="font-size: 1.08em;">3</span>
-                <button class="zg-postpartial-panel-heading-like-button" style="font-size: 1.9em; margin-left: -0.3em;">❤</button>
-            </div>
-            <button class="btn btn-sm btn-default">Reply</button>
-        </div>
-    </div>
-    <div style="padding-left: 2em;border-left: 1px dashed darkgray;">
-        @foreach (var child in comment.Children)
-        {
-            @Comment(child)
-        }
-    </div>
 }
 
 @Html.Partial("_Post", new HomePostPartialViewModel { Post = Model.Post, IsHomePageMode = false })
 
-@CommentPostForm()
+<h3 style="margin-bottom: 1em; margin-top: -1em;">
+    @Translation.CommentsSection <small>@Translation.CommentsSectionSmall</small>
+</h3>
 
-@foreach (var comment in Model.Post.Comments)
+@if (User.Identity.IsAuthenticated)
 {
-    @Comment(comment)
+    @CommentPostForm()
+}
+else
+{
+    <div class="panel panel-default">
+        <div style="margin: .8em;">@Translation.CantComment1 @Html.ActionLink(Translation.UserSignUp, "SignUp", "User") @Translation.CantComment2 @Html.ActionLink(Translation.UserSignIn, "SignIn", "User").</div>
+    </div>
 }
 
+<div id="commentsRoot">
+    @foreach (var comment in Model.Post.Comments)
+    {
+        Html.RenderPartial("_Comment", comment);
+    }
+    <div id="newComment"></div>
+</div>
+
 @section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/zgpostpartial")
+
+    <script type="text/javascript">
+        /// <reference path="~/Scripts/jquery-2.1.4.js"/>
+        /// <reference path="~/Scripts/jquery.validate.js"/>
+        /// <reference path="~/Scripts/jquery.validate.unobtrusive.js"/>
+
+        'use strict';
+
+        function onSuccessPostComment(data) {
+            console.log('onSuccessPostComment');
+            console.log(data);
+            console.log('---');
+
+            $('#newComment').removeAttr('id');
+            $('#commentsRoot').append($('<div id="newComment"></div>'))
+        }
+
+        function onFailurePostComment(data) {
+            console.log('onFailurePostComment');
+            console.log(data);
+            console.log('---');
+        }
+    </script>
 }

@@ -48,8 +48,24 @@ namespace ZigBlog.Controllers
 
             return View(new HomeShowViewModel
             {
-                Post = post
+                Post = post,
+                Comment = new Comment { PostId = post.Id }
             });
+        }
+
+        // POST: /home/postcomment?titleUrl={titleUrl}
+        [HttpPost]
+        [ValidateAjax]
+        public async Task<PartialViewResult> PostComment(HomeShowViewModel viewModel)
+        {
+            viewModel.Comment.CommenterId = IdentityHelper.CurrentUser.Id;
+            viewModel.Comment.IsTopLevel = !viewModel.Comment.ParentId.HasValue;
+            viewModel.Comment.ParsedContent = Markdown.Transform(viewModel.Comment.Content);
+            viewModel.Comment.Created = DateTime.Now;
+
+            await ZigBlogDb.Comments.InsertOneAsync(viewModel.Comment);
+
+            return PartialView("_Comment", viewModel.Comment);
         }
 
         // GET: /new
