@@ -27,8 +27,7 @@ namespace ZigBlog.Models
         public string CommenterId { get; set; }
 
         public int? ParentId { get; set; }
-
-        [Required(ErrorMessageResourceName = "PostCommentContentValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        
         public string Content { get; set; }
 
         public string ParsedContent { get; set; }

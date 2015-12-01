@@ -56,19 +56,30 @@ namespace ZigBlog.Controllers
         {
             try
             {
-                viewModel.Comment.CommenterId = IdentityHelper.CurrentUser.Id;
-                viewModel.Comment.IsTopLevel = viewModel.IsTopLevel;
-                viewModel.Comment.ParsedContent = Markdown.Transform(viewModel.Comment.Content);
-                viewModel.Comment.Created = DateTime.Now;
+                var newComment = new Comment
+                {
+                    CommenterId = IdentityHelper.CurrentUser.Id,
+                    Content = viewModel.Content,
+                    Created = DateTime.Now,
+                    IsTopLevel = viewModel.IsTopLevel,
+                    ParentId = viewModel.ParentId,
+                    ParsedContent = Markdown.Transform(viewModel.Content),
+                    PostId = viewModel.PostId
+                };
 
-                await ZigBlogDb.Comments.InsertOneAsync(viewModel.Comment);
+                await ZigBlogDb.Comments.InsertOneAsync(newComment);
 
+                // ASP.NET MVC is pretty evil, check this on SO: http://stackoverflow.com/a/2678956/1324082
+                ModelState.Clear();
+
+                // Returns a JSON with the new comment rendered in a string
+                // and with some other properties required to properly place this
+                // new comment in the comments section
                 return Json(new
                 {
-                    ParentId = viewModel.Comment.ParentId,
-                    Id = viewModel.Comment.Id,
-                    IsTopLevel = viewModel.IsTopLevel,
-                    PartialView = RenderViewToString("_Comment", viewModel.Comment)
+                    ParentId = newComment.ParentId,
+                    IsTopLevel = newComment.IsTopLevel,
+                    PartialView = RenderViewToString("_Comment", newComment)
                 });
             }
             catch (Exception ex)

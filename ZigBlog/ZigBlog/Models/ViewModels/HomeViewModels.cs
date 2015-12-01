@@ -24,8 +24,14 @@ namespace ZigBlog.Models.ViewModels
 
     public class HomePostCommentPartialViewModel
     {
-        public Comment Comment { get; set; }
+        public int PostId { get; set; }
+
         public bool IsTopLevel { get; set; }
+
+        public int? ParentId { get; set; }
+
+        [Required(ErrorMessageResourceName = "PostCommentContentValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        public string Content { get; set; }
     }
 
     public class HomeNewEditViewModel

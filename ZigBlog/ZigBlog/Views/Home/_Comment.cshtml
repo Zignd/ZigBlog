@@ -20,7 +20,7 @@
     <div id="@($"commentsRoot{Model.Id}")" class="zg-comment-children">
         @if (User.Identity.IsAuthenticated)
         {
-            @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { Comment = new Comment { PostId = Model.PostId, ParentId = Model.Id }, IsTopLevel = false })
+            @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.PostId, IsTopLevel = false, ParentId = Model.Id })
         }
         else
         {

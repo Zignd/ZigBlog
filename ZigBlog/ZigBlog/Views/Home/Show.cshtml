@@ -12,7 +12,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { Comment = new Comment { PostId = Model.Id }, IsTopLevel = true })
+    @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.Id, IsTopLevel = true })
 }
 else
 {
@@ -49,9 +49,9 @@ else
             console.log(data.PartialView);
 
             // Clears the textarea that originated this new comment
-            $('#form' + (data.IsTopLevel ? 'TopLevel' : data.PartialId) + " textarea").val(null);
+            $('#form' + (data.IsTopLevel ? 'TopLevel' : data.ParentId) + " textarea").val(null);
 
-            console.log('#form' + (data.IsTopLevel ? 'TopLevel' : data.PartialId) + " textarea");
+            console.log('#form' + (data.IsTopLevel ? 'TopLevel' : data.ParentId) + " textarea");
 
             window.location.href = window.location.href + '#comment' + data.PartialId;
         }
