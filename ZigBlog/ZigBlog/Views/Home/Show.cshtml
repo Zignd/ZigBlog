@@ -1,39 +1,10 @@
-﻿@using ZigBlog.Models
-@using ZigBlog.Models.ViewModels
-@using ZigBlog.Translations
-
-@model HomeShowViewModel
+﻿@model Post
 
 @{
     ViewBag.Title = "Show";
 }
 
-@helper CommentPostForm()
-{
-var routeValues = new { titleUrl = Model.Post.TitleUrl };
-var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessPostComment", OnFailure = "onFailurePostComment", UpdateTargetId = "newComment" };
-
-using (Ajax.BeginForm("PostComment", routeValues, ajaxOptions))
-{
-        @Html.HiddenFor(x => x.Comment.PostId)
-
-        <div class="panel panel-default">
-            <div class="zg-comment-body">
-                <div class="zg-comment-body-avatar">
-                    <div class="zg-comment-body-avatar-picture" style="background-image: url('/Content/Images/Avatars/@(User.Identity.Name).png');"></div>
-                    <div class="zg-comment-body-avatar-username">@User.Identity.Name</div>
-                </div>
-                @Html.TextAreaFor(x => x.Comment.Content, new { @class = "zg-comment-body-textarea" })
-                @Html.ValidationMessageFor(x => x.Comment.Content)
-            </div>
-            <div class="panel-footer">
-                <button class="btn btn-sm btn-primary">@Translation.PostComment</button>
-            </div>
-        </div>
-}
-}
-
-@Html.Partial("_Post", new HomePostPartialViewModel { Post = Model.Post, IsHomePageMode = false })
+@Html.Partial("_Post", new HomePostPartialViewModel { Post = Model, IsHomePageMode = false })
 
 <h3 style="margin-bottom: 1em; margin-top: -1em;">
     @Translation.CommentsSection <small>@Translation.CommentsSectionSmall</small>
@@ -41,7 +12,7 @@ using (Ajax.BeginForm("PostComment", routeValues, ajaxOptions))
 
 @if (User.Identity.IsAuthenticated)
 {
-    @CommentPostForm()
+    @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { Comment = new Comment { PostId = Model.Id }, IsTopLevel = true })
 }
 else
 {
@@ -50,12 +21,11 @@ else
     </div>
 }
 
-<div id="commentsRoot">
-    @foreach (var comment in Model.Post.Comments)
+<div id="commentsRootTopLevel">
+    @foreach (var comment in Model.Comments)
     {
         Html.RenderPartial("_Comment", comment);
     }
-    <div id="newComment"></div>
 </div>
 
 @section Scripts {
@@ -64,8 +34,6 @@ else
 
     <script type="text/javascript">
         /// <reference path="~/Scripts/jquery-2.1.4.js"/>
-        /// <reference path="~/Scripts/jquery.validate.js"/>
-        /// <reference path="~/Scripts/jquery.validate.unobtrusive.js"/>
 
         'use strict';
 
@@ -74,8 +42,18 @@ else
             console.log(data);
             console.log('---');
 
-            $('#newComment').removeAttr('id');
-            $('#commentsRoot').append($('<div id="newComment"></div>'))
+            // Appends the new comment to the aproprieate comments root
+            $('#commentsRoot' + (data.IsTopLevel ? 'TopLevel' : data.ParentId)).append(data.PartialView);
+
+            console.log('#commentsRoot' + (data.IsTopLevel ? 'TopLevel' : data.ParentId));
+            console.log(data.PartialView);
+
+            // Clears the textarea that originated this new comment
+            $('#form' + (data.IsTopLevel ? 'TopLevel' : data.PartialId) + " textarea").val(null);
+
+            console.log('#form' + (data.IsTopLevel ? 'TopLevel' : data.PartialId) + " textarea");
+
+            window.location.href = window.location.href + '#comment' + data.PartialId;
         }
 
         function onFailurePostComment(data) {

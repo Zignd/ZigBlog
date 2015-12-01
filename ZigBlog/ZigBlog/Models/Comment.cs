@@ -37,8 +37,6 @@ namespace ZigBlog.Models
 
         public bool IsTopLevel { get; set; }
 
-        public List<int> ChildrensIds { get; set; } = new List<int>();
-
         #endregion
 
         #region Support Property
@@ -69,7 +67,7 @@ namespace ZigBlog.Models
             {
                 if (_children == null)
                 {
-                    var filter = Builders<Comment>.Filter.In(x => x.Id, ChildrensIds);
+                    var filter = Builders<Comment>.Filter.Eq(x => x.ParentId, Id);
                     var task = ZigBlogDb.Comments.Find(filter).ToListAsync();
 
                     task.Wait();

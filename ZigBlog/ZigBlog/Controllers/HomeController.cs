@@ -46,26 +46,35 @@ namespace ZigBlog.Controllers
             if (post == null)
                 throw new Exception(Translation.ThisPostCouldNotBeFoundException);
 
-            return View(new HomeShowViewModel
-            {
-                Post = post,
-                Comment = new Comment { PostId = post.Id }
-            });
+            return View(post);
         }
 
         // POST: /home/postcomment?titleUrl={titleUrl}
         [HttpPost]
         [ValidateAjax]
-        public async Task<PartialViewResult> PostComment(HomeShowViewModel viewModel)
+        public async Task<JsonResult> PostComment(HomePostCommentPartialViewModel viewModel)
         {
-            viewModel.Comment.CommenterId = IdentityHelper.CurrentUser.Id;
-            viewModel.Comment.IsTopLevel = !viewModel.Comment.ParentId.HasValue;
-            viewModel.Comment.ParsedContent = Markdown.Transform(viewModel.Comment.Content);
-            viewModel.Comment.Created = DateTime.Now;
+            try
+            {
+                viewModel.Comment.CommenterId = IdentityHelper.CurrentUser.Id;
+                viewModel.Comment.IsTopLevel = viewModel.IsTopLevel;
+                viewModel.Comment.ParsedContent = Markdown.Transform(viewModel.Comment.Content);
+                viewModel.Comment.Created = DateTime.Now;
 
-            await ZigBlogDb.Comments.InsertOneAsync(viewModel.Comment);
+                await ZigBlogDb.Comments.InsertOneAsync(viewModel.Comment);
 
-            return PartialView("_Comment", viewModel.Comment);
+                return Json(new
+                {
+                    ParentId = viewModel.Comment.ParentId,
+                    Id = viewModel.Comment.Id,
+                    IsTopLevel = viewModel.IsTopLevel,
+                    PartialView = RenderViewToString("_Comment", viewModel.Comment)
+                });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Error = ex.Message });
+            }
         }
 
         // GET: /new

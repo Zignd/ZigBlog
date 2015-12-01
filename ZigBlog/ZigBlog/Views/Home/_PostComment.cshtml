@@ -1,0 +1,27 @@
+﻿@model HomePostCommentPartialViewModel
+
+@{
+    var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessPostComment", OnFailure = "onFailurePostComment" };
+    var htmlAttributes = new { id = $"form{(Model.IsTopLevel ? "TopLevel" : Model.Comment.Id.ToString())}" };
+}
+
+@using (Ajax.BeginForm("PostComment", null, ajaxOptions, htmlAttributes))
+{
+    @Html.HiddenFor(x => x.Comment.PostId)
+    @Html.HiddenFor(x => x.Comment.ParentId)
+    @Html.HiddenFor(x => x.IsTopLevel)
+
+    <div class="panel panel-default">
+        <div class="zg-comment-body">
+            <div class="zg-comment-body-avatar">
+                <div class="zg-comment-body-avatar-picture" style="background-image: url('/Content/Images/Avatars/@(User.Identity.Name).png');"></div>
+                <div class="zg-comment-body-avatar-username">@User.Identity.Name</div>
+            </div>
+            @Html.TextAreaFor(x => x.Comment.Content, new { @class = "zg-comment-body-textarea" })
+            @Html.ValidationMessageFor(x => x.Comment.Content)
+        </div>
+        <div class="panel-footer">
+            <button class="btn btn-sm btn-primary">@Translation.PostComment</button>
+        </div>
+    </div>
+}

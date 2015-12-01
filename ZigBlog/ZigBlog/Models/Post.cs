@@ -57,7 +57,7 @@ namespace ZigBlog.Models
             {
                 if (_comments == null)
                 {
-                    var filter = Builders<Comment>.Filter.Eq(x => x.PostId, Id);
+                    var filter = Builders<Comment>.Filter.Eq(x => x.PostId, Id) & Builders<Comment>.Filter.Eq(x => x.IsTopLevel, true);
                     var task = ZigBlogDb.Comments.Find(filter).ToListAsync();
 
                     task.Wait();

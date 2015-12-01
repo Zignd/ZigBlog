@@ -1,8 +1,6 @@
-﻿@using ZigBlog.Translations
+﻿@model Comment
 
-@model ZigBlog.Models.Comment
-
-<div class="zg-comment">
+<div id="@($"comment{Model.Id}")" class="zg-comment">
     <div class="panel panel-default">
         <div class="zg-comment-body">
             <div class="zg-comment-body-avatar">
@@ -19,7 +17,18 @@
             <button class="btn btn-sm btn-default">@Translation.ReplyToComment</button>
         </div>
     </div>
-    <div class="zg-comment-children">
+    <div id="@($"commentsRoot{Model.Id}")" class="zg-comment-children">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { Comment = new Comment { PostId = Model.PostId, ParentId = Model.Id }, IsTopLevel = false })
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div style="margin: .8em;">@Translation.CantComment1 @Html.ActionLink(Translation.UserSignUp, "SignUp", "User") @Translation.CantComment2 @Html.ActionLink(Translation.UserSignIn, "SignIn", "User").</div>
+            </div>
+        }
+
         @foreach (var child in Model.Children)
         {
             Html.RenderPartial("_Comment", child);

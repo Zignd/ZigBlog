@@ -16,16 +16,16 @@ namespace ZigBlog.Models.ViewModels
         public List<Post> Posts { get; set; }
     }
 
-    public class HomeShowViewModel
-    {
-        public Post Post { get; set; }
-        public Comment Comment { get; set; }
-    }
-
     public class HomePostPartialViewModel
     {
         public Post Post { get; set; }
         public bool IsHomePageMode { get; set; }
+    }
+
+    public class HomePostCommentPartialViewModel
+    {
+        public Comment Comment { get; set; }
+        public bool IsTopLevel { get; set; }
     }
 
     public class HomeNewEditViewModel

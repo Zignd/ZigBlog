@@ -3,6 +3,7 @@ using Microsoft.Owin.Security;
 using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -50,6 +51,23 @@ namespace ZigBlog.Controllers.Common
                     _roleManager = HttpContext.GetOwinContext().GetUserManager<AppRoleManager>();
 
                 return _roleManager;
+            }
+        }
+
+        // From SO: "Render a view as a string" http://stackoverflow.com/a/2759898/1324082
+        protected string RenderViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+
+            using (var stringWriter = new StringWriter())
+            {
+                var viewResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                var viewContext = new ViewContext(ControllerContext, viewResult.View, ViewData, TempData, stringWriter);
+
+                viewResult.View.Render(viewContext, stringWriter);
+                viewResult.ViewEngine.ReleaseView(ControllerContext, viewResult.View);
+
+                return stringWriter.GetStringBuilder().ToString();
             }
         }
     }
