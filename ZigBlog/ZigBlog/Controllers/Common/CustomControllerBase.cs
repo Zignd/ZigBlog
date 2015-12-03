@@ -70,5 +70,13 @@ namespace ZigBlog.Controllers.Common
                 return stringWriter.GetStringBuilder().ToString();
             }
         }
+
+        protected JsonResult ExceptionJson(Exception exception)
+        {
+            return Json(new
+            {
+                ErrorMessage = exception.Message
+            });
+        }
     }
 }

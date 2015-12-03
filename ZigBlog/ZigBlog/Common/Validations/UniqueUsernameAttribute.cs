@@ -6,7 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using ZigBlog.Controllers;
 
-namespace ZigBlog.Common.Validation
+namespace ZigBlog.Common.Validations
 {
     public class UniqueUsernameAttribute : ValidationAttribute
     {

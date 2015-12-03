@@ -10,8 +10,9 @@ using System.Web;
 using System.Web.Mvc;
 using ZigBlog.Common;
 using ZigBlog.Common.Database;
+using ZigBlog.Common.Filters;
 using ZigBlog.Common.Identity;
-using ZigBlog.Common.Validation;
+using ZigBlog.Common.Validations;
 using ZigBlog.Controllers.Common;
 using ZigBlog.Models;
 using ZigBlog.Models.ViewModels;
@@ -22,6 +23,7 @@ namespace ZigBlog.Controllers
     public class HomeController : CustomControllerBase
     {
         // GET: / or /page/{arg} or /page/{arg}/{postsPerPage}
+        [HandleError]
         public async Task<ActionResult> Page(int page = 1, [Range(1, 50)]int postsPerPage = 15)
         {
             var sort = Builders<Post>.Sort.Descending(p => p.Created);
@@ -38,6 +40,7 @@ namespace ZigBlog.Controllers
         }
         
         // GET: /{year}/{month}/{day}/{titleUrl}
+        [HandleError]
         public async Task<ActionResult> Show(string titleUrl)
         {
             var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
@@ -51,46 +54,41 @@ namespace ZigBlog.Controllers
 
         // POST: /home/postcomment?titleUrl={titleUrl}
         [HttpPost]
+        [HandleJsonError]
         [ValidateAjax]
         public async Task<JsonResult> PostComment(HomePostCommentPartialViewModel viewModel)
         {
-            try
+            var newComment = new Comment
             {
-                var newComment = new Comment
-                {
-                    CommenterId = IdentityHelper.CurrentUser.Id,
-                    Content = viewModel.Content,
-                    Created = DateTime.Now,
-                    IsTopLevel = viewModel.IsTopLevel,
-                    ParentId = viewModel.ParentId,
-                    ParsedContent = Markdown.Transform(viewModel.Content),
-                    PostId = viewModel.PostId
-                };
+                CommenterId = IdentityHelper.CurrentUser.Id,
+                Content = viewModel.Content,
+                Created = DateTime.Now,
+                IsTopLevel = viewModel.IsTopLevel,
+                ParentId = viewModel.ParentId,
+                ParsedContent = Markdown.Transform(viewModel.Content),
+                PostId = viewModel.PostId
+            };
 
-                await ZigBlogDb.Comments.InsertOneAsync(newComment);
+            await ZigBlogDb.Comments.InsertOneAsync(newComment);
 
-                // ASP.NET MVC is pretty evil, check this on SO: http://stackoverflow.com/a/2678956/1324082
-                ModelState.Clear();
+            // ASP.NET MVC is pretty evil, check this on SO: http://stackoverflow.com/a/2678956/1324082
+            ModelState.Clear();
 
-                // Returns a JSON with the new comment rendered in a string
-                // and with some other properties required to properly place this
-                // new comment in the comments section
-                return Json(new
-                {
-                    Id = newComment.Id,
-                    ParentId = newComment.ParentId,
-                    IsTopLevel = newComment.IsTopLevel,
-                    PartialView = RenderViewToString("_Comment", newComment)
-                });
-            }
-            catch (Exception ex)
+            // Returns a JSON with the new comment rendered in a string
+            // and with some other properties required to properly place this
+            // new comment in the comments section
+            return Json(new
             {
-                return Json(new { Error = ex.Message });
-            }
+                Id = newComment.Id,
+                ParentId = newComment.ParentId,
+                IsTopLevel = newComment.IsTopLevel,
+                PartialView = RenderViewToString("_Comment", newComment)
+            });
         }
 
         // GET: /new
         [Authorize(Roles = "Administrator,Blogger")]
+        [HandleError]
         public ActionResult New()
         {
             return View("NewEdit", new HomeNewEditViewModel
@@ -101,6 +99,7 @@ namespace ZigBlog.Controllers
 
         // POST: /new
         [Authorize(Roles = "Administrator,Blogger")]
+        [HandleError]
         [HttpPost]
         public async Task<ActionResult> New(HomeNewEditViewModel viewModel)
         {
@@ -124,6 +123,7 @@ namespace ZigBlog.Controllers
 
         // GET: /{year}/{month}/{day}/{titleUrl}/edit
         [AdministratorOrAuthor]
+        [HandleError]
         public async Task<ActionResult> Edit(string titleUrl)
         {
             var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl.ToLower());
@@ -143,6 +143,7 @@ namespace ZigBlog.Controllers
 
         // POST: /{year}/{month}/{day}/{titleUrl}/edit
         [AdministratorOrAuthor]
+        [HandleError]
         [HttpPost]
         public async Task<ActionResult> Edit(HomeNewEditViewModel viewModel)
         {
@@ -163,6 +164,7 @@ namespace ZigBlog.Controllers
 
         // POST: /home/delete?titleUrl={titleUrl}
         [AdministratorOrAuthor]
+        [HandleError]
         [HttpPost]
         public async Task<ActionResult> Delete(string titleUrl)
         {
@@ -174,12 +176,13 @@ namespace ZigBlog.Controllers
 
         // POST: /home/likepost?titleUrl={titleUrl}
         [Authorize]
+        [HandleJsonError]
         [HttpPost]
-        public async Task<ActionResult> LikePost(string titleUrl)
+        public async Task<JsonResult> LikePost(string titleUrl)
         {
             var filter = Builders<Post>.Filter.Eq(x => x.TitleUrl, titleUrl);
             var post = await ZigBlogDb.Posts.Find(filter).SingleOrDefaultAsync();
-            
+
             if (post == null)
                 throw new Exception(Translation.ThisPostCouldNotBeFoundException);
 
@@ -196,7 +199,7 @@ namespace ZigBlog.Controllers
             else
             {
                 post.LikersIds.Add(IdentityHelper.CurrentUser.Id);
-                
+
                 userLikes = true;
                 update = Builders<Post>.Update.Push(x => x.LikersIds, IdentityHelper.CurrentUser.Id);
             }
@@ -211,7 +214,20 @@ namespace ZigBlog.Controllers
             });
         }
 
+        // POST: /home/likecomment?id={id}
+        //[Authorize]
+        //[HttpPost]
+        //public async Task<JsonResult> LikeComment(int id)
+        //{
+        //    var filter = Builders<Comment>.Filter.Eq(x => x.Id, id);
+        //    var comment = await ZigBlogDb.Comments.Find(filter).SingleOrDefaultAsync();
+
+        //    if (comment == null)
+        //        throw new Exception();
+        //}
+
         // GET: /about
+        [HandleError]
         public async Task<ActionResult> About()
         {
             // TODO: This is just for testing, don't forget to remove it xD
@@ -273,6 +289,7 @@ Praesent accumsan molestie convallis. Nullam nec sodales sapien. In imperdiet er
         /// </summary>
         /// <param name="title">Post's title</param>
         /// <returns>Unique title URL</returns>
+        [HandleError]
         private async Task<string> GenerateTitleUrl(string title)
         {
             // Remove accents

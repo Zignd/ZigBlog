@@ -24,6 +24,7 @@ namespace ZigBlog.Controllers
     public class UserController : CustomControllerBase
     {
         [AllowAnonymous]
+        [HandleError]
         public ActionResult SignIn()
         {
             if (HttpContext.User.Identity.IsAuthenticated)
@@ -36,6 +37,7 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
+        [HandleError]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SignIn(UserSignInViewModel viewModel)
@@ -61,6 +63,7 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
+        [HandleError]
         public ActionResult SignUp()
         {
             return View(new UserSignUpViewModel
@@ -70,6 +73,7 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
+        [HandleError]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SignUp(UserSignUpViewModel viewModel)
@@ -103,6 +107,7 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
+        [HandleError]
         public async Task<ActionResult> Profile(string userName)
         {
             var user = UserManager.FindByName(userName);

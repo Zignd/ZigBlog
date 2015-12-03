@@ -5,7 +5,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 
-namespace ZigBlog.Common.Validation
+namespace ZigBlog.Common.Filters
 {
     // http://stackoverflow.com/questions/14005773/use-asp-net-mvc-validation-with-jquery-ajax
     public class ValidateAjaxAttribute : ActionFilterAttribute

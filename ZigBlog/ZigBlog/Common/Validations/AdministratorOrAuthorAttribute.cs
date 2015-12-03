@@ -9,7 +9,7 @@ using ZigBlog.Common.Database;
 using ZigBlog.Common.Identity;
 using ZigBlog.Models;
 
-namespace ZigBlog.Common.Validation
+namespace ZigBlog.Common.Validations
 {
     public class AdministratorOrAuthorAttribute : AuthorizeAttribute
     {

@@ -8,7 +8,7 @@
         @if (User.Identity.IsAuthenticated)
         {
             var routeValues = new { titleUrl = Model.Post.TitleUrl };
-            var ajaxOptions = new AjaxOptions { OnSuccess = "updateLikeButton" };
+            var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessLikePost", OnFailure = "onFailureLikePost" };
             var htmlAttributes = new { @class = "zg-postpartial-panel-heading-like" };
 
             using (Ajax.BeginForm("LikePost", routeValues, ajaxOptions, htmlAttributes))

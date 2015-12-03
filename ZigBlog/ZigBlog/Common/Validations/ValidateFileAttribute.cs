@@ -6,7 +6,7 @@ using System.Drawing.Imaging;
 using System.Linq;
 using System.Web;
 
-namespace ZigBlog.Common.Validation
+namespace ZigBlog.Common.Validations
 {
     public class ValidateImageFileAttribute : ValidationAttribute
     {

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using ZigBlog.Common.Validation;
+using ZigBlog.Common.Validations;
 using ZigBlog.Translations;
 
 namespace ZigBlog.Models.ViewModels

@@ -2,7 +2,7 @@
 
 'use strict';
 
-function updateLikeButton(data) {
+function onSuccessLikePost(data) {
     var counter = $(".zg-postpartial-panel-heading-like-counter[data-zg-postid='" + data.PostId + "']");
     var button = $(".zg-postpartial-panel-heading-like-button[data-zg-postid='" + data.PostId + "']");
 
@@ -13,4 +13,9 @@ function updateLikeButton(data) {
     }
 
     counter.text(data.LikesCount);
+}
+
+function onFailureLikePost(data) {
+    if (data.responseJSON.ErrorMessage)
+        alert(data.responseJSON.ErrorMessage);
 }

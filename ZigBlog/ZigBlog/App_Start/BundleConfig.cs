@@ -26,6 +26,9 @@ namespace ZigBlog
             bundles.Add(new ScriptBundle("~/bundles/zgpostpartial").Include(
                 "~/Scripts/zg.postpartial.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/zgcommentpartial").Include(
+                "~/Scripts/zg.commentpartial.js"));
+
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                 "~/Scripts/bootstrap.js"));
 
