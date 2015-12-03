@@ -7,6 +7,7 @@ using System.Web.Mvc;
 
 namespace ZigBlog.Common.Validation
 {
+    // http://stackoverflow.com/questions/14005773/use-asp-net-mvc-validation-with-jquery-ajax
     public class ValidateAjaxAttribute : ActionFilterAttribute
     {
         public override void OnActionExecuting(ActionExecutingContext filterContext)
@@ -17,18 +18,18 @@ namespace ZigBlog.Common.Validation
             var modelState = filterContext.Controller.ViewData.ModelState;
             if (!modelState.IsValid)
             {
-                var errorModel = from x in modelState.Keys
-                                 where modelState[x].Errors.Count > 0
-                                 select new
-                                 {
-                                     Key = x,
-                                     Errors = (from y in modelState[x].Errors
-                                               select y.ErrorMessage).ToArray()
-                                 };
+                var clientModelState = from key in modelState.Keys
+                                       select new
+                                       {
+                                           Key = key,
+                                           Value = modelState[key].Value.RawValue,
+                                           Errors = (from error in modelState[key].Errors
+                                                     select error.ErrorMessage).ToArray()
+                                       };
 
-                filterContext.Result = new JsonResult()
+                filterContext.Result = new JsonResult
                 {
-                    Data = errorModel
+                    Data = clientModelState
                 };
 
                 filterContext.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;

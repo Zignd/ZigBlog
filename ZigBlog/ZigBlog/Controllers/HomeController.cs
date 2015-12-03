@@ -77,6 +77,7 @@ namespace ZigBlog.Controllers
                 // new comment in the comments section
                 return Json(new
                 {
+                    Id = newComment.Id,
                     ParentId = newComment.ParentId,
                     IsTopLevel = newComment.IsTopLevel,
                     PartialView = RenderViewToString("_Comment", newComment)

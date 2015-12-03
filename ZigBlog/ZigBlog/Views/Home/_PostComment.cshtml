@@ -2,7 +2,7 @@
 
 @{
     var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessPostComment", OnFailure = "onFailurePostComment" };
-    var htmlAttributes = new { id = $"form{(Model.IsTopLevel ? "TopLevel" : Model.ParentId.ToString())}" };
+    var htmlAttributes = new { @class = !Model.IsTopLevel ? "hidden" : null, id = $"form{(Model.IsTopLevel ? "TopLevel" : Model.ParentId.ToString())}" };
 }
 
 @using (Ajax.BeginForm("PostComment", null, ajaxOptions, htmlAttributes))

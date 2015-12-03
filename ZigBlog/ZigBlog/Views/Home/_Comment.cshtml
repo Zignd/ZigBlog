@@ -14,19 +14,16 @@
                 <span class="zg-comment-footer-like-counter">@Model.LikersIds.Count</span>
                 <button class="zg-comment-footer-like-button">❤</button>
             </div>
-            <button class="btn btn-sm btn-default">@Translation.ReplyToComment</button>
+            @if (User.Identity.IsAuthenticated)
+            {
+                <button class="reply-to-comment btn btn-sm btn-default" data-zg-id="@Model.Id">@Translation.ReplyToComment</button>
+            }
         </div>
     </div>
     <div id="@($"commentsRoot{Model.Id}")" class="zg-comment-children">
         @if (User.Identity.IsAuthenticated)
         {
             @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.PostId, IsTopLevel = false, ParentId = Model.Id })
-        }
-        else
-        {
-            <div class="panel panel-default">
-                <div style="margin: .8em;">@Translation.CantComment1 @Html.ActionLink(Translation.UserSignUp, "SignUp", "User") @Translation.CantComment2 @Html.ActionLink(Translation.UserSignIn, "SignIn", "User").</div>
-            </div>
         }
 
         @foreach (var child in Model.Children)
