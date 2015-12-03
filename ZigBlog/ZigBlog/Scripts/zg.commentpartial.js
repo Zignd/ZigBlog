@@ -28,7 +28,7 @@ function onSuccessPostComment(data) {
         .html(null);
 
     // Goes to the new comment on the page
-    location.href = location.origin + location.pathname + '#comment' + data.ParentId;
+    location.href = location.origin + location.pathname + '#comment' + data.Id;
 }
 
 function onFailurePostComment(data) {
