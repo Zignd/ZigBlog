@@ -73,7 +73,7 @@ else
             })[0].Value[0];
 
             // Retrieves the id for the parent comment
-            var parentId = $.grep(data.responseJSON, function (e) { 
+            var parentId = $.grep(data.responseJSON, function (e) {
                 return e.Key === 'ParentId';
             })[0].Value[0];
 
