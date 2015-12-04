@@ -80,6 +80,11 @@ namespace ZigBlog.Controllers
         {
             if (ModelState.IsValid)
             {
+                // TODO: Improve image uploading following those tips: http://stackoverflow.com/a/4535684/1324082
+
+                var path = Path.Combine(Server.MapPath("~/Content/Images/Avatars"), $"{viewModel.Username}.jpg");
+                viewModel.Avatar.SaveAs(path);
+
                 var user = new AppUser { UserName = viewModel.Username, Email = viewModel.EmailAddress.ToLower(), Created = DateTime.Now };
                 var result = await UserManager.CreateAsync(user, viewModel.Password);
 
@@ -119,6 +124,14 @@ namespace ZigBlog.Controllers
             {
                 User = user
             });
+        }
+
+        [AllowAnonymous]
+        public ActionResult Avatar(string userName)
+        {
+            var dir = Server.MapPath("~/App_Data/Avatars");
+            var path = Path.Combine(dir, $"{userName}.jpg");
+            return File(path, "image/jpeg");
         }
     }
 }

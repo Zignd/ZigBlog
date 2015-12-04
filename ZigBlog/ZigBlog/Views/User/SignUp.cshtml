@@ -6,8 +6,7 @@
 
 <h2>@Translation.UserSignUp <small>@Translation.SignUpDescription</small></h2>
 
-@*, FormMethod.Post, new { enctype = "multipart/form-data" }))*@
-@using (Html.BeginForm("SignUp", "User"))
+@using (Html.BeginForm("SignUp", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.ValidationSummary(true);
     
@@ -15,11 +14,12 @@
 
     @Html.HiddenFor(x => x.ReturnUrl)
 
-    @*<div class="form-group">
+    <div class="form-group">
         @Html.LabelFor(x => x.Avatar)
-        <input accept="image/jpeg,image/png,image/gif" class="form-control" name="Avatar" type="file"/>
+        <input accept="image/jpeg,image/png,image/gif" name="Avatar" type="file"/>
+        <p class="help-block">@Translation.AvatarImageUploadHelp</p>
         @Html.ValidationMessageFor(x => x.Avatar)
-    </div>*@
+    </div>
 
     <div class="form-group">
         @Html.LabelFor(x => x.Username)

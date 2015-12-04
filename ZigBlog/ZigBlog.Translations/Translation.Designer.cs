@@ -97,6 +97,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The avatar image can&apos;t be larger than 5 MB and must be in the PNG, JPG or GIF format..
+        /// </summary>
+        public static string AvatarImageUploadHelp {
+            get {
+                return ResourceManager.GetString("AvatarImageUploadHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to In order to comment or reply to comments you need to.
         /// </summary>
         public static string CantComment1 {

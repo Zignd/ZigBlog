@@ -4,7 +4,7 @@
     <div class="panel panel-default">
         <div class="zg-comment-body">
             <div class="zg-comment-body-avatar">
-                <div class="zg-comment-body-avatar-picture" style="background-image: url('/Content/Images/Avatars/@(Model.Commenter.UserName).png');"></div>
+                <div class="zg-comment-body-avatar-picture" style="background-image: url('/avatar/@Model.Commenter.UserName');"></div>
                 <div class="zg-comment-body-avatar-username">@Model.Commenter.UserName</div>
             </div>
             <div class="zg-comment-body-content">@Html.Raw(Model.ParsedContent)</div>

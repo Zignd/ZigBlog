@@ -8,7 +8,7 @@ using System.Web;
 
 namespace ZigBlog.Common.Validations
 {
-    public class ValidateImageFileAttribute : ValidationAttribute
+    public class AvatarValidationAttribute : ValidationAttribute
     {
         public override bool IsValid(object value)
         {
@@ -20,7 +20,7 @@ namespace ZigBlog.Common.Validations
             if (!file.ContentType.Contains("image/"))
                 return false;
 
-            if (file.ContentLength <= 5120)
+            if (file.ContentLength >= 5242880)
                 return false;
 
             try

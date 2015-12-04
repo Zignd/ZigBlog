@@ -261,6 +261,9 @@
   <data name="CommentsSectionSmall" xml:space="preserve">
     <value>please leave a comment, your opinion is very important :)</value>
   </data>
+  <data name="AvatarImageUploadHelp" xml:space="preserve">
+    <value>The avatar image can't be larger than 5 MB and must be in the PNG, JPG or GIF format.</value>
+  </data>
   <data name="ThisCommentCouldNotBeFoundException" xml:space="preserve">
     <value>This comment could not be found, maybe it was deleted.</value>
   </data>

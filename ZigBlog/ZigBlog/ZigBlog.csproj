@@ -234,7 +234,7 @@
     <Compile Include="Common\Validations\UniqueEmailAttribute.cs" />
     <Compile Include="Common\Validations\UniqueUsernameAttribute.cs" />
     <Compile Include="Common\Filters\ValidateAjaxAttribute.cs" />
-    <Compile Include="Common\Validations\ValidateFileAttribute.cs" />
+    <Compile Include="Common\Validations\AvatarValidationAttribute.cs" />
     <Compile Include="Common\Validations\ValidIfAttribute.cs" />
     <Compile Include="Common\Database\IntIdGenerator.cs" />
     <Compile Include="Common\Database\ZigBlogDb.cs" />
@@ -277,7 +277,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\Images\Avatars\" />
+    <Folder Include="App_Data\Avatars\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ZigBlog.Translations\ZigBlog.Translations.csproj">

@@ -26,6 +26,11 @@ namespace ZigBlog
                 defaults: new { controller = "Home", action = "Show" });
 
             routes.MapRoute(
+                name: "Avatar",
+                url: "avatar/{userName}",
+                defaults: new { controller = "User", action = "Avatar" });
+
+            routes.MapRoute(
                 name: "Profile",
                 url: "profile/{userName}",
                 defaults: new { controller = "User", action = "Profile" });

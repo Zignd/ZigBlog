@@ -27,7 +27,7 @@ namespace ZigBlog.Models.ViewModels
 
     public class UserSignUpViewModel
     {
-        //[ValidateImageFile(ErrorMessage = "Invalid file type, please provide an image.")]
+        [AvatarValidation(ErrorMessageResourceName = "AvatarImageUploadHelp", ErrorMessageResourceType = typeof(Translation))]
         public HttpPostedFileBase Avatar { get; set; }
 
         [Required(ErrorMessageResourceName = "UsernameValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
