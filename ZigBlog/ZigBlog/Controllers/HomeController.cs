@@ -215,16 +215,44 @@ namespace ZigBlog.Controllers
         }
 
         // POST: /home/likecomment?id={id}
-        //[Authorize]
-        //[HttpPost]
-        //public async Task<JsonResult> LikeComment(int id)
-        //{
-        //    var filter = Builders<Comment>.Filter.Eq(x => x.Id, id);
-        //    var comment = await ZigBlogDb.Comments.Find(filter).SingleOrDefaultAsync();
+        [Authorize]
+        [HandleJsonError]
+        [HttpPost]
+        public async Task<JsonResult> LikeComment(int id)
+        {
+            var filter = Builders<Comment>.Filter.Eq(x => x.Id, id);
+            var comment = await ZigBlogDb.Comments.Find(filter).SingleOrDefaultAsync();
 
-        //    if (comment == null)
-        //        throw new Exception();
-        //}
+            if (comment == null)
+                throw new Exception(Translation.ThisCommentCouldNotBeFoundException);
+
+            bool userLikes;
+            UpdateDefinition<Comment> update = null;
+
+            if (comment.LikersIds.Contains(IdentityHelper.CurrentUser.Id))
+            {
+                comment.LikersIds.Remove(IdentityHelper.CurrentUser.Id);
+
+                userLikes = false;
+                update = Builders<Comment>.Update.Pull(x => x.LikersIds, IdentityHelper.CurrentUser.Id);
+            }
+            else
+            {
+                comment.LikersIds.Add(IdentityHelper.CurrentUser.Id);
+
+                userLikes = true;
+                update = Builders<Comment>.Update.Push(x => x.LikersIds, IdentityHelper.CurrentUser.Id);
+            }
+
+            await ZigBlogDb.Comments.UpdateOneAsync(filter, update);
+
+            return Json(new
+            {
+                CommentId = comment.Id,
+                UserLikes = userLikes,
+                LikesCount = comment.LikersIds.Count
+            });
+        }
 
         // GET: /about
         [HandleError]

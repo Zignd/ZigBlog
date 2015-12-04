@@ -128,11 +128,6 @@ h1 > a {
     transition: all 0.3s;
 }
 
-.zg-likes {
-    color: #F26D7D;
-    transition: all 0.3s;
-}
-
 .zg-post-image-width {
     max-width: 100%;
     max-height: 50em;
@@ -201,4 +196,9 @@ h1 > a {
     align-self: baseline;
     transition: all 0.3s;
     margin-left: -0.3em;
+}
+
+.zg-likes {
+    color: #F26D7D;
+    transition: all 0.3s;
 }

@@ -403,7 +403,16 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This post could not be found, maybe the url is wrong or it was deleted..
+        ///   Looks up a localized string similar to This comment could not be found, maybe it was deleted..
+        /// </summary>
+        public static string ThisCommentCouldNotBeFoundException {
+            get {
+                return ResourceManager.GetString("ThisCommentCouldNotBeFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This post could not be found, maybe the URL is wrong or it was deleted..
         /// </summary>
         public static string ThisPostCouldNotBeFoundException {
             get {

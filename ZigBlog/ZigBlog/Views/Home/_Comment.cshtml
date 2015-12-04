@@ -10,10 +10,25 @@
             <div class="zg-comment-body-content">@Html.Raw(Model.ParsedContent)</div>
         </div>
         <div class="zg-comment-footer panel-footer">
-            <div class="zg-comment-footer-like">
-                <span class="zg-comment-footer-like-counter">@Model.LikersIds.Count</span>
-                <button class="zg-comment-footer-like-button">❤</button>
-            </div>
+            @if (User.Identity.IsAuthenticated)
+            {
+                var routeValues = new { id = Model.Id };
+                var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessLikeComment", OnFailure = "onFailureLikeComment" };
+                var htmlAttributes = new { @class = "zg-comment-footer-like" };
+
+                using (Ajax.BeginForm("LikeComment", routeValues, ajaxOptions, htmlAttributes))
+                {
+                    <span class="zg-comment-footer-like-counter" data-zg-commentid="@Model.Id">@Model.LikersIds.Count</span>
+                    <button class="zg-comment-footer-like-button @(Model.LikersIds.Contains(IdentityHelper.CurrentUser.Id) ? "zg-likes" : null)" data-zg-commentid="@Model.Id" type="submit">❤</button>
+                }
+            }
+            else
+            {
+                <div class="zg-comment-footer-like">
+                    <span class="zg-comment-footer-like-counter">@Model.LikersIds.Count</span>
+                    <button class="zg-comment-footer-like-button">❤</button>
+                </div>
+            }
             @if (User.Identity.IsAuthenticated)
             {
                 <button class="reply-to-comment btn btn-sm btn-default" data-zg-id="@Model.Id">@Translation.ReplyToComment</button>

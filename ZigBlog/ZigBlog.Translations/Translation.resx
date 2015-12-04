@@ -211,7 +211,7 @@
     <value>The provided password is invalid.</value>
   </data>
   <data name="ThisPostCouldNotBeFoundException" xml:space="preserve">
-    <value>This post could not be found, maybe the url is wrong or it was deleted.</value>
+    <value>This post could not be found, maybe the URL is wrong or it was deleted.</value>
   </data>
   <data name="ClickToCollapse" xml:space="preserve">
     <value>Click to collapse</value>
@@ -260,5 +260,8 @@
   </data>
   <data name="CommentsSectionSmall" xml:space="preserve">
     <value>please leave a comment, your opinion is very important :)</value>
+  </data>
+  <data name="ThisCommentCouldNotBeFoundException" xml:space="preserve">
+    <value>This comment could not be found, maybe it was deleted.</value>
   </data>
 </root>

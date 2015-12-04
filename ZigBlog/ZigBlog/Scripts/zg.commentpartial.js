@@ -2,6 +2,24 @@
 
 'use strict';
 
+function onSuccessLikeComment(data) {
+    var counter = $(".zg-comment-footer-like-counter[data-zg-commentid='" + data.CommentId + "']");
+    var button = $(".zg-comment-footer-like-button[data-zg-commentid='" + data.CommentId + "']");
+
+    if (data.UserLikes) {
+        button.addClass('zg-likes');
+    } else {
+        button.removeClass('zg-likes');
+    }
+
+    counter.text(data.LikesCount);
+}
+
+function onFailureLikeComment(data) {
+    if (data.responseJSON.ErrorMessage)
+        alert(data.responseJSON.ErrorMessage);
+}
+
 function onSuccessPostComment(data) {
     var id = data.IsTopLevel ? 'TopLevel' : data.ParentId;
 
