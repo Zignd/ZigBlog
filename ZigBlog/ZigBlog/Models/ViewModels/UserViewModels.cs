@@ -60,8 +60,6 @@ namespace ZigBlog.Models.ViewModels
 
         public UserRole Role { get; set; }
 
-        public bool EnableRolesSelection { get; set; }
-
         public string ReturnUrl { get; set; }
     }
 

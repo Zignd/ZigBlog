@@ -272,6 +272,7 @@
     <Content Include="Views\Home\_PostComment.cshtml" />
     <Content Include="Views\User\Manage.cshtml" />
     <Content Include="Views\User\_Update.cshtml" />
+    <Content Include="Scripts\zg.signup.js" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

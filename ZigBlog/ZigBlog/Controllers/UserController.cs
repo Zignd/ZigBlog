@@ -64,11 +64,10 @@ namespace ZigBlog.Controllers
 
         [AllowAnonymous]
         [HandleError]
-        public ActionResult SignUp(bool enableRolesSelection = false)
+        public ActionResult SignUp()
         {
             return View(new UserSignUpViewModel
             {
-                EnableRolesSelection = enableRolesSelection,
                 ReturnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.PathAndQuery : "/"
             });
         }
