@@ -12,7 +12,7 @@
 
 @if (User.Identity.IsAuthenticated)
 {
-    @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.Id, IsTopLevel = true })
+    Html.RenderPartial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.Id, IsTopLevel = true });
 }
 else
 {

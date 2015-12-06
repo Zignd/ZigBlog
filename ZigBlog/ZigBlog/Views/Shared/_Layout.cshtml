@@ -30,8 +30,15 @@
                     <li><a href="@Url.Action("About", "Home")">@Translation.About</a></li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
+                    
+                    
                     @if (User.Identity.IsAuthenticated)
                     {
+                        if (User.IsInRole("Administrator"))
+                        {
+                            <li><a href="@Url.Action("Manage", "User")">@Translation.ManageUsers</a></li>
+                        }
+
                         if (User.IsInRole("Administrator") || User.IsInRole("Blogger"))
                         {
                             <li><a href="@Url.Action("New","Home")">@Translation.WriteNewPost</a></li>

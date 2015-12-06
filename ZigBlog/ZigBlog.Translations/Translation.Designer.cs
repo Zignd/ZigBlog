@@ -97,11 +97,29 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Administrator.
+        /// </summary>
+        public static string Administrator {
+            get {
+                return ResourceManager.GetString("Administrator", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The avatar image can&apos;t be larger than 5 MB and must be in the PNG, JPG or GIF format..
         /// </summary>
         public static string AvatarImageUploadHelp {
             get {
                 return ResourceManager.GetString("AvatarImageUploadHelp", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blogger.
+        /// </summary>
+        public static string Blogger {
+            get {
+                return ResourceManager.GetString("Blogger", resourceCulture);
             }
         }
         
@@ -142,6 +160,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Commenter.
+        /// </summary>
+        public static string Commenter {
+            get {
+                return ResourceManager.GetString("Commenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Comment(s).
         /// </summary>
         public static string Comments {
@@ -165,6 +192,15 @@ namespace ZigBlog.Translations {
         public static string CommentsSectionSmall {
             get {
                 return ResourceManager.GetString("CommentsSectionSmall", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Create New User.
+        /// </summary>
+        public static string CreateNewUser {
+            get {
+                return ResourceManager.GetString("CreateNewUser", resourceCulture);
             }
         }
         
@@ -246,6 +282,15 @@ namespace ZigBlog.Translations {
         public static string HomePage {
             get {
                 return ResourceManager.GetString("HomePage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Manage Users.
+        /// </summary>
+        public static string ManageUsers {
+            get {
+                return ResourceManager.GetString("ManageUsers", resourceCulture);
             }
         }
         

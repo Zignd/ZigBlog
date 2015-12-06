@@ -14,7 +14,7 @@
     <div class="panel panel-default">
         <div class="zg-comment-body">
             <div class="zg-comment-body-avatar">
-                <div class="zg-comment-body-avatar-picture" style="background-image: url('/Content/Images/Avatars/@(User.Identity.Name).png');"></div>
+                <div class="zg-comment-body-avatar-picture" style="background-image: url('/avatar/@User.Identity.Name');"></div>
                 <div class="zg-comment-body-avatar-username">@User.Identity.Name</div>
             </div>
             @Html.TextAreaFor(x => x.Content, new { @class = "zg-comment-body-textarea" })

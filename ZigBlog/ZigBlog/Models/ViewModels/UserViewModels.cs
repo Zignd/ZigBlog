@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using ZigBlog.Common.Identity;
 using ZigBlog.Common.Validations;
 using ZigBlog.Translations;
 
@@ -57,11 +58,54 @@ namespace ZigBlog.Models.ViewModels
         [Display(Name = "AcceptTerms", ResourceType = typeof(Translation))]
         public bool AcceptTerms { get; set; }
 
+        public UserRole Role { get; set; }
+
+        public bool EnableRolesSelection { get; set; }
+
         public string ReturnUrl { get; set; }
     }
 
     public class UserProfileViewModel
     {
         public AppUser User { get; set; }
+    }
+
+    public class UserManageViewModel
+    {
+        public List<AppUser> Users { get; set; }
+    }
+
+    public class UserUpdateViewModel
+    {
+        public UserUpdateViewModel(AppUser user)
+        {
+            Id = user.Id;
+            UserName = user.UserName;
+
+            var task = IdentityHelper.UserManager.IsInRoleAsync(user.Id, "Administrator");
+            task.Wait();
+            IsAdministrator = task.Result;
+
+            task = IdentityHelper.UserManager.IsInRoleAsync(user.Id, "Blogger");
+            task.Wait();
+            IsBlogger = task.Result;
+
+            task = IdentityHelper.UserManager.IsInRoleAsync(user.Id, "Commenter");
+            task.Wait();
+            IsCommenter = task.Result;
+        }
+
+        public string Id { get; set; }
+        public string UserName { get; set; }
+        public bool IsAdministrator { get; set; }
+        public bool IsBlogger { get; set; }
+        public bool IsCommenter { get; set; }
+    }
+
+    public enum UserRole
+    {
+        Administrator,
+        Blogger,
+        Commenter
     }
 }

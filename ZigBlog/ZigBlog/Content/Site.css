@@ -34,6 +34,10 @@ h1 > a {
     font-weight: bold;
 }
 
+.validation-summary-errors {
+    color: crimson;
+    font-weight: bold;
+}
 
 .zg-editor {
     border: 0.1em solid darkgray;

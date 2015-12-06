@@ -210,6 +210,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\zg.commentpartial.js" />
+    <Content Include="Scripts\zg.manage.js" />
     <Content Include="Scripts\zg.postpartial.js" />
     <Content Include="Views\Home\Show.cshtml" />
     <Content Include="Web.config">
@@ -269,6 +270,8 @@
     <Content Include="Views\Home\_Post.cshtml" />
     <Content Include="Views\Home\_Comment.cshtml" />
     <Content Include="Views\Home\_PostComment.cshtml" />
+    <Content Include="Views\User\Manage.cshtml" />
+    <Content Include="Views\User\_Update.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

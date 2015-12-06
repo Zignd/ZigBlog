@@ -267,4 +267,19 @@
   <data name="ThisCommentCouldNotBeFoundException" xml:space="preserve">
     <value>This comment could not be found, maybe it was deleted.</value>
   </data>
+  <data name="Administrator" xml:space="preserve">
+    <value>Administrator</value>
+  </data>
+  <data name="Blogger" xml:space="preserve">
+    <value>Blogger</value>
+  </data>
+  <data name="Commenter" xml:space="preserve">
+    <value>Commenter</value>
+  </data>
+  <data name="CreateNewUser" xml:space="preserve">
+    <value>Create New User</value>
+  </data>
+  <data name="ManageUsers" xml:space="preserve">
+    <value>Manage Users</value>
+  </data>
 </root>

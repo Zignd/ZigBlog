@@ -45,6 +45,15 @@
         @Html.ValidationMessageFor(x => x.EmailAddress)
     </div>
 
+    if (User.IsInRole("Administrator"))
+    {
+        <div class="form-group">
+            @Html.LabelFor(x => x.Role)
+            @Html.EnumDropDownListFor(x => x.Role, new { @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Role)
+        </div>
+    }
+
     <div class="form-group">
         @Html.CheckBoxFor(x => x.AcceptTerms)
         @Html.LabelFor(x => x.AcceptTerms)

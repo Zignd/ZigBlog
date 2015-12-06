@@ -32,7 +32,7 @@ namespace ZigBlog.Controllers
             
             return View(new UserSignInViewModel
             {
-                ReturnUrl = Request.UrlReferrer.PathAndQuery
+                ReturnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.PathAndQuery : "/"
             });
         }
 
@@ -64,11 +64,12 @@ namespace ZigBlog.Controllers
 
         [AllowAnonymous]
         [HandleError]
-        public ActionResult SignUp()
+        public ActionResult SignUp(bool enableRolesSelection = false)
         {
             return View(new UserSignUpViewModel
             {
-                ReturnUrl = Request.UrlReferrer.PathAndQuery
+                EnableRolesSelection = enableRolesSelection,
+                ReturnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.PathAndQuery : "/"
             });
         }
 
@@ -82,7 +83,7 @@ namespace ZigBlog.Controllers
             {
                 // TODO: Improve image uploading following those tips: http://stackoverflow.com/a/4535684/1324082
 
-                var path = Path.Combine(Server.MapPath("~/Content/Images/Avatars"), $"{viewModel.Username}.jpg");
+                var path = Path.Combine(Server.MapPath("~/App_Data/Avatars"), $"{viewModel.Username}.jpg");
                 viewModel.Avatar.SaveAs(path);
 
                 var user = new AppUser { UserName = viewModel.Username, Email = viewModel.EmailAddress.ToLower(), Created = DateTime.Now };
@@ -90,7 +91,10 @@ namespace ZigBlog.Controllers
 
                 if (result.Succeeded)
                 {
-                    await UserManager.AddToRoleAsync(user.Id, "Commenter");
+                    if (User.IsInRole("Administrator"))
+                        await UserManager.AddToRoleAsync(user.Id, viewModel.Role.ToString());
+                    else
+                        await UserManager.AddToRoleAsync(user.Id, "Commenter");
 
                     return Redirect(viewModel.ReturnUrl);
                 }   
@@ -103,7 +107,6 @@ namespace ZigBlog.Controllers
             return View(viewModel);
         }
 
-        [Authorize]
         public ActionResult SignOut()
         {
             AuthManager.SignOut();
@@ -132,6 +135,14 @@ namespace ZigBlog.Controllers
             var dir = Server.MapPath("~/App_Data/Avatars");
             var path = Path.Combine(dir, $"{userName}.jpg");
             return File(path, "image/jpeg");
+        }
+
+        //[Authorize(Roles = "Administrator")]
+        [HandleError]
+        public async Task<ActionResult> Manage()
+        {
+            var users = await ZigBlogDb.Users.Find(_ => true).ToListAsync();
+            return View(new UserManageViewModel { Users = users });
         }
     }
 }
