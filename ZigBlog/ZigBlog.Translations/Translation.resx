@@ -282,4 +282,13 @@
   <data name="ManageUsers" xml:space="preserve">
     <value>Manage Users</value>
   </data>
+  <data name="ThisUserCouldNotBeFoundException" xml:space="preserve">
+    <value>This user could not be found, maybe it was deleted.</value>
+  </data>
+  <data name="ThisRoleDoesNotExist" xml:space="preserve">
+    <value>This role does not exist.</value>
+  </data>
+  <data name="ThisAvatarCouldNotBeFoundException" xml:space="preserve">
+    <value>This avatar could not be found.</value>
+  </data>
 </root>

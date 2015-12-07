@@ -1,18 +1,16 @@
 ﻿@model UserUpdateViewModel
 
-@{ 
-    var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessUpdate", OnFailure = "onFailureUpdate", OnBegin = "onBeginUpdate", OnComplete = "onCompleteUpdate" };
+@helper Role(string role, bool isInRole)
+{
+    <input class="zg-role-checkbox" type="checkbox" data-zg-username="@Model.UserName" data-zg-role="@role" @(isInRole ? "checked" : null) />
+    <span class="glyphicon glyphicon-refresh zg-glyphicon-refresh-animate" style="display: none;" data-zg-username="@Model.UserName" data-zg-role="@role"></span>
 }
 
-@using (Ajax.BeginForm("Update", ajaxOptions))
-{
-    <tr>
-        @Html.HiddenFor(x => x.Id)
-        <td>@Html.ActionLink(Model.UserName, "Profile", new { userName = Model.UserName })</td>
-        <td>@Html.CheckBoxFor(x => x.IsAdministrator, new { @class = "zg-role-checkbox" })</td>
-        <td>@Html.CheckBoxFor(x => x.IsBlogger, new { @class = "zg-role-checkbox" })</td>
-        <td>@Html.CheckBoxFor(x => x.IsCommenter, new { @class = "zg-role-checkbox" })</td>
-        <td><span class="glyphicon glyphicon-edit"></span></td>
-        <td><span class="glyphicon glyphicon-trash"></span></td>
-    </tr>
-}
+<tr>
+    <td>@Html.ActionLink(Model.UserName, "Profile", new { userName = Model.UserName })</td>
+    <td>@Role("Administrator", Model.IsAdministrator)</td>
+    <td>@Role("Blogger", Model.IsBlogger)</td>
+    <td>@Role("Commenter", Model.IsCommenter)</td>
+    <td><span class="glyphicon glyphicon-edit"></span></td>
+    <td><span class="glyphicon glyphicon-trash"></span></td>
+</tr>

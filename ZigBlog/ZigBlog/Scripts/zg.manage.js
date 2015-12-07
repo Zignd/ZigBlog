@@ -4,18 +4,10 @@
 
 function onSuccessUpdate(data, a, b, c) {
     console.log("onSuccessUpdate");
-    console.log(data);
-    console.log(a);
-    console.log(b);
-    console.log(c);
 }
 
 function onFailureUpdate(data, a, b, c) {
     console.log("onFailureUpdate");
-    console.log(data);
-    console.log(a);
-    console.log(b);
-    console.log(c);
 
     if (data.responseJSON.ErrorMessage)
         alert(data.responseJSON.ErrorMessage);
@@ -23,21 +15,42 @@ function onFailureUpdate(data, a, b, c) {
 
 function onBeginUpdate(data, a, b, c) {
     console.log("onBeginUpdate");
-    console.log(data);
-    console.log(a);
-    console.log(b);
-    console.log(c);
 }
 
 function onCompleteUpdate(data, a, b, c) {
     console.log("onCompleteUpdate");
-    console.log(data);
-    console.log(a);
-    console.log(b);
-    console.log(c);
 }
 
 $('.zg-role-checkbox').click(function () {
     var $checkbox = $(this);
-    $checkbox.parents('form').submit();
+    var username = $checkbox.attr('data-zg-username');
+    var role = $checkbox.attr('data-zg-role');
+
+    var $loading = $('span[data-zg-username="' + username + '"][data-zg-role="' + role + '"]');
+
+    $checkbox.hide();
+    $loading.show();
+
+    $.ajax({
+        url: '/user/updaterole',
+        method: 'POST',
+        data: {
+            userName: $checkbox.attr('data-zg-username'),
+            role: $checkbox.attr('data-zg-role'),
+            isInRole: $checkbox[0].checked
+        },
+        complete: function (jqXHR, textStatus) {
+            console.log('begin complete');
+            console.log(jqXHR);
+            console.log(textStatus);
+            $checkbox.show();
+            $loading.hide();
+            console.log('end complete');
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
+        $checkbox[0].checked = !$checkbox[0].checked;
+
+        if (jqXHR.responseJSON.ErrorMessage)
+            alert(jqXHR.responseJSON.ErrorMessage);
+    });
 });

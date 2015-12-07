@@ -13,6 +13,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using ZigBlog.Common.Database;
+using ZigBlog.Common.Filters;
 using ZigBlog.Controllers.Common;
 using ZigBlog.Models;
 using ZigBlog.Models.ViewModels;
@@ -120,7 +121,7 @@ namespace ZigBlog.Controllers
             var user = UserManager.FindByName(userName);
             
             if (user == null)
-                throw new ArgumentException(Translation.UsernameDoNotExist);
+                throw new Exception(Translation.UsernameDoNotExist);
 
             return View(new UserProfileViewModel
             {
@@ -129,19 +130,43 @@ namespace ZigBlog.Controllers
         }
 
         [AllowAnonymous]
+        [HandleError]
         public ActionResult Avatar(string userName)
         {
-            var dir = Server.MapPath("~/App_Data/Avatars");
-            var path = Path.Combine(dir, $"{userName}.jpg");
-            return File(path, "image/jpeg");
+            var path = Server.MapPath("~/App_Data/Avatars");
+            var fullPath = Path.Combine(path, $"{userName}.jpg");
+
+            if (!System.IO.File.Exists(fullPath))
+                throw new Exception(Translation.ThisAvatarCouldNotBeFoundException);
+
+            return File(fullPath, "image/jpeg");
         }
 
-        //[Authorize(Roles = "Administrator")]
+        [Authorize(Roles = "Administrator")]
         [HandleError]
         public async Task<ActionResult> Manage()
         {
             var users = await ZigBlogDb.Users.Find(_ => true).ToListAsync();
             return View(new UserManageViewModel { Users = users });
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HandleJsonError]
+        [HttpPost]
+        public async Task UpdateRole(string userName, string role, bool isInRole)
+        {
+            var user = await UserManager.FindByNameAsync(userName);
+
+            if (user == null)
+                throw new Exception(Translation.ThisUserCouldNotBeFoundException);
+
+            if (!await RoleManager.RoleExistsAsync(role))
+                throw new Exception(Translation.ThisRoleDoesNotExist);
+
+            if (isInRole)
+                await UserManager.AddToRoleAsync(user.Id, role);
+            else
+                await UserManager.RemoveFromRoleAsync(user.Id, role);
         }
     }
 }

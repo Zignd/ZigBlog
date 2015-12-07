@@ -457,6 +457,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to This avatar could not be found..
+        /// </summary>
+        public static string ThisAvatarCouldNotBeFoundException {
+            get {
+                return ResourceManager.GetString("ThisAvatarCouldNotBeFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This comment could not be found, maybe it was deleted..
         /// </summary>
         public static string ThisCommentCouldNotBeFoundException {
@@ -471,6 +480,24 @@ namespace ZigBlog.Translations {
         public static string ThisPostCouldNotBeFoundException {
             get {
                 return ResourceManager.GetString("ThisPostCouldNotBeFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This role does not exist..
+        /// </summary>
+        public static string ThisRoleDoesNotExist {
+            get {
+                return ResourceManager.GetString("ThisRoleDoesNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This user could not be found, maybe it was deleted..
+        /// </summary>
+        public static string ThisUserCouldNotBeFoundException {
+            get {
+                return ResourceManager.GetString("ThisUserCouldNotBeFoundException", resourceCulture);
             }
         }
         

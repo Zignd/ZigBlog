@@ -9,25 +9,21 @@
 </head>
 <body style="height: 1000px">
     
-    <table class="table table-hover">
-        <thead>
-            <tr>
-                <th>One</th>
-                <th>Two</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-            <tr>
-                <td colspan="2">Loading...</td>
-                <td>1</td>
-                <td>2</td>
-            </tr>
-        </tbody>
-    </table>
+    <style type="text/css">
+        .glyphicon-refresh-animate {
+            animation: spin .7s infinite linear;
+        }
+
+        @keyframes spin {
+            from { transform: scale(1) rotate(0deg); }
+            to { transform: scale(1) rotate(360deg); }
+        }
+    </style>
+
+    <div class="container">
+        <h3>Animated button</h3>
+        <button class="btn btn-lg btn-warning"><span class="glyphicon glyphicon-refresh glyphicon-refresh-animate"></span> Loading...</button>
+    </div>
     
 
     <script type="text/javascript" src="Scripts/jquery-2.1.4.min.js"></script>
