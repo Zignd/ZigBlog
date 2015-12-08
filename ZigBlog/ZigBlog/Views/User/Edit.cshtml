@@ -1,0 +1,55 @@
+﻿@model UserEditViewModel
+
+@{
+    ViewBag.Title = Translation.Edit;
+}
+
+<h2>@Translation.UserEdit <small>@Translation.EditDescription</small></h2>
+
+@using (Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.ValidationSummary(true);
+
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(x => x.ReturnUrl)
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.Avatar)
+        <input accept="image/jpeg,image/png,image/gif" name="Avatar" type="file" />
+        <p class="help-block">@Translation.AvatarImageUploadHelp</p>
+        @Html.ValidationMessageFor(x => x.Avatar)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.CurrentPassword)
+        @Html.PasswordFor(x => x.CurrentPassword, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.CurrentPassword)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.NewPassword)
+        @Html.PasswordFor(x => x.NewPassword, new { @class = "form-control" })
+        <p class="help-block">@Translation.PasswordHelp</p>
+        @Html.ValidationMessageFor(x => x.NewPassword)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.NewPasswordConfirmation)
+        @Html.PasswordFor(x => x.NewPasswordConfirmation, new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.NewPasswordConfirmation)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(x => x.EmailAddress)
+        @Html.TextBoxFor(x => x.EmailAddress, new { @class = "form-control", type = "email" })
+        @Html.ValidationMessageFor(x => x.EmailAddress)
+    </div>
+
+    <button type="submit" class="btn btn-primary">@Translation.UserEdit</button>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/zgpasswordval")
+}

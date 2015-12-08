@@ -30,6 +30,7 @@
     <div class="form-group">
         @Html.LabelFor(x => x.Password)
         @Html.PasswordFor(x => x.Password, new { @class = "form-control" })
+        <p class="help-block">@Translation.PasswordHelp</p>
         @Html.ValidationMessageFor(x => x.Password)
     </div>
     
@@ -65,6 +66,6 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-    @Scripts.Render("~/bundles/zgsignup")
+    @Scripts.Render("~/bundles/zgpasswordval")
 }
 

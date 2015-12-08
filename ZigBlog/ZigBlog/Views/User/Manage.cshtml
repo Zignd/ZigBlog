@@ -14,13 +14,12 @@
             <th class="col-xs-1">Blogger</th>
             <th class="col-xs-1">Commenter</th>
             <th class="col-xs-1"></th>
-            <th class="col-xs-1"></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var user in Model.Users)
         {
-            Html.RenderPartial("_Update", new UserUpdateViewModel(user));
+            Html.RenderPartial("_TableRow", new UserTableRowViewModel(user));
         }
     </tbody>
 </table>

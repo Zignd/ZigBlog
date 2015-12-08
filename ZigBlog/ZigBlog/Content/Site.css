@@ -215,3 +215,9 @@ h1 > a {
     from { transform: rotate(0deg); }
     to { transform: rotate(360deg); }
 }
+
+.zg-table-cell-control {
+    display: inline-flex;
+    justify-content: center;
+    max-width: 2.5em;
+}

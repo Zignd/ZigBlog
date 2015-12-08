@@ -1,0 +1,18 @@
+﻿@model UserTableRowViewModel
+
+@helper Role(string role, bool isInRole)
+{
+    <input class="zg-role-checkbox" type="checkbox" data-zg-username="@Model.UserName" data-zg-role="@role" @(isInRole ? "checked" : null) />
+    <span class="glyphicon glyphicon-refresh zg-glyphicon-refresh-animate zg-role-checkbox-loading" style="display: none;" data-zg-username="@Model.UserName" data-zg-role="@role"></span>
+}
+
+<tr>
+    <td class="col-xs-7">@Html.ActionLink(Model.UserName, "Profile", new { userName = Model.UserName })</td>
+    <td class="col-xs-1">@Role("Administrator", Model.IsAdministrator)</td>
+    <td class="col-xs-1">@Role("Blogger", Model.IsBlogger)</td>
+    <td class="col-xs-1">@Role("Commenter", Model.IsCommenter)</td>
+    <td class="col-xs-1">
+        <button class="btn btn-xs btn-danger zg-user-delete" data-zg-username="@Model.UserName"><span class="glyphicon glyphicon-trash"></span></button>
+        <span class="glyphicon glyphicon-refresh zg-glyphicon-refresh-animate zg-user-delete-loading" style="display: none;" data-zg-username="@Model.UserName"></span>
+    </td>
+</tr>

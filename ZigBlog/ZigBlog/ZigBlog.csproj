@@ -271,8 +271,9 @@
     <Content Include="Views\Home\_Comment.cshtml" />
     <Content Include="Views\Home\_PostComment.cshtml" />
     <Content Include="Views\User\Manage.cshtml" />
-    <Content Include="Views\User\_Update.cshtml" />
-    <Content Include="Scripts\zg.signup.js" />
+    <Content Include="Views\User\_TableRow.cshtml" />
+    <Content Include="Scripts\zg.passwordval.js" />
+    <Content Include="Views\User\Edit.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -291,4 +291,46 @@
   <data name="ThisAvatarCouldNotBeFoundException" xml:space="preserve">
     <value>This avatar could not be found.</value>
   </data>
+  <data name="CurrentPassword" xml:space="preserve">
+    <value>Current Password</value>
+  </data>
+  <data name="CurrentPasswordIsWrong" xml:space="preserve">
+    <value>The provided password is wrong.</value>
+  </data>
+  <data name="CurrentPasswordValidationErrorRequired" xml:space="preserve">
+    <value>Please enter current password.</value>
+  </data>
+  <data name="NewPassword" xml:space="preserve">
+    <value>New Password</value>
+  </data>
+  <data name="NewPasswordValidationErrorInvalid" xml:space="preserve">
+    <value>The provided password is invalid.</value>
+  </data>
+  <data name="NewPasswordValidationErrorRequired" xml:space="preserve">
+    <value>Please enter a new password.</value>
+  </data>
+  <data name="EditDescription" xml:space="preserve">
+    <value>edit informations related to the current user</value>
+  </data>
+  <data name="NewPasswordConfirmation" xml:space="preserve">
+    <value>New Password Confirmation</value>
+  </data>
+  <data name="NewPasswordConfirmationValidationErrorDiffers" xml:space="preserve">
+    <value>Differs from the provided new password.</value>
+  </data>
+  <data name="NewPasswordConfirmationValidationErrorRequired" xml:space="preserve">
+    <value>Please enter the new password confirmation.</value>
+  </data>
+  <data name="PasswordHelp" xml:space="preserve">
+    <value>A valid password is composed of at least one digit, one lower case character, one upper case character and a minimum of 6 characters.</value>
+  </data>
+  <data name="UserEdit" xml:space="preserve">
+    <value>Edit</value>
+  </data>
+  <data name="UserEditIncorrectPassword" xml:space="preserve">
+    <value>The password is incorrect.</value>
+  </data>
+  <data name="UserProfileEdit" xml:space="preserve">
+    <value>Edit user profile.</value>
+  </data>
 </root>

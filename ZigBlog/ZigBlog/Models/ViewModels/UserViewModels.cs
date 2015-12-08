@@ -63,6 +63,35 @@ namespace ZigBlog.Models.ViewModels
         public string ReturnUrl { get; set; }
     }
 
+    public class UserEditViewModel
+    {
+        [AvatarValidation(ErrorMessageResourceName = "AvatarImageUploadHelp", ErrorMessageResourceType = typeof(Translation))]
+        public HttpPostedFileBase Avatar { get; set; }
+
+        [Required(ErrorMessageResourceName = "CurrentPasswordValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        [Display(Name = "CurrentPassword", ResourceType = typeof(Translation))]
+        public string CurrentPassword { get; set; }
+
+        [Required(ErrorMessageResourceName = "NewPasswordValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        [Password(true, 6, true, true, ErrorMessageResourceName = "NewPasswordValidationErrorInvalid", ErrorMessageResourceType = typeof(Translation))]
+        [Display(Name = "NewPassword", ResourceType = typeof(Translation))]
+        public string NewPassword { get; set; }
+
+        [Required(ErrorMessageResourceName = "NewPasswordConfirmationValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        [System.ComponentModel.DataAnnotations.Compare("NewPassword", ErrorMessageResourceName = "PasswordConfirmationValidationErrorDiffers", ErrorMessageResourceType = typeof(Translation))]
+        [Display(Name = "NewPasswordConfirmation", ResourceType = typeof(Translation))]
+        public string NewPasswordConfirmation { get; set; }
+
+        [Required(ErrorMessageResourceName = "EmailAddressValidationErrorRequired", ErrorMessageResourceType = typeof(Translation))]
+        [EmailAddress(ErrorMessageResourceName = "EmailAddressValidationErrorNotValid", ErrorMessageResourceType = typeof(Translation))]
+        [UniqueEmail(ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
+        [Remote("UniqueEmailAddress", "Validation", ErrorMessageResourceName = "EmailAddressValidationErrorAlreadyInUse", ErrorMessageResourceType = typeof(Translation))]
+        [Display(Name = "EmailAddress", ResourceType = typeof(Translation))]
+        public string EmailAddress { get; set; }
+
+        public string ReturnUrl { get; set; }
+    }
+
     public class UserProfileViewModel
     {
         public AppUser User { get; set; }
@@ -73,9 +102,9 @@ namespace ZigBlog.Models.ViewModels
         public List<AppUser> Users { get; set; }
     }
 
-    public class UserUpdateViewModel
+    public class UserTableRowViewModel
     {
-        public UserUpdateViewModel(AppUser user)
+        public UserTableRowViewModel(AppUser user)
         {
             Id = user.Id;
             UserName = user.UserName;

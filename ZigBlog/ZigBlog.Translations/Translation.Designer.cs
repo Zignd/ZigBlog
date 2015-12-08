@@ -205,6 +205,33 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current Password.
+        /// </summary>
+        public static string CurrentPassword {
+            get {
+                return ResourceManager.GetString("CurrentPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided password is wrong..
+        /// </summary>
+        public static string CurrentPasswordIsWrong {
+            get {
+                return ResourceManager.GetString("CurrentPasswordIsWrong", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter current password..
+        /// </summary>
+        public static string CurrentPasswordValidationErrorRequired {
+            get {
+                return ResourceManager.GetString("CurrentPasswordValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         public static string Delete {
@@ -219,6 +246,15 @@ namespace ZigBlog.Translations {
         public static string Edit {
             get {
                 return ResourceManager.GetString("Edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to edit informations related to the current user.
+        /// </summary>
+        public static string EditDescription {
+            get {
+                return ResourceManager.GetString("EditDescription", resourceCulture);
             }
         }
         
@@ -295,6 +331,60 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to New Password.
+        /// </summary>
+        public static string NewPassword {
+            get {
+                return ResourceManager.GetString("NewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New Password Confirmation.
+        /// </summary>
+        public static string NewPasswordConfirmation {
+            get {
+                return ResourceManager.GetString("NewPasswordConfirmation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Differs from the provided new password..
+        /// </summary>
+        public static string NewPasswordConfirmationValidationErrorDiffers {
+            get {
+                return ResourceManager.GetString("NewPasswordConfirmationValidationErrorDiffers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter the new password confirmation..
+        /// </summary>
+        public static string NewPasswordConfirmationValidationErrorRequired {
+            get {
+                return ResourceManager.GetString("NewPasswordConfirmationValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The provided password is invalid..
+        /// </summary>
+        public static string NewPasswordValidationErrorInvalid {
+            get {
+                return ResourceManager.GetString("NewPasswordValidationErrorInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please enter a new password..
+        /// </summary>
+        public static string NewPasswordValidationErrorRequired {
+            get {
+                return ResourceManager.GetString("NewPasswordValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Password.
         /// </summary>
         public static string Password {
@@ -327,6 +417,15 @@ namespace ZigBlog.Translations {
         public static string PasswordConfirmationValidationErrorRequired {
             get {
                 return ResourceManager.GetString("PasswordConfirmationValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A valid password is composed of at least one digit, one lower case character, one upper case character and a minimum of 6 characters..
+        /// </summary>
+        public static string PasswordHelp {
+            get {
+                return ResourceManager.GetString("PasswordHelp", resourceCulture);
             }
         }
         
@@ -502,6 +601,24 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string UserEdit {
+            get {
+                return ResourceManager.GetString("UserEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The password is incorrect..
+        /// </summary>
+        public static string UserEditIncorrectPassword {
+            get {
+                return ResourceManager.GetString("UserEditIncorrectPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
@@ -543,6 +660,15 @@ namespace ZigBlog.Translations {
         public static string UsernameValidationErrorRequired {
             get {
                 return ResourceManager.GetString("UsernameValidationErrorRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit user profile..
+        /// </summary>
+        public static string UserProfileEdit {
+            get {
+                return ResourceManager.GetString("UserProfileEdit", resourceCulture);
             }
         }
         

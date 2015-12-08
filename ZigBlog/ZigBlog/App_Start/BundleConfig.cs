@@ -32,8 +32,8 @@ namespace ZigBlog
             bundles.Add(new ScriptBundle("~/bundles/zgmanage").Include(
                 "~/Scripts/zg.manage.js"));
 
-            bundles.Add(new ScriptBundle("~/bundles/zgsignup").Include(
-                "~/Scripts/zg.signup.js"));
+            bundles.Add(new ScriptBundle("~/bundles/zgpasswordval").Include(
+                "~/Scripts/zg.passwordval.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/zgpostpartial").Include(
                 "~/Scripts/zg.postpartial.js"));

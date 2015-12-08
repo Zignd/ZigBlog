@@ -2,31 +2,12 @@
 
 'use strict';
 
-function onSuccessUpdate(data, a, b, c) {
-    console.log("onSuccessUpdate");
-}
-
-function onFailureUpdate(data, a, b, c) {
-    console.log("onFailureUpdate");
-
-    if (data.responseJSON.ErrorMessage)
-        alert(data.responseJSON.ErrorMessage);
-}
-
-function onBeginUpdate(data, a, b, c) {
-    console.log("onBeginUpdate");
-}
-
-function onCompleteUpdate(data, a, b, c) {
-    console.log("onCompleteUpdate");
-}
-
 $('.zg-role-checkbox').click(function () {
     var $checkbox = $(this);
     var username = $checkbox.attr('data-zg-username');
     var role = $checkbox.attr('data-zg-role');
 
-    var $loading = $('span[data-zg-username="' + username + '"][data-zg-role="' + role + '"]');
+    var $loading = $('.zg-role-checkbox-loading[data-zg-username="' + username + '"][data-zg-role="' + role + '"]');
 
     $checkbox.hide();
     $loading.show();
@@ -40,16 +21,36 @@ $('.zg-role-checkbox').click(function () {
             isInRole: $checkbox[0].checked
         },
         complete: function (jqXHR, textStatus) {
-            console.log('begin complete');
-            console.log(jqXHR);
-            console.log(textStatus);
             $checkbox.show();
             $loading.hide();
-            console.log('end complete');
         }
     }).fail(function (jqXHR, textStatus, errorThrown) {
         $checkbox[0].checked = !$checkbox[0].checked;
 
+        if (jqXHR.responseJSON.ErrorMessage)
+            alert(jqXHR.responseJSON.ErrorMessage);
+    });
+});
+
+$('.zg-user-delete').click(function () {
+    var $button = $(this);
+    var username = $button.attr('data-zg-username');
+
+    var $loading = $('.zg-user-delete-loading[data-zg-username="' + username + '"]');
+
+    $button.hide();
+    $loading.show();
+
+    $.ajax({
+        url: '/user/delete',
+        method: 'POST',
+        data: {
+            userName: $button.attr('data-zg-username')
+        },
+        complete: function (jqXHR, textStatus) {
+            $button.parents('tr').remove();
+        }
+    }).fail(function (jqXHR, textStatus, errorThrown) {
         if (jqXHR.responseJSON.ErrorMessage)
             alert(jqXHR.responseJSON.ErrorMessage);
     });

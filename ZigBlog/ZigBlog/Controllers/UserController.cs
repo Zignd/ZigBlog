@@ -107,6 +107,42 @@ namespace ZigBlog.Controllers
             return View(viewModel);
         }
 
+        [HandleError]
+        public ActionResult Edit()
+        {
+            return View(new UserEditViewModel
+            {
+                ReturnUrl = Request.UrlReferrer != null ? Request.UrlReferrer.PathAndQuery : "/"
+            });
+        }
+
+        [HandleError]
+        [HttpPost]
+        public async Task<ActionResult> Edit(UserEditViewModel viewModel)
+        {
+            if (ModelState.IsValid)
+            {
+                var path = Path.Combine(Server.MapPath("~/App_Data/Avatars"), $"{User.Identity.Name}.jpg");
+                viewModel.Avatar.SaveAs(path);
+
+                var user = await UserManager.FindAsync(User.Identity.Name, viewModel.CurrentPassword);
+
+                if (user == null)
+                {
+                    ModelState.AddModelError("CurrentPassword", Translation.UserEditIncorrectPassword);
+                }
+                else
+                {
+                    await UserManager.ChangePasswordAsync(user.Id, viewModel.CurrentPassword, viewModel.NewPassword);
+                    await UserManager.SetEmailAsync(user.Id, viewModel.EmailAddress);
+
+                    return Redirect(viewModel.ReturnUrl);
+                }
+            }
+
+            return View(viewModel);
+        }
+
         public ActionResult SignOut()
         {
             AuthManager.SignOut();
@@ -167,6 +203,19 @@ namespace ZigBlog.Controllers
                 await UserManager.AddToRoleAsync(user.Id, role);
             else
                 await UserManager.RemoveFromRoleAsync(user.Id, role);
+        }
+
+        [Authorize(Roles = "Administrator")]
+        [HandleJsonError]
+        [HttpPost]
+        public async Task Delete(string userName)
+        {
+            var user = await UserManager.FindByNameAsync(userName);
+
+            if (user == null)
+                throw new Exception(Translation.ThisUserCouldNotBeFoundException);
+
+            await UserManager.DeleteAsync(user);
         }
     }
 }
