@@ -25,13 +25,21 @@
             </div>
         }
     </div>
-    <div class="panel-body" style="@(Model.IsHomePageMode ? "height: 7em; overflow: hidden;" : null)">
-        @Html.Raw(Model.Post.ParsedContent)
+    <div>
+        <div class="panel-body @(Model.IsHomePageMode ? "zg-postpartial-content-collapsed" : null)" id="content@(Model.Post.Id)">
+            @Html.Raw(Model.Post.ParsedContent)
+        </div>
+        <div class="zg-postpartial-content-shadow" id="contentShadow@(Model.Post.Id)"></div>
     </div>
     <div class="panel-footer">
-        <div>@Translation.ClickToExpand</div>
-        <div>@Translation.ClickToCollapse</div>
-        <div>@Model.Post.Comments.Count @Translation.Comments</div>
+        @if (Model.IsHomePageMode)
+        {
+            <button class="btn btn-xs btn-default zg-postpartial-button-expand" data-zg-postid="@Model.Post.Id"><span class="glyphicon glyphicon-chevron-down"></span> @Translation.ClickToExpand</button>
+            <button class="btn btn-xs btn-default zg-postpartial-button-collapse" data-zg-postid="@Model.Post.Id" style="display: none;"><span class="glyphicon glyphicon-chevron-up"></span> @Translation.ClickToCollapse</button>
+        }
+        
+        <div>@Model.Post.TotalComments @Translation.Comments</div>
+        
         @if (User.Identity.IsAuthenticated && (User.IsInRole("Administrator") || Model.Post.BloggerId.Equals(IdentityHelper.CurrentUser.Id)))
         {
             @Html.RouteLink(Translation.Edit, "Edit", new { year = Model.Post.Created.Year, month = Model.Post.Created.Month, day = Model.Post.Created.Day, titleUrl = Model.Post.TitleUrl }, new { @class = "btn btn-xs btn-primary" })

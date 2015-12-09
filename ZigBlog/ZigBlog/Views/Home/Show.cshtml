@@ -10,9 +10,15 @@
     @Translation.CommentsSection <small>@Translation.CommentsSectionSmall</small>
 </h3>
 
-@if (User.Identity.IsAuthenticated)
+@if (User.IsInRole("Commenter"))
 {
     Html.RenderPartial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.Id, IsTopLevel = true });
+}
+else if (User.Identity.IsAuthenticated)
+{
+    <div class="panel panel-default">
+        <div style="margin: .8em;">@Translation.CantCommentNotCommenter</div>
+    </div>
 }
 else
 {

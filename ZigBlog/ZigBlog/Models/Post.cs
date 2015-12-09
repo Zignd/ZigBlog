@@ -15,7 +15,8 @@ namespace ZigBlog.Models
 
         private AppUser _blogger;
         private List<Comment> _comments;
-        
+        private long _totalComments;
+
         #endregion
 
         #region Main Properties
@@ -66,6 +67,20 @@ namespace ZigBlog.Models
                 }
 
                 return _comments;
+            }
+        }
+
+        [BsonIgnore]
+        public long TotalComments
+        {
+            get
+            {
+                var filter = Builders<Comment>.Filter.Eq(x => x.PostId, Id);
+                var task = ZigBlogDb.Comments.Find(filter).CountAsync();
+
+                task.Wait();
+
+                return task.Result;
             }
         }
 

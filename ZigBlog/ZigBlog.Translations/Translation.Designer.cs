@@ -142,6 +142,15 @@ namespace ZigBlog.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to In order to comment you need to be part of the Commenter role..
+        /// </summary>
+        public static string CantCommentNotCommenter {
+            get {
+                return ResourceManager.GetString("CantCommentNotCommenter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Click to collapse.
         /// </summary>
         public static string ClickToCollapse {

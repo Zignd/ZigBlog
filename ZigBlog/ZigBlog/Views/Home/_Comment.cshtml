@@ -10,7 +10,7 @@
             <div class="zg-comment-body-content">@Html.Raw(Model.ParsedContent)</div>
         </div>
         <div class="zg-comment-footer panel-footer">
-            @if (User.Identity.IsAuthenticated)
+            @if (User.IsInRole("Commenter"))
             {
                 var routeValues = new { id = Model.Id };
                 var ajaxOptions = new AjaxOptions { OnSuccess = "onSuccessLikeComment", OnFailure = "onFailureLikeComment" };
@@ -29,14 +29,14 @@
                     <button class="zg-comment-footer-like-button">❤</button>
                 </div>
             }
-            @if (User.Identity.IsAuthenticated)
+            @if (User.IsInRole("Commenter"))
             {
                 <button class="reply-to-comment btn btn-sm btn-default" data-zg-id="@Model.Id">@Translation.ReplyToComment</button>
             }
         </div>
     </div>
     <div id="@($"commentsRoot{Model.Id}")" class="zg-comment-children">
-        @if (User.Identity.IsAuthenticated)
+        @if (User.IsInRole("Commenter"))
         {
             @Html.Partial("_PostComment", new HomePostCommentPartialViewModel { PostId = Model.PostId, IsTopLevel = false, ParentId = Model.Id })
         }

@@ -333,4 +333,7 @@
   <data name="UserProfileEdit" xml:space="preserve">
     <value>Edit user profile.</value>
   </data>
+  <data name="CantCommentNotCommenter" xml:space="preserve">
+    <value>In order to comment you need to be part of the Commenter role.</value>
+  </data>
 </root>

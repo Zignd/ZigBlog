@@ -258,8 +258,8 @@ namespace ZigBlog.Controllers
         [HandleError]
         public async Task<ActionResult> About()
         {
-            // TODO: This is just for testing, don't forget to remove it xD
             await ZigBlogDb.Posts.DeleteManyAsync(_ => true);
+            await ZigBlogDb.Comments.DeleteManyAsync(_ => true);
 
             var content = @"***Lorem ipsum dolor sit amet, consectetur adipiscing elit.***
 
