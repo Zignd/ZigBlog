@@ -9,6 +9,7 @@ namespace ZigBlog.Models
     public class Parameters : CustomModelBase
     {
         public string BlogTitle { get; set; }
+        public string SmallDescription { get; set; }
         public string AboutContent { get; set; }
     }
 }

@@ -1,11 +1,13 @@
-﻿@model HomePageViewModel
+﻿@using ZigBlog.Common.Database
+
+@model HomePageViewModel
 
 @{
     ViewBag.Title = "Page";
 }
 
 <div class="page-header">
-    <h1>Zignd's Blog <small style="font-family: consolas, monospace">Just a bit of my &lt;3 for &lt;&gt;</small></h1>
+    <h1>@ZigBlogDb.Parameters.BlogTitle <small style="font-family: consolas, monospace">@ZigBlogDb.Parameters.SmallDescription</small></h1>
 </div>
 
 @foreach (var post in Model.Posts)

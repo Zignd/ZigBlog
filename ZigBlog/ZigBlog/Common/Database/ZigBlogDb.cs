@@ -22,7 +22,6 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                // TODO: Change it so the MongoDB url is retrieved from a configuration file.
                 if (_client == null)
                     _client = new MongoClient("mongodb://localhost:27017");
                 
@@ -34,7 +33,6 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                // TODO: Change it so the database name is retrieved from a configuration file.
                 if (_database == null)
                     _database = Client.GetDatabase("ZigBlog");
 
@@ -46,7 +44,6 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                // TODO: Change it so the collection name is retrieved from a configuration file.
                 if (_users == null)
                     _users = Database.GetCollection<AppUser>("Users");
 
@@ -58,7 +55,6 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                // TODO: Change it so the collection name is retrieved from a configuration file.
                 if (_roles == null)
                     _roles = Database.GetCollection<AppRole>("Roles");
 
@@ -70,7 +66,6 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                // TODO: Change it so the collection name is retrieved from a configuration file.
                 if (_posts == null)
                     _posts = Database.GetCollection<Post>("Posts");
 
@@ -82,7 +77,6 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                // TODO: Change it so the collection name is retrieved from a configuration file.
                 if (_comments == null)
                     _comments = Database.GetCollection<Comment>("Comments");
                 
@@ -94,20 +88,14 @@ namespace ZigBlog.Common.Database
         {
             get
             {
-                if (_parameters == null)
-                {
-                    // TODO: Change it so the collection name is retrieved from a configuration file.
-                    var collection = Database.GetCollection<Parameters>("Parameters");
+                var collection = Database.GetCollection<Parameters>("Parameters");
 
-                    var filter = Builders<Parameters>.Filter.Eq(p => p.Id, 1);
-                    var task = collection.Find(filter).FirstAsync();
+                var filter = Builders<Parameters>.Filter.Eq(p => p.Id, 1);
+                var task = collection.Find(filter).FirstAsync();
 
-                    task.Wait();
+                task.Wait();
 
-                    _parameters = task.Result;
-                }
-
-                return _parameters;
+                return task.Result;
             }
         }
     }

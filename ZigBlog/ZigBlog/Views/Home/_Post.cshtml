@@ -38,7 +38,7 @@
             <button class="btn btn-xs btn-default zg-postpartial-button-collapse" data-zg-postid="@Model.Post.Id" style="display: none;"><span class="glyphicon glyphicon-chevron-up"></span> @Translation.ClickToCollapse</button>
         }
         
-        <div>@Model.Post.TotalComments @Translation.Comments</div>
+        <div style="float: right;">@Model.Post.TotalComments @Translation.Comments</div>
         
         @if (User.Identity.IsAuthenticated && (User.IsInRole("Administrator") || Model.Post.BloggerId.Equals(IdentityHelper.CurrentUser.Id)))
         {

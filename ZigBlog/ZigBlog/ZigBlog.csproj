@@ -175,7 +175,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App_Data\ZigBlogConfig.json" />
     <Content Include="Content\Images\favicon.png" />
     <Content Include="db.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
